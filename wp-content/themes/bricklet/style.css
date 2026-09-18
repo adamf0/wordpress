@@ -1,0 +1,31 @@
+/*
+Theme Name: PT Iida Group Portal Custom Site
+Theme URI: https://ptighd.co.id
+Description: Custom engineering template for PT Iida Group Holdings.
+Author: IT Department
+Version: 1.0.0
+Text Domain: bricklet
+*/
+*{
+    --fluid-py: clamp(2rem, 8vw, 6rem); 
+    --fluid-px: clamp(1rem, 5vw, 4rem);
+
+    --fluid-px-6: clamp(1rem, 3vw, 1.5rem); 
+    --fluid-py-4: clamp(0.75rem, 2vw, 1rem);
+}
+.px-margin-desktop-alt{
+    padding-left: var(--fluid-px) !important;
+    padding-right: var(--fluid-px) !important;
+}
+.py-margin-desktop-alt{
+    padding-bottom: var(--fluid-py) !important; 
+    padding-top: var(--fluid-py) !important;
+}
+.px-6-alt{
+    padding-left: var(--fluid-px-6) !important;
+    padding-right: var(--fluid-px-6) !important;
+}
+.py-4-alt{
+    padding-bottom: var(--fluid-py-4) !important; 
+    padding-top: var(--fluid-py-4) !important;
+}
