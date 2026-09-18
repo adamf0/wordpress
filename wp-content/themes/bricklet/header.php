@@ -69,7 +69,61 @@
             top: 0;
             left: 0;
             z-index: 60;
-            transition: width 0.1s ease-out;
+            transition: width 0.1s ease-out, background-color 0.3s ease;
+        }
+        .scroll-progress.is-scrolled {
+            background: #d4af37; /* Gold progress bar on top of cyan header */
+        }
+        /* Scrolled Header Styling */
+        header {
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        header.is-scrolled {
+            background-color: #00b3ff !important;
+            border-bottom-color: rgba(255, 255, 255, 0.25) !important;
+            box-shadow: 0 4px 20px -2px rgba(0, 140, 200, 0.35) !important;
+        }
+        header.is-scrolled #nav-closed-state {
+            color: #ffffff !important;
+        }
+        header.is-scrolled #nav-closed-state svg {
+            stroke: #ffffff !important;
+        }
+        header.is-scrolled #nav-closed-state:hover {
+            color: #f0f9ff !important;
+            opacity: 0.95;
+        }
+        header.is-scrolled #nav-open-state {
+            background-color: #ffffff !important;
+            color: #008cc7 !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        header.is-scrolled #nav-cta-btn {
+            background-color: #ffffff !important;
+            color: #006491 !important;
+            font-weight: 700 !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+        }
+        header.is-scrolled #nav-cta-btn:hover {
+            background-color: #f0f9ff !important;
+            color: #004d70 !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+        }
+        header.is-scrolled #subnav-container {
+            background-color: #00a2e8 !important;
+            border-top-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        header.is-scrolled #subnav-container nav a {
+            color: #ffffff !important;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        header.is-scrolled #subnav-container nav a:hover {
+            color: #e0f2fe !important;
+        }
+        header.is-scrolled #subnav-container nav a[class*="border-[#c49e2b]"] {
+            color: #ffffff !important;
+            border-color: #ffffff !important;
         }
         /* Mobile menu transitions */
         #mobile-menu-drawer {
@@ -117,7 +171,7 @@
     ?>
 
     <!-- Navigation Header -->
-    <header class="sticky top-0 w-full z-50 bg-white shadow-sm border-b border-gray-200">
+    <header id="site-header" class="sticky top-0 w-full z-50 bg-white shadow-sm border-b border-gray-200">
         <!-- Top Bar -->
         <div class="max-w-container-max mx-auto px-4 md:px-8 h-16 md:h-20 flex justify-between items-center relative">
             <!-- Left: MENU / CLOSE Toggle Button -->
@@ -144,15 +198,15 @@
             <!-- Center: Logo -->
             <div class="flex items-center justify-center w-2/4">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="hover:opacity-90 transition-opacity flex items-center">
-                    <img alt="PT Perumnas Iida Group Logo" class="h-10 md:h-12 object-contain max-h-12" src="<?php echo get_template_directory_uri(); ?>/PT_Perumnas_Iida_Group_Logo3.jpeg">
+                    <img alt="PT Perumnas Iida Group Logo" class="h-10 md:h-12 object-contain max-h-12" src="<?php echo get_template_directory_uri(); ?>/PT_Perumnas_Iida_Group_Logo3_transparent.png">
                 </a>
             </div>
 
             <!-- Right: Golden Button ("Hubungi Kami") -->
             <div class="flex items-center w-1/4 justify-end">
-                <a href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20info%20Perumnas%20Iida%20Group" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#c49e2b] text-white px-5 py-2 rounded-full font-medium text-xs md:text-sm shadow-sm transition-all duration-300 hover:shadow-md active:scale-95 whitespace-nowrap">
+                <!-- <a id="nav-cta-btn" href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20info%20Perumnas%20Iida%20Group" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#c49e2b] text-white px-5 py-2 rounded-full font-medium text-xs md:text-sm shadow-sm transition-all duration-300 hover:shadow-md active:scale-95 whitespace-nowrap">
                     <span>Hubungi Kami</span>
-                </a>
+                </a> -->
             </div>
         </div>
 

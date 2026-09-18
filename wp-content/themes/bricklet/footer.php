@@ -43,30 +43,45 @@
     <?php wp_footer(); ?>
 
     <script type="text/javascript" nonce="<?php echo bricklet_get_nonce(); ?>">
-        // Progress Bar Logic
-        window.addEventListener('scroll', function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            if (height > 0) {
-                let scrolled = (winScroll / height) * 100;
-                const progressBar = document.getElementById("progressBar");
-                if (progressBar) {
-                    progressBar.style.width = scrolled + "%";
-                }
-            }
-        });
+        // Progress Bar & Header Scroll Behavior (SSEK-inspired)
+        let isTicking = false;
+        function updateHeaderOnScroll() {
+            const winScroll = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = scrollableHeight > 0 ? (winScroll / scrollableHeight) * 100 : 0;
 
-        // Header scroll behavior
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById("progressBar");
+            if (progressBar && scrollableHeight > 0) {
+                progressBar.style.width = scrollPercent + "%";
+            }
+
+            const header = document.querySelector('header');
             if (header) {
-                if (window.scrollY > 50) {
-                    header.classList.add('shadow-lg');
+                // Trigger when scroll reaches 5% of document or winScroll > 40px
+                if (scrollPercent >= 5 || winScroll > 40) {
+                    header.classList.add('is-scrolled');
+                    if (progressBar) progressBar.classList.add('is-scrolled');
                 } else {
-                    header.classList.remove('shadow-lg');
+                    header.classList.remove('is-scrolled');
+                    if (progressBar) progressBar.classList.remove('is-scrolled');
                 }
             }
-        });
+            isTicking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!isTicking) {
+                window.requestAnimationFrame(updateHeaderOnScroll);
+                isTicking = true;
+            }
+        }, { passive: true });
+
+        // Run immediately in case page loads already scrolled
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateHeaderOnScroll);
+        } else {
+            updateHeaderOnScroll();
+        }
 
         // Intersection Observer for scroll reveal effect
         document.addEventListener("DOMContentLoaded", function() {

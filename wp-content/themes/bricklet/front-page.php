@@ -279,7 +279,7 @@ $about = $wpdb->get_row("SELECT * FROM $table_about WHERE id = 1", ARRAY_A);
                             $feat_image = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'large') : 'https://images.unsplash.com/photo-1548795179-8bfc5c1ebb24?q=80&w=600';
                         }
                         ?>
-                        <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll" style="transition-delay: <?php echo $delay; ?>ms;">
+                        <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll rounded-2xl" style="transition-delay: <?php echo $delay; ?>ms;">
                             <div class="relative aspect-[1.5] overflow-hidden mb-6">
                                 <img alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo esc_url($feat_image); ?>" width="450" height="300"/>
                                 <div class="absolute top-4 left-4 bg-deep-navy text-white text-caption px-3 py-1 font-label-bold"><?php echo get_the_date('M d, Y'); ?></div>
