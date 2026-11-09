@@ -226,11 +226,11 @@ function bricklet_setup_database() {
                 'sort_order' => 1
             ));
             $wpdb->insert($table_hero_slides, array(
-                'slide_image_url' => get_template_directory_uri() . '/images/layout/timber-house-collaboration.webp',
+                'slide_image_url' => get_template_directory_uri() . '/images/pdf/botania-2-residence.webp',
                 'sort_order' => 2
             ));
             $wpdb->insert($table_hero_slides, array(
-                'slide_image_url' => get_template_directory_uri() . '/images/layout/lh3_200c8e9568e0d3681efcc487d0b0f5f8.webp',
+                'slide_image_url' => get_template_directory_uri() . '/images/pdf/heartful-town-depok-aerial.webp',
                 'sort_order' => 3
             ));
         }
@@ -238,160 +238,166 @@ function bricklet_setup_database() {
         // 3. Company Profile
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_company") == 0) {
             $wpdb->insert($table_company, array(
-                'hero_bg_image' => get_template_directory_uri() . '/images/layout/timber-house-collaboration.webp',
-                'hero_badge' => 'JAPANESE ENGINEERING EXCELLENCE',
-                'hero_title' => 'Defining the Future of Modern Infrastructure',
-                'hero_subtitle' => 'Guided by centuries of Japanese architectural wisdom and powered by cutting-edge industrial innovation.',
-                'hero_btn1_text' => 'VIEW PROJECTS',
-                'hero_btn1_link' => '/products/',
-                'hero_btn2_text' => 'OUR STORY',
+                'hero_bg_image' => get_template_directory_uri() . '/images/pdf/iida-hq-tokyo.webp',
+                'hero_badge' => 'COMPANY PROFILE · NOV 2023',
+                'hero_title' => 'Iida Group Holdings & PT. Perumnas Iida Group',
+                'hero_subtitle' => 'Mewujudkan masyarakat di mana setiap orang dapat memiliki rumah di lokasi strategis, harga terjangkau, dan kualitas tinggi berstandar Jepang.',
+                'hero_btn1_text' => 'Lihat Proyek Hunian',
+                'hero_btn1_link' => '/development/',
+                'hero_btn2_text' => 'Skema Bisnis & IG SCB',
                 'hero_btn2_link' => '/our-business/',
-                'about_badge' => 'Foundation',
-                'about_title' => 'Engineering Trust Through Heritage',
-                'about_desc1' => 'PT Iida Group stands as a premier subsidiary of Iida Group Holdings Co., Ltd., Japan\'s leading provider of wooden detached housing. We carry forward a legacy of precision and reliability that has defined Japanese construction for generations.',
-                'about_desc2' => 'In Indonesia, we bridge the gap between international engineering standards and local expertise. Our mission is to provide sustainable, safe, and modern housing solutions that empower communities and foster national development.',
-                'about_image' => get_template_directory_uri() . '/images/layout/lh3_a318a3984ad34a8acaa0c8561594acc0.webp',
-                'about_stat1_val' => '40,000+',
-                'about_stat1_lbl' => 'Homes Annually (Global)',
-                'about_stat2_val' => '#1',
-                'about_stat2_lbl' => 'Housing Market Share',
-                'about_overlay_title' => '30+ Years',
-                'about_overlay_lbl' => 'Industry Leadership',
-                'leader_image' => get_template_directory_uri() . '/images/layout/lh3_d038fce4e1889d85acf5a9263aabd6c1.webp',
-                'leader_name' => 'Sagiri Sakurai',
-                'leader_title' => 'President Director',
-                'leader_quote' => 'Sustainability is not just a goal; it is our foundation.',
-                'leader_quote_desc' => 'As we navigate the complexities of modern infrastructure, our commitment remains anchored in the Japanese spirit of Monozukuri—the art of making things with heart and precision. We are here to build more than just buildings; we are building legacies for Indonesian families.',
-                'leader_quote_source' => 'PT IIDA GROUP HOLDINGS',
-                'framework_title' => 'Strategic Framework',
-                'framework_desc' => 'Our path forward is guided by a clear vision for the urban landscape and a steadfast mission to uphold the highest technical standards.',
-                'vision_title' => 'Our Vision',
-                'vision_desc' => 'To become the gold standard for residential development in Southeast Asia, recognized for integrating advanced Japanese automation with localized architectural aesthetics.',
+                'about_badge' => 'Profil Korporasi Resmi',
+                'about_title' => 'Dari Musashino Tokyo untuk Hunian Berkualitas di Indonesia',
+                'about_desc1' => 'Iida Group Holdings Co.,Ltd. berdiri pada 1 November 2013 di Musashino-shi, Tokyo, Jepang (13.353 karyawan per 31 Maret 2023). Grup ini memadukan 6 perusahaan properti utama dan melayani pasar Jepang melalui lebih dari 400 cabang penjualan dengan pangsa pasar ±30% atau ±46.000 rumah terjual setiap tahun.',
+                'about_desc2' => 'Di Indonesia, grup memulai bisnis sejak tahun 2016 melalui pendirian PT. Iida Group Holdings, lalu pada tahun 2017 mendirikan PT. Perumnas Iida Group bersama PT. Propernas Griya Utama (anak perusahaan Perum Perumnas) di Bekasi.',
+                'about_image' => get_template_directory_uri() . '/images/pdf/heartful-town-depok-aerial.webp',
+                'about_stat1_val' => '30%',
+                'about_stat1_lbl' => 'Pangsa Pasar Jepang (±46.000 Unit/Thn)',
+                'about_stat2_val' => '13.353',
+                'about_stat2_lbl' => 'Karyawan Grup (31 Mar 2023)',
+                'about_overlay_title' => '2017',
+                'about_overlay_lbl' => 'PT. Perumnas Iida Group (Bekasi)',
+                'leader_image' => get_template_directory_uri() . '/images/pdf/iida-hq-tokyo.webp',
+                'leader_name' => 'Masashi Kanei & Kenichiro Watanabe',
+                'leader_title' => 'President & Representative Director IGHD / President Director PT. Perumnas Iida Group',
+                'leader_quote' => 'Mewujudkan masyarakat dimana setiap orang dapat memiliki rumah.',
+                'leader_quote_desc' => 'Dengan pengalaman panjang pengembangan rumah tapak di Jepang serta sinergi bersama PT. Propernas Griya Utama di Indonesia, kami berkomitmen membangun lingkungan perumahan ramah lingkungan yang aman secara kualitas, berada di lokasi strategis, dan terjangkau bagi masyarakat luas.',
+                'leader_quote_source' => 'Corporate Profile Nov 2023 · Iida Group Holdings Co.,Ltd. & PT. Perumnas Iida Group',
+                'framework_title' => 'Visi & Misi PT. Perumnas Iida Group',
+                'framework_desc' => 'Pedoman resmi perusahaan patungan PT. Perumnas Iida Group dalam menghadirkan hunian terjangkau dan ramah lingkungan di Indonesia (Profil Perusahaan, Hal. 7).',
+                'vision_title' => 'Visi Perusahaan',
+                'vision_desc' => 'Menyediakan banyak perumahan dengan kualitas baik dan harga terjangkau kepada masyarakat.',
                 'vision_icon' => 'visibility',
-                'mission_title' => 'Our Mission',
-                'mission_desc' => 'Providing high-quality, earthquake-resistant housing through continuous innovation, ensuring every Indonesian family has access to a safe and premium living environment.',
-                'mission_icon' => 'rocket_launch',
-                'value1_title' => 'QUALITY FIRST',
-                'value1_icon' => 'verified',
-                'value2_title' => 'SUSTAINABILITY',
-                'value2_icon' => 'eco',
-                'value3_title' => 'INTEGRITY',
-                'value3_icon' => 'group',
-                'value4_title' => 'PRECISION',
-                'value4_icon' => 'precision_manufacturing'
+                'mission_title' => 'Misi Perusahaan',
+                'mission_desc' => 'Melalui pendirian pabrik, memperluas pembangunan rumah ramah lingkungan dan aman secara kualitas untuk menyediakan banyak perumahan dengan harga terjangkau kepada masyarakat.',
+                'mission_icon' => 'factory',
+                'value1_title' => 'Lokasi Strategis',
+                'value1_icon' => 'location_on',
+                'value2_title' => 'Harga Terjangkau',
+                'value2_icon' => 'savings',
+                'value3_title' => 'Kualitas Tinggi',
+                'value3_icon' => 'verified',
+                'value4_title' => 'Ramah Lingkungan',
+                'value4_icon' => 'eco'
             ));
         }
 
         // 4. Company Profile Milestones
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_milestones") == 0) {
             $wpdb->insert($table_milestones, array(
-                'year' => '2014',
-                'title' => 'Foundation',
-                'description' => 'PT Iida Group established as a strategic subsidiary to bring Japanese detached housing expertise to the Indonesian market.',
+                'year' => '2013',
+                'title' => 'Pendirian Iida Group Holdings Co.,Ltd.',
+                'description' => 'Didirikan pada 1 November 2013 di Musashino-shi, Tokyo, Jepang, mengonsolidasikan 6 perusahaan konstruksi dan pengembang perumahan utama.',
                 'sort_order' => 1
             ));
             $wpdb->insert($table_milestones, array(
-                'year' => '2017',
-                'title' => 'Expansion',
-                'description' => 'Successfully completed the first large-scale residential project, setting a new benchmark for prefab construction quality.',
+                'year' => '2016',
+                'title' => 'Ekspansi Bisnis ke Indonesia',
+                'description' => 'Iida Group Holdings memulai bisnis di Indonesia dengan mendirikan PT. Iida Group Holdings beserta jaringan entitas anak operasional.',
                 'sort_order' => 2
             ));
             $wpdb->insert($table_milestones, array(
-                'year' => '2021',
-                'title' => 'Innovation',
-                'description' => 'Integration of smart home technologies and eco-friendly Japanese building materials across all new developments.',
+                'year' => '2017',
+                'title' => 'Pendirian PT. Perumnas Iida Group',
+                'description' => 'Pendirian perusahaan patungan antara Iida Sangyo Co.,Ltd. (93%) dan PT. Propernas Griya Utama (7%, anak perusahaan Perum Perumnas) di Bekasi.',
                 'sort_order' => 3
             ));
             $wpdb->insert($table_milestones, array(
-                'year' => '2024',
-                'title' => 'Strategic Partnership',
-                'description' => 'Kick-off of the Academic Collaboration initiative with top Indonesian and Japanese universities for forest product development.',
+                'year' => '2018-2020',
+                'title' => 'Pabrik IG SCB, SNI & Paten IDP000069171',
+                'description' => 'Pengoperasian fasilitas manufaktur IG Strong Concrete Block (IG SCB), tersertifikasi SNI dan memperoleh Nomor Paten Indonesia IDP000069171 (17 Juni 2020).',
                 'sort_order' => 4
+            ));
+            $wpdb->insert($table_milestones, array(
+                'year' => '2023-Kini',
+                'title' => 'Realisasi & Pengembangan Proyek Bekasi',
+                'description' => 'Penyelesaian proyek Botania 2 Residence dan Heartful-Town Depok, serta pengembangan proyek Heartful-Town Bekasi (29 unit) dan apartemen Heartful Tower Bekasi.',
+                'sort_order' => 5
             ));
         }
 
         // 5. Group Company
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_group") == 0) {
             $wpdb->insert($table_group, array(
-                'hero_bg_image' => get_template_directory_uri() . '/images/layout/lh3_8fd019d8c64698e40616091ba7757ef7.webp',
-                'hero_badge' => 'Global Network',
-                'hero_title' => 'Our Global Synergy',
-                'hero_subtitle' => 'Harnessing the collective expertise of Japan\'s leading construction and housing pioneers to deliver unparalleled urban development solutions across Southeast Asia.',
-                'grid_title' => 'Pioneers of Excellence',
-                'grid_desc' => 'PT Iida Group Holdings unites the most respected names in the Japanese housing industry, each bringing specialized technical capabilities to our global operations.',
-                'grid_side_text' => '6 CORE ENTITIES',
-                'collab_image' => get_template_directory_uri() . '/images/layout/lh3_50aaa41fd8ed5784100470983bbd7d87.webp',
-                'collab_stat_val' => '15K+',
-                'collab_stat_lbl' => 'HOUSING UNITS',
-                'collab_badge' => 'Special Strategic Partnership',
-                'collab_title' => 'Perumnas Iida Group',
-                'collab_desc' => 'A landmark collaboration between the state-owned housing developer Perumnas and Iida Group Holdings. This partnership serves as a cornerstone for national housing development in Indonesia, merging local market knowledge with Japanese engineering excellence.',
-                'collab_f1_icon' => 'handshake',
-                'collab_f1_title' => 'National Synergy',
-                'collab_f1_desc' => 'Supporting the government\'s program for affordable and high-quality housing for the Indonesian people.',
-                'collab_f2_icon' => 'verified',
-                'collab_f2_title' => 'Global Standards',
-                'collab_f2_desc' => 'Implementing JIS (Japanese Industrial Standards) in local development to ensure durability and safety.',
-                'collab_btn_text' => 'VIEW COLLABORATION PROJECTS',
-                'collab_btn_link' => '/products/',
-                'stat1_val' => '40+',
-                'stat1_lbl' => 'YEARS EXPERIENCE',
-                'stat2_val' => '1M+',
-                'stat2_lbl' => 'HOMES DELIVERED',
-                'stat3_val' => '12',
-                'stat3_lbl' => 'COUNTRIES',
-                'stat4_val' => '1st',
-                'stat4_lbl' => 'MARKET SHARE'
+                'hero_bg_image' => get_template_directory_uri() . '/images/pdf/iida-hq-tokyo.webp',
+                'hero_badge' => 'STRUKTUR ORGANISASI GRUP · NOV 2023',
+                'hero_title' => 'Jaringan Bisnis Iida Group Holdings',
+                'hero_subtitle' => 'Menyatukan 6 perusahaan properti utama dan 5 anak usaha pendukung di Jepang dengan 4 entitas operasional di Indonesia yang berdiri sejak tahun 2016.',
+                'grid_title' => '6 Perusahaan & Brand Perumahan Utama di Jepang',
+                'grid_desc' => 'Keenam anak perusahaan langsung Iida Group Holdings Co.,Ltd. beserta lini merek hunian tapak unggulannya di Jepang dan keterkaitannya dengan pasar Indonesia.',
+                'grid_side_text' => '6 ENTITAS & BRAND UTAMA',
+                'collab_image' => get_template_directory_uri() . '/images/pdf/botania-2-residence.webp',
+                'collab_stat_val' => '93% / 7%',
+                'collab_stat_lbl' => 'Iida Sangyo & Propernas',
+                'collab_badge' => 'Perusahaan Patungan · Berdiri 2017',
+                'collab_title' => 'PT. Perumnas Iida Group',
+                'collab_desc' => 'Joint venture antara Iida Sangyo Co.,Ltd. (93%) dan PT. Propernas Griya Utama, anak perusahaan Perum Perumnas (7%), dengan entitas anak PT. Abdiluhur Kawuloalit (99,99%).',
+                'collab_f1_icon' => 'apartment',
+                'collab_f1_title' => 'Alamat Kantor Bekasi',
+                'collab_f1_desc' => 'Jl. Caringin Raya, RT.010/RW.002, Kota Bekasi, Kec. Rawalumbu, Kota Bks, Jawa Barat.',
+                'collab_f2_icon' => 'account_tree',
+                'collab_f2_title' => 'Entitas Operasional Indonesia',
+                'collab_f2_desc' => 'PT. Iida Group Holdings membawahi PT. Perumnas Iida Group, PT. Hajime Indonesia Jaya, PT. Ione Home Indonesia, dan PT. Tact Home Indonesia.',
+                'collab_btn_text' => 'Lihat Proyek Perumahan',
+                'collab_btn_link' => '/development/',
+                'stat1_val' => '13.353',
+                'stat1_lbl' => 'Karyawan (per 31 Mar 2023)',
+                'stat2_val' => '400+',
+                'stat2_lbl' => 'Cabang Penjualan Jepang',
+                'stat3_val' => '30%',
+                'stat3_lbl' => 'Pangsa Pasar (±46.000/Thn)',
+                'stat4_val' => '±1.700',
+                'stat4_lbl' => 'Unit Kondominium/Tahun'
             ));
         }
 
         // 6. Group Company Entities
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_entities") == 0) {
             $wpdb->insert($table_entities, array(
-                'name' => 'Iida Sangyo Co., Ltd.',
-                'icon' => 'domain',
-                'description' => 'A leader in large-scale residential development with a focus on community-centric design and sustainable infrastructure.',
-                'link_text' => 'ESTABLISHED 1977',
-                'link_url' => 'https://www.iidasangyo.co.jp/iida_en/',
+                'name' => 'Hajime Construction Co., Ltd.',
+                'icon' => 'architecture',
+                'description' => 'Perusahaan inti di balik merek rumah tapak Livele Garden dan kondominium PRESIS; mengoperasikan cabang di Indonesia melalui PT. Hajime Indonesia Jaya.',
+                'link_text' => 'WEBSITE RESMI',
+                'link_url' => 'https://www.hajime-kensetsu.co.jp/en/',
                 'sort_order' => 1
             ));
             $wpdb->insert($table_entities, array(
-                'name' => 'Hajime Construction Co., Ltd.',
-                'icon' => 'architecture',
-                'description' => 'Specializing in high-efficiency residential construction and innovative housing systems that redefine modern living standards.',
-                'link_text' => 'JAPAN HQ',
-                'link_url' => 'https://www.hajime-kensetsu.co.jp/en/',
+                'name' => 'Iida Sangyo Co., Ltd.',
+                'icon' => 'domain',
+                'description' => 'Pengembang merek Heartful-Town dan kondominium Century sekaligus pemegang 93% saham usaha patungan PT. Perumnas Iida Group di Indonesia.',
+                'link_text' => 'WEBSITE RESMI',
+                'link_url' => 'https://www.iidasangyo.co.jp/iida_en/',
                 'sort_order' => 2
-            ));
-            $wpdb->insert($table_entities, array(
-                'name' => 'Tact Home Co., Ltd.',
-                'icon' => 'foundation',
-                'description' => 'Innovative prefab solutions and swift delivery systems that maintain rigorous Japanese structural integrity standards.',
-                'link_text' => 'FAST-TRACK CONST.',
-                'link_url' => 'https://www.tacthome.co.id/',
-                'sort_order' => 3
             ));
             $wpdb->insert($table_entities, array(
                 'name' => 'Touei Housing Corporation',
                 'icon' => 'home_work',
-                'description' => 'Expertise in premium urban housing, focusing on architectural aesthetics and high-durability construction techniques.',
-                'link_text' => 'URBAN DESIGN',
+                'description' => 'Pengembang perumahan dengan merek rumah tapak unggulan Blooming Garden dan jaringan anak usaha properti di Jepang.',
+                'link_text' => 'PROFIL GRUP',
                 'link_url' => 'https://www.ighd.co.jp/en/corporate/group/touei_housing.html',
+                'sort_order' => 3
+            ));
+            $wpdb->insert($table_entities, array(
+                'name' => 'Tact Home Co., Ltd.',
+                'icon' => 'foundation',
+                'description' => 'Pengembang merek rumah tapak GRAFARE dengan jaringan operasional di Indonesia melalui PT. Tact Home Indonesia.',
+                'link_text' => 'TACT HOME ID',
+                'link_url' => 'https://www.tacthome.co.id/',
                 'sort_order' => 4
             ));
             $wpdb->insert($table_entities, array(
                 'name' => 'Arnest One Corporation',
                 'icon' => 'engineering',
-                'description' => 'Driving technical R&D in earthquake-resistant structures and thermal insulation technology for diverse climates.',
-                'link_text' => 'TECH R&D',
+                'description' => 'Pengembang merek rumah tapak Cradle garden dan kondominium SUNCRADLE di bawah grup Iida Group Holdings Co.,Ltd.',
+                'link_text' => 'PROFIL GRUP',
                 'link_url' => 'https://www.ighd.co.jp/en/corporate/group/arnest_one.html',
                 'sort_order' => 5
             ));
             $wpdb->insert($table_entities, array(
-                'name' => 'IO Home Co., Ltd.',
+                'name' => 'ID Home Co., Ltd.',
                 'icon' => 'landscape',
-                'description' => 'Comprehensive property management and after-sales support ensuring long-term value for every Iida homeowner.',
-                'link_text' => 'SERVICE & CARE',
+                'description' => 'Pengembang merek rumah tapak LIGNAGE dan layanan konstruksi dalam ekosistem Iida Group Holdings Co.,Ltd.',
+                'link_text' => 'WEBSITE RESMI',
                 'link_url' => 'https://idhome.co.jp/recruit-en/about',
                 'sort_order' => 6
             ));
@@ -424,18 +430,18 @@ function bricklet_setup_database() {
         // Seed homepage about section
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_about") == 0) {
             $wpdb->insert($table_about, array(
-                'badge_text' => 'About Us',
-                'title' => 'PT Iida Group Holdings',
-                'paragraph1' => 'PT Iida Group Holdings is a subsidiary of a prestigious Japanese developer company, established in July 2016 in Indonesia.',
-                'paragraph2' => 'Our parent company, Iida Group Holdings Co., Ltd., integrates over 50 years of experience across six listed detached housing companies. We aim to realize a market environment where all are able to afford a high-quality house through innovative Japanese housing technology.',
-                'check_1' => '100% Owned by Iida Group Holdings Group',
-                'check_2' => 'Earthquake-resistant Japanese Technology',
-                'check_3' => 'National Collaboration with PERUMNAS',
-                'btn_text' => 'Learn More About Our Journey',
+                'badge_text' => 'Profil Perusahaan',
+                'title' => 'PT. Perumnas Iida Group',
+                'paragraph1' => 'Didirikan pada tahun 2017 sebagai perusahaan joint venture antara Iida Sangyo Co.,Ltd. (93%, anak perusahaan Iida Group Holdings) dan PT. Propernas Griya Utama (7%, anak perusahaan Perum Perumnas) di bidang properti perumahan (estate).',
+                'paragraph2' => 'Induk usaha kami, Iida Group Holdings Co.,Ltd. di Tokyo, melayani sekitar 30% pangsa pasar rumah tapak di Jepang (±46.000 unit/tahun melalui lebih dari 400 cabang), menghadirkan hunian strategis, terjangkau, dan berkualitas tinggi dengan teknologi IG SCB.',
+                'check_1' => 'Joint Venture Iida Sangyo (93%) & PT. Propernas Griya Utama (7%)',
+                'check_2' => 'Teknologi Konstruksi IG SCB (Paten IDP000069171 & SNI)',
+                'check_3' => 'Induk Grup Menguasai ±30% Pangsa Pasar Rumah di Jepang',
+                'btn_text' => 'Pelajari Profil Perusahaan',
                 'btn_link' => '/company-profile/',
-                'image_url' => get_template_directory_uri() . '/images/layout/timber-house-collaboration.webp',
-                'experience_years' => '50+ Years',
-                'experience_text' => 'Japanese Engineering Heritage'
+                'image_url' => get_template_directory_uri() . '/images/pdf/botania-2-residence.webp',
+                'experience_years' => '30%',
+                'experience_text' => 'Pangsa Pasar Rumah Jepang (±46.000 Unit/Thn)'
             ));
         }
 

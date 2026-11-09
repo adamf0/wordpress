@@ -1,245 +1,287 @@
 <?php
 /**
- * Bricklet Theme Front Page Template - PT Iida Group Holdings Edition
+ * Front Page — PT Perumnas Iida Group
+ *
+ * All copy, metrics and entity names are sourced from the official
+ * corporate profile "Indonesia_Company profile_20231025.pdf" (Nov 2023).
+ * No placeholder or invented content.
  */
 
 get_header();
 
 global $wpdb;
-$table_hero = $wpdb->prefix . 'igh_homepage_hero';
+$table_hero  = $wpdb->prefix . 'igh_homepage_hero';
 $table_slides = $wpdb->prefix . 'igh_homepage_hero_slides';
-$table_about = $wpdb->prefix . 'igh_homepage_about';
 
-$hero = $wpdb->get_row("SELECT * FROM $table_hero WHERE id = 1", ARRAY_A);
-$slides = $wpdb->get_results("SELECT * FROM $table_slides ORDER BY sort_order ASC", ARRAY_A);
-$about = $wpdb->get_row("SELECT * FROM $table_about WHERE id = 1", ARRAY_A);
+$hero   = $wpdb->get_row( "SELECT * FROM $table_hero WHERE id = 1", ARRAY_A );
+$slides = $wpdb->get_results( "SELECT * FROM $table_slides ORDER BY sort_order ASC", ARRAY_A );
+
+$img = get_template_directory_uri() . '/images/layout/';
+
+/**
+ * Hero video resolution.
+ *
+ * Priority: value saved in the admin (Homepage Hero → Section 1) → bundled
+ * fallback asset. The corporate video is intentionally excluded from the
+ * media library, so the fallback keeps the hero working even when the saved
+ * URL no longer resolves (e.g. after a host or domain migration).
+ */
+$hero_video_fallback = '/wp-content/uploads/2026/06/Preview-IGHD-CP-r5-Full-Version_Compressed.mp4';
+$hero_video_url      = ! empty( $hero['video_url'] ) ? $hero['video_url'] : '';
+
+// Normalise a stored URL into an absolute filesystem path.
+$resolve_hero_video = static function ( $url ) {
+    if ( empty( $url ) ) {
+        return '';
+    }
+
+    // Root-relative or bare path — resolve straight against the WP root.
+    if ( strpos( $url, 'http' ) !== 0 ) {
+        return ABSPATH . ltrim( $url, '/' );
+    }
+
+    $path        = wp_parse_url( $url, PHP_URL_PATH );
+    $uploads     = wp_get_upload_dir();
+    $uploads_uri = wp_parse_url( $uploads['baseurl'], PHP_URL_PATH ); // e.g. /wordpress/wp-content/uploads
+
+    // Strip the site's own uploads prefix, then map it onto the filesystem.
+    if ( $uploads_uri && strpos( $path, $uploads_uri ) === 0 ) {
+        return untrailingslashit( $uploads['basedir'] ) . substr( $path, strlen( $uploads_uri ) );
+    }
+
+    // Fall back to the WordPress root for any other same-site URL.
+    $home_uri = wp_parse_url( home_url(), PHP_URL_PATH );
+    if ( $home_uri && strpos( $path, $home_uri ) === 0 ) {
+        return ABSPATH . ltrim( substr( $path, strlen( $home_uri ) ), '/' );
+    }
+
+    return '';
+};
+
+$hero_video_path = $resolve_hero_video( $hero_video_url );
+
+// Fall back to the bundled asset when the stored URL does not resolve.
+if ( ! $hero_video_path || ! file_exists( $hero_video_path ) ) {
+    $hero_video_url  = $hero_video_fallback;
+    $hero_video_path = $resolve_hero_video( $hero_video_url );
+}
+
+$hero_video_exists = ( $hero_video_path && file_exists( $hero_video_path ) );
 ?>
 
-<main class="">
-    <!-- Hero Section -->
-    <?php if ($hero['hero_mode'] === 'video' && !empty($hero['video_url'])): ?>
-        <!-- Video Hero Mode (Transparent background with centered video) -->
-        <section class="w-full bg-white border-b border-gray-100">
-            <div class="w-full px-0 flex justify-center items-center">
-                <div class="relative inline-block max-w-full group/video bg-transparent">
-                    <video id="hero-video" class="w-full h-auto max-h-[85vh] object-contain mx-auto block bg-transparent" autoplay muted loop playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
-                        <source src="<?php echo esc_url($hero['video_url']); ?>" type="video/mp4">
-                        Your browser does not support the video tag.
+<main id="main-content">
+
+    <!-- ============================================================
+         HERO
+
+         Video Hero Mode — transparent background with a centered video,
+         mirroring https://www.perumnasiidagroup.com/.
+         The hero copy is kept as the accessible content layer while the
+         corporate video plays as the centrepiece.
+         ============================================================ -->
+    <section class="hero<?php echo $hero_video_exists ? ' hero--video-center' : ''; ?>" aria-labelledby="hero-title">
+        <?php if ( $hero_video_exists ) : ?>
+            <div class="hero-stage">
+                <div class="hero-video-frame">
+                    <video id="hero-video"
+                           class="hero-video"
+                           autoplay muted loop playsinline preload="auto"
+                           disablepictureinpicture
+                           controlslist="nodownload nofullscreen noremoteplayback"
+                           poster="<?php echo esc_url( $img . 'lh3_5b0daa7c91a4685f526611b90707ee34.webp' ); ?>">
+                        <source src="<?php echo esc_url( $hero_video_url ); ?>" type="video/mp4">
                     </video>
-                    <!-- Custom sound overlay button -->
-                    <button id="video-sound-btn" class="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-black/60 hover:bg-black/80 text-white rounded-lg text-sm font-medium transition-all backdrop-blur-sm cursor-pointer shadow-md select-none border border-white/10">
-                        <span class="material-symbols-outlined text-[18px]" id="video-sound-icon">volume_off</span>
+
+                    <button type="button"
+                            id="video-sound-btn"
+                            class="video-sound-btn"
+                            aria-pressed="false"
+                            aria-label="Nyalakan suara video">
+                        <span class="material-symbols-outlined" id="video-sound-icon" aria-hidden="true">volume_off</span>
                         <span id="video-sound-text">Unmute</span>
                     </button>
                 </div>
             </div>
-        </section>
-    <?php else: ?>
-        <!-- Non-Video Hero Mode (Static / Slider) -->
-        <section class="relative h-[85vh] flex items-center overflow-hidden bg-deep-navy" style="clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%); -webkit-clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);">
-            <?php if ($hero['hero_mode'] === 'slider' && !empty($slides)): ?>
-                <!-- Slider Background Mode -->
-                <div class="absolute inset-0">
-                    <?php foreach ($slides as $index => $slide): ?>
-                        <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 <?php echo $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'; ?>">
-                            <!-- Image Background -->
-                            <img class="absolute inset-0 w-full h-full object-cover object-center" src="<?php echo esc_url($slide['slide_image_url']); ?>" alt="Slide <?php echo $index; ?>" />
-                            <div class="absolute inset-0 bg-gradient-to-r from-deep-navy via-deep-navy/60 to-transparent"></div>
-                            
-                            <!-- Slide Overlay Text Content -->
-                            <?php
-                            $use_global = isset($hero['use_global_card']) && (int)$hero['use_global_card'] === 1;
-                            $badge = $use_global ? $hero['badge_text'] : $slide['badge_text'];
-                            $title = $use_global ? $hero['title'] : $slide['title'];
-                            $subtitle = $use_global ? $hero['subtitle'] : $slide['subtitle'];
-                            $btn1_text = $use_global ? $hero['btn1_text'] : $slide['btn1_text'];
-                            $btn1_link = $use_global ? $hero['btn1_link'] : $slide['btn1_link'];
-                            $btn2_text = $use_global ? $hero['btn2_text'] : $slide['btn2_text'];
-                            $btn2_link = $use_global ? $hero['btn2_link'] : $slide['btn2_link'];
-                            ?>
-                            <?php if (!empty($title)): ?>
-                                <div class="absolute inset-0 flex items-center">
-                                    <div class="max-w-container-max mx-auto w-full px-margin-desktop-alt">
-                                        <div class="max-w-2xl text-white">
-                                            <?php if (!empty($badge)): ?>
-                                                <span class="inline-block text-action-cyan font-label-bold tracking-[0.2em] mb-4 uppercase"><?php echo esc_html($badge); ?></span>
-                                            <?php endif; ?>
-                                            <h1 class="font-display-lg text-display-lg text-white mb-6 leading-tight"><?php echo esc_html($title); ?></h1>
-                                            <?php if (!empty($subtitle)): ?>
-                                                <p class="font-body-lg text-body-lg text-outline-variant mb-10 leading-relaxed">
-                                                    <?php echo esc_html($subtitle); ?>
-                                                </p>
-                                            <?php endif; ?>
-                                            <div class="flex flex-wrap gap-4">
-                                                <?php if (!empty($btn1_text) && !empty($btn1_link)): ?>
-                                                    <a href="<?php echo bricklet_get_button_url($btn1_link); ?>" class="bg-primary-container text-on-primary-container px-8 py-4 rounded font-label-bold uppercase hover:brightness-110 transition-all text-center inline-block">
-                                                        <?php echo esc_html($btn1_text); ?>
-                                                    </a>
-                                                <?php endif; ?>
-                                                <?php if (!empty($btn2_text) && !empty($btn2_link)): ?>
-                                                    <a href="<?php echo bricklet_get_button_url($btn2_link); ?>" class="border-2 border-white text-white px-8 py-4 rounded font-label-bold uppercase hover:bg-white/10 transition-all text-center inline-block">
-                                                        <?php echo esc_html($btn2_text); ?>
-                                                    </a>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <!-- Static Image Background Mode (Default) -->
-                <div class="absolute inset-0 opacity-40">
-                    <img class="w-full h-full object-cover object-center" alt="Hero Static Background" src="<?php echo esc_url($hero['static_image_url']); ?>" fetchpriority="high" decoding="sync" />
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-r from-deep-navy via-deep-navy/60 to-transparent"></div>
-                
-                <div class="relative z-10 max-w-container-max mx-auto w-full px-margin-desktop-alt">
-                    <div class="max-w-2xl text-white">
-                        <span class="inline-block text-action-cyan font-label-bold tracking-[0.2em] mb-4 uppercase"><?php echo esc_html($hero['badge_text']); ?></span>
-                        <h1 class="font-display-lg text-display-lg text-white mb-6 leading-tight"><?php echo esc_html($hero['title']); ?></h1>
-                        <p class="font-body-lg text-body-lg text-outline-variant mb-10 leading-relaxed">
-                            <?php echo esc_html($hero['subtitle']); ?>
-                        </p>
-                        <div class="flex flex-wrap gap-4">
-                            <?php if (!empty($hero['btn1_text']) && !empty($hero['btn1_link'])): ?>
-                                <a href="<?php echo bricklet_get_button_url($hero['btn1_link']); ?>" class="bg-primary-container text-on-primary-container px-8 py-4 rounded font-label-bold uppercase hover:brightness-110 transition-all text-center inline-block">
-                                    <?php echo esc_html($hero['btn1_text']); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (!empty($hero['btn2_text']) && !empty($hero['btn2_link'])): ?>
-                                <a href="<?php echo bricklet_get_button_url($hero['btn2_link']); ?>" class="border-2 border-white text-white px-8 py-4 rounded font-label-bold uppercase hover:bg-white/10 transition-all text-center inline-block">
-                                    <?php echo esc_html($hero['btn2_text']); ?>
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </section>
-    <?php endif; ?>
-
-    <!-- About Us Section -->
-    <section class="max-w-container-max mx-auto px-margin-desktop-alt py-margin-desktop-alt">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
-            <div class="order-2 lg:order-1 reveal-on-scroll">
-                <span class="text-primary font-label-bold tracking-widest uppercase mb-4 block"><?php echo esc_html(wp_unslash($about['badge_text'])); ?></span>
-                <h2 class="font-display-md text-display-md text-deep-navy mb-8"><?php echo esc_html(wp_unslash($about['title'])); ?></h2>
-                <p class="font-body-lg text-body-lg text-on-surface-variant mb-6 leading-relaxed">
-                    <?php echo esc_html(wp_unslash($about['paragraph1'])); ?>
-                </p>
-                <p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
-                    <?php echo esc_html(wp_unslash($about['paragraph2'])); ?>
-                </p>
-                <ul class="space-y-4 mb-10">
-                    <?php if (!empty($about['check_1'])): ?>
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-action-cyan" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="font-body-md"><?php echo esc_html(wp_unslash($about['check_1'])); ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!empty($about['check_2'])): ?>
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-action-cyan" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="font-body-md"><?php echo esc_html(wp_unslash($about['check_2'])); ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!empty($about['check_3'])): ?>
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-action-cyan" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="font-body-md"><?php echo esc_html(wp_unslash($about['check_3'])); ?></span>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-                <?php if (!empty($about['btn_text']) && !empty($about['btn_link'])): ?>
-                    <a class="inline-flex items-center gap-2 text-primary font-label-bold uppercase border-b-2 border-primary-container pb-1 hover:border-primary transition-all" href="<?php echo bricklet_get_button_url($about['btn_link']); ?>">
-                        <?php echo esc_html(wp_unslash($about['btn_text'])); ?>
-                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </a>
-                <?php endif; ?>
+        <?php else : ?>
+            <div class="hero-media">
+                <img class="hero-image"
+                     src="<?php echo esc_url( $img . 'lh3_5b0daa7c91a4685f526611b90707ee34.webp' ); ?>"
+                     alt="Perumahan PT Perumnas Iida Group"
+                     width="512" height="512"
+                     fetchpriority="high" decoding="sync">
+                <div class="hero-scrim" aria-hidden="true"></div>
             </div>
-            <div class="order-1 lg:order-2 relative reveal-on-scroll" style="transition-delay: 200ms;">
-                <div class="absolute -top-6 -right-6 w-32 h-32 bg-primary-container/10 -z-10 rounded-full"></div>
-                <?php if (!empty($about['image_url'])): ?>
-                    <img alt="<?php echo esc_attr(wp_unslash($about['title'])); ?>" class="rounded-lg shadow-xl w-full object-cover aspect-[4/3] border border-structural-gray" src="<?php echo esc_url($about['image_url']); ?>" width="640" height="480"/>
-                <?php endif; ?>
-                <?php if (!empty($about['experience_years']) || !empty($about['experience_text'])): ?>
-                    <div class="absolute -bottom-8 -left-8 bg-white p-6 shadow-lg border border-structural-gray hidden lg:block rounded-2xl">
-                        <?php if (!empty($about['experience_years'])): ?>
-                            <div class="text-primary font-headline-md font-bold text-lg"><?php echo esc_html(wp_unslash($about['experience_years'])); ?></div>
-                        <?php endif; ?>
-                        <?php if (!empty($about['experience_text'])): ?>
-                            <div class="text-on-surface-variant text-caption"><?php echo esc_html(wp_unslash($about['experience_text'])); ?></div>
-                        <?php endif; ?>
+        <?php endif; ?>
+    </section>
+
+    <?php $pdf_img = get_template_directory_uri() . '/images/pdf/'; ?>
+
+    <!-- ============================================================
+         ABOUT — PT Perumnas Iida Group facts, Visi/Misi & 3 Ciri (PDF p.5, 7)
+         ============================================================ -->
+    <section class="section section--light" id="about" aria-labelledby="hero-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="about-grid">
+
+                <div class="about-copy reveal">
+                    <p class="eyebrow">Profil Perusahaan &middot; Joint Venture Indonesia</p>
+                    <h1 id="hero-title" class="section-title">
+                        PT. Perumnas Iida Group
+                    </h1>
+                    <p class="section-lede">
+                        Didirikan pada 2017 sebagai perusahaan <em>joint venture</em> antara
+                        <strong>Iida Sangyo Co., Ltd.</strong> (93%, anak usaha Iida Group Holdings)
+                        dan <strong>PT. Propernas Griya Utama</strong> (7%, anak usaha Perum Perumnas).
+                        Berfokus pada pengembangan properti perumahan (<em>estate</em>) berkualitas
+                        dengan teknologi Jepang yang terjangkau bagi masyarakat Indonesia.
+                    </p>
+
+                    <dl class="fact-list">
+                        <div class="fact">
+                            <dt>Tahun berdiri</dt>
+                            <dd>2017 (Masuk Indonesia: 2016)</dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Presiden Direktur</dt>
+                            <dd>Kenichiro Watanabe</dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Struktur Pemegang Saham</dt>
+                            <dd>Iida Sangyo (93%) &amp; PT Propernas Griya Utama (7%)</dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Anak Perusahaan &amp; Kantor</dt>
+                            <dd>PT. Abdiluhur Kawuloalit (99,99%) &middot; Jl. Caringin Raya, RT.010/RW.002, Rawalumbu, Kota Bekasi, Jawa Barat</dd>
+                        </div>
+                    </dl>
+
+                    <div class="link-row">
+                        <a href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>" class="link-arrow">
+                            Selengkapnya Company Profile
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16m0 0-6-6m6 6-6 6" />
+                            </svg>
+                        </a>
+                        <a href="<?php echo esc_url( home_url( '/Indonesia_Company%20profile_20231025.pdf' ) ); ?>" target="_blank" rel="noopener noreferrer" class="link-arrow link-arrow--secondary">
+                            Unduh Company Profile (PDF)
+                        </a>
                     </div>
-                <?php endif; ?>
+                </div>
+
+                <div class="about-media reveal">
+                    <img src="<?php echo esc_url( $pdf_img . 'botania-2-residence.webp' ); ?>"
+                         alt="Botania 2 Residence, proyek perumahan PT Perumnas Iida Group di Indonesia"
+                         width="1218" height="994"
+                         loading="lazy" decoding="async">
+                </div>
+            </div>
+
+            <!-- Vision & Mission (PDF p.7) -->
+            <div class="vm-grid">
+                <article class="vm-card reveal">
+                    <p class="vm-label">Visi</p>
+                    <p class="vm-text">
+                        &ldquo;Menyediakan banyak perumahan dengan kualitas baik dan harga
+                        terjangkau kepada masyarakat.&rdquo;
+                    </p>
+                </article>
+                <article class="vm-card reveal">
+                    <p class="vm-label">Misi</p>
+                    <p class="vm-text">
+                        &ldquo;Melalui pendirian pabrik, memperluas pembangunan rumah ramah
+                        lingkungan dan aman secara kualitas untuk menyediakan banyak
+                        perumahan dengan harga terjangkau kepada masyarakat.&rdquo;
+                    </p>
+                </article>
+            </div>
+
+            <!-- Corporate Slogan & 3 Pillars (PDF p.5) -->
+            <div class="pillars-panel reveal">
+                <div class="pillars-slogan">
+                    <p class="vm-label">Slogan Perusahaan</p>
+                    <p class="pillars-quote">&ldquo;Realizing a society where anyone can own a house&rdquo;</p>
+                    <p class="pillars-quote-id">Mewujudkan masyarakat di mana setiap orang dapat memiliki rumah.</p>
+                </div>
+                <div class="pillars-list" aria-label="Tiga ciri perusahaan Iida Group">
+                    <div class="pillar-item">
+                        <span class="pillar-num">01</span>
+                        <strong>Lokasi yang Strategis</strong>
+                        <span>Pemilihan lahan yang dekat pusat aktivitas dan akses transportasi.</span>
+                    </div>
+                    <div class="pillar-item">
+                        <span class="pillar-num">02</span>
+                        <strong>Harga yang Terjangkau</strong>
+                        <span>Efisiensi rantai pasok terintegrasi dari hulu ke hilir.</span>
+                    </div>
+                    <div class="pillar-item">
+                        <span class="pillar-num">03</span>
+                        <strong>Kualitas yang Tinggi</strong>
+                        <span>Standar mutu Jepang dengan inspeksi ketat hingga pascaserah terima.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Our Services Section -->
-    <section class="bg-surface-container-low py-margin-desktop-alt px-margin-desktop-alt">
-        <div class="max-w-container-max mx-auto">
-            <div class="text-center mb-16 reveal-on-scroll">
-                <span class="text-primary font-label-bold tracking-[0.2em] uppercase">Our Services</span>
-                <h2 class="font-display-md text-display-md text-deep-navy mt-4">Pioneering Building Solutions</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-                <!-- Service Card 1 -->
-                <div class="group bg-white border border-structural-gray rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 reveal-on-scroll">
-                    <div class="aspect-[16/9] overflow-hidden">
-                        <img alt="Our Products" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="<?php echo get_template_directory_uri(); ?>/images/layout/our-products.webp" width="640" height="360"/>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-headline-md text-headline-md mb-3 text-deep-navy">Our Products</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 text-xs">High-performance earthquake resistant concrete and paving blocks.</p>
-                        <a class="flex items-center gap-2 text-primary font-label-bold uppercase group-hover:text-action-cyan transition-colors" href="<?php echo esc_url(home_url('/products/')); ?>">
-                            View Catalog
-                            <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
+
+    <!-- ============================================================
+         GLOBAL & INDONESIA GROUP SCALE (PDF p.3-4, 7-8)
+         ============================================================ -->
+    <section class="section section--sunken" id="group-scale" aria-labelledby="group-scale-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="group-grid">
+                <div class="group-media reveal">
+                    <img src="<?php echo esc_url( $pdf_img . 'iida-hq-tokyo.webp' ); ?>"
+                         alt="Kantor Pusat Iida Group Holdings Co.,Ltd. di Musashino-shi, Tokyo, Jepang"
+                         width="953" height="863"
+                         loading="lazy" decoding="async">
                 </div>
-                <!-- Service Card 2 -->
-                <div class="group bg-white border border-structural-gray rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 reveal-on-scroll" style="transition-delay: 100ms;">
-                    <div class="aspect-[16/9] overflow-hidden">
-                        <img alt="Our Business" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_6cf6b8e07d2c4c48f9d206d683ffa89e.webp" width="640" height="360"/>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-headline-md text-headline-md mb-3 text-deep-navy">Our Business</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 text-xs">Innovative development strategies for modern housing needs.</p>
-                        <a class="flex items-center gap-2 text-primary font-label-bold uppercase group-hover:text-action-cyan transition-colors" href="<?php echo esc_url(home_url('/our-business/')); ?>">
-                            Explore
-                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <div class="group-copy reveal">
+                    <p class="eyebrow">Jaringan Global &amp; Indonesia</p>
+                    <h2 id="group-scale-title" class="section-title">
+                        Iida Group Holdings Co., Ltd.
+                    </h2>
+                    <p class="section-lede">
+                        Dibentuk pada 1 November 2013 melalui konsolidasi enam pengembang rumah utama
+                        di Musashino-shi, Tokyo, Jepang, dan dipimpin oleh President &amp; Representative
+                        Director <strong>Masashi Kanei</strong>. Grup memasuki pasar Indonesia pada 2016
+                        melalui pendirian <strong>PT. Iida Group Holdings</strong> yang membawahi
+                        PT. Perumnas Iida Group, PT. Hajime Indonesia Jaya, PT. Ione Home Indonesia,
+                        dan PT. Tact Home Indonesia.
+                    </p>
+
+                    <dl class="scale-metrics">
+                        <div class="scale-metric">
+                            <dt>Karyawan Grup</dt>
+                            <dd>13.353</dd>
+                            <span>Per 31 Maret 2023</span>
+                        </div>
+                        <div class="scale-metric">
+                            <dt>Cabang Penjualan</dt>
+                            <dd>400+</dd>
+                            <span>Tersebar di seluruh Jepang</span>
+                        </div>
+                        <div class="scale-metric">
+                            <dt>Pangsa Pasar Jepang</dt>
+                            <dd>30%</dd>
+                            <span>&plusmn;46.000 rumah/tahun (1 dari 3 pembeli)</span>
+                        </div>
+                        <div class="scale-metric">
+                            <dt>Kondominium / Tahun</dt>
+                            <dd>&plusmn;1.700</dd>
+                            <span>Unit dikembangkan tiap tahun di Jepang</span>
+                        </div>
+                    </dl>
+
+                    <div class="link-row">
+                        <a href="<?php echo esc_url( home_url( '/group-company/' ) ); ?>" class="link-arrow">
+                            Lihat struktur Group Network
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16m0 0-6-6m6 6-6 6" />
+                            </svg>
                         </a>
-                    </div>
-                </div>
-                <!-- Service Card 3 -->
-                <div class="group bg-white border border-structural-gray rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 reveal-on-scroll" style="transition-delay: 200ms;">
-                    <div class="aspect-[16/9] overflow-hidden">
-                        <img alt="Group Company" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_6c9ec96a796c905cd4e46e0348e114fe.webp" width="640" height="360"/>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-headline-md text-headline-md mb-3 text-deep-navy">Group Company</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 text-xs">A synergy of industry leaders under one corporate umbrella.</p>
-                        <a class="flex items-center gap-2 text-primary font-label-bold uppercase group-hover:text-action-cyan transition-colors" href="<?php echo esc_url(home_url('/group-company/')); ?>">
-                            Our Network
-                            <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Service Card 4 -->
-                <div class="group bg-white border border-structural-gray rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 reveal-on-scroll" style="transition-delay: 300ms;">
-                    <div class="aspect-[16/9] overflow-hidden">
-                        <img alt="Contact Us" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_6a6f22c0f99b72467d0d3015a72c5168.webp" width="640" height="360"/>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-headline-md text-headline-md mb-3 text-deep-navy">Contact Us</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 text-xs">Connect with our engineering experts for your next project.</p>
-                        <a class="flex items-center gap-2 text-primary font-label-bold uppercase group-hover:text-action-cyan transition-colors" href="<?php echo esc_url(home_url('/contact/')); ?>">
-                            Get In Touch
-                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        <a href="<?php echo esc_url( home_url( '/about-us/overview/' ) ); ?>" class="link-arrow link-arrow--secondary">
+                            Dewan Direksi &amp; Komisaris
                         </a>
                     </div>
                 </div>
@@ -247,162 +289,431 @@ $about = $wpdb->get_row("SELECT * FROM $table_about WHERE id = 1", ARRAY_A);
         </div>
     </section>
 
-    <!-- News / Topics Section -->
-    <section class="bg-mesh relative overflow-hidden py-margin-desktop-alt px-margin-desktop-alt">
-        <div class="max-w-container-max mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-4 reveal-on-scroll">
+
+    <!-- ============================================================
+         BUSINESS SCHEME — integrated value chain & other businesses (PDF p.13, 23-24)
+         ============================================================ -->
+    <section class="section section--light" id="business" aria-labelledby="business-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <header class="section-head reveal">
+                <p class="eyebrow">Skema Bisnis</p>
+                <h2 id="business-title" class="section-title">
+                    Satu sistem terintegrasi, dari R&amp;D hingga layanan purna jual
+                </h2>
+                <p class="section-lede">
+                    Produk yang sampai ke tangan pelanggan ditangani dalam satu kesatuan
+                    sistem yang telah terintegrasi secara menyeluruh.
+                </p>
+            </header>
+
+            <ol class="chain reveal" aria-label="Tahapan rantai bisnis">
+                <li class="chain-step"><span class="chain-num">01</span>R&amp;D</li>
+                <li class="chain-step"><span class="chain-num">02</span>Pembelian Lahan</li>
+                <li class="chain-step"><span class="chain-num">03</span>Design</li>
+                <li class="chain-step"><span class="chain-num">04</span>Material Procurement</li>
+                <li class="chain-step"><span class="chain-num">05</span>Construction</li>
+                <li class="chain-step"><span class="chain-num">06</span>Sales</li>
+                <li class="chain-step"><span class="chain-num">07</span>After Sales Service</li>
+            </ol>
+
+            <div class="cap-grid">
+                <article class="cap-card reveal">
+                    <h3 class="cap-title">Design</h3>
+                    <p class="cap-text">
+                        Bangunan telah terstandarisasi sehingga tidak memerlukan keterampilan khusus dalam
+                        perancangan; perancangan berjalan lebih singkat sekaligus menekan biaya.
+                    </p>
+                </article>
+                <article class="cap-card reveal">
+                    <h3 class="cap-title">Construction</h3>
+                    <p class="cap-text">
+                        Proses konstruksi telah terstandarisasi sehingga tidak bergantung pada keterampilan khusus
+                        lapangan, memungkinkan pembangunan lebih cepat dengan biaya efisien.
+                    </p>
+                </article>
+                <article class="cap-card reveal">
+                    <h3 class="cap-title">Sales</h3>
+                    <p class="cap-text">
+                        Produk yang terstandarisasi memudahkan penjelasan yang transparan kepada
+                        pelanggan mengenai spesifikasi serta keunggulan setiap unit hunian.
+                    </p>
+                </article>
+                <article class="cap-card reveal">
+                    <h3 class="cap-title">After Sales Service</h3>
+                    <p class="cap-text">
+                        Standarisasi komponen rumah menyederhanakan proses pemeliharaan purna jual
+                        sehingga kualitas terawat dengan beban biaya perawatan yang terkendali.
+                    </p>
+                </article>
+            </div>
+
+            <div class="other-biz-bar reveal">
                 <div>
-                    <span class="text-primary font-label-bold tracking-widest uppercase">Insights &amp; Updates</span>
-                    <h2 class="font-display-md text-display-md text-deep-navy mt-4">News / Topics</h2>
-                </div>
-                <a href="<?php echo esc_url(home_url('/news/')); ?>" class="flex items-center gap-2 text-primary font-label-bold uppercase hover:text-deep-navy transition-colors">
-                    View All News
-                    <span class="material-symbols-outlined text-sm">list</span>
-                </a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-                <?php
-                // Fetch dynamic news from database
-                $news_query = new WP_Query(array(
-                    'post_type' => 'post',
-                    'posts_per_page' => 3,
-                    'post_status' => 'publish',
-                    'orderby' => 'date',
-                    'order' => 'DESC'
-                ));
-
-                if ($news_query->have_posts()) :
-                    $delay = 0;
-                    while ($news_query->have_posts()) : $news_query->the_post();
-                        $feat_image = get_post_meta(get_the_ID(), '_featured_image_url', true);
-                        if (empty($feat_image)) {
-                            $feat_image = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'large') : 'https://images.unsplash.com/photo-1548795179-8bfc5c1ebb24?q=80&w=600';
-                        }
-                        ?>
-                        <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll rounded-2xl" style="transition-delay: <?php echo $delay; ?>ms;">
-                            <div class="relative aspect-[1.5] overflow-hidden mb-6">
-                                <img alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo esc_url($feat_image); ?>" width="450" height="300"/>
-                                <div class="absolute top-4 left-4 bg-deep-navy text-white text-caption px-3 py-1 font-label-bold"><?php echo get_the_date('M d, Y'); ?></div>
-                            </div>
-                            <h3 class="font-headline-md text-headline-md text-deep-navy mb-4 line-clamp-2 hover:text-primary transition-colors cursor-pointer">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                            </h3>
-                            <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-3 text-xs">
-                                <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
-                            </p>
-                            <a class="inline-block text-primary font-label-bold uppercase border-b border-primary hover:text-action-cyan hover:border-action-cyan transition-all" href="<?php the_permalink(); ?>">Read More</a>
-                        </article>
-                        <?php
-                        $delay += 100;
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    // Fallback to static mock posts from home.html
-                    ?>
-                    <!-- News Item 1 -->
-                    <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll">
-                        <div class="relative aspect-[1.5] overflow-hidden mb-6">
-                            <img alt="Earthquake Resistant Construction" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_d038fce4e1889d85acf5a9263aabd6c1.webp" width="450" height="300"/>
-                            <div class="absolute top-4 left-4 bg-deep-navy text-white text-caption px-3 py-1 font-label-bold">APRIL 8, 2026</div>
-                        </div>
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-4 line-clamp-2 hover:text-primary transition-colors cursor-pointer">Earthquake Resistant Building Construction with IG Strong CB</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-3 text-xs">
-                            PT Iida Group Holdings reaffirmed its commitment to advancing earthquake-resistant construction solutions in Indonesia...
-                        </p>
-                        <a class="inline-block text-primary font-label-bold uppercase border-b border-primary hover:text-action-cyan hover:border-action-cyan transition-all" href="#">Read More</a>
-                    </article>
-                    <!-- News Item 2 -->
-                    <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll" style="transition-delay: 100ms;">
-                        <div class="relative aspect-[1.5] overflow-hidden mb-6">
-                            <img alt="Staff Seminar Webinar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_5c5e1e171f2eb73fe5ce623c77f72206.webp" width="450" height="300"/>
-                            <div class="absolute top-4 left-4 bg-deep-navy text-white text-caption px-3 py-1 font-label-bold">DEC 23, 2025</div>
-                        </div>
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-4 line-clamp-2 hover:text-primary transition-colors cursor-pointer">Japanese Construction Technology in Webinar on Advancement</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-3 text-xs">
-                            Knowledge sharing session with Mr. Raden Rukyat Hendrawan focusing on innovation and Japanese engineering excellence...
-                        </p>
-                        <a class="inline-block text-primary font-label-bold uppercase border-b border-primary hover:text-action-cyan hover:border-action-cyan transition-all" href="#">Read More</a>
-                    </article>
-                    <!-- News Item 3 -->
-                    <article class="bg-white p-4 border border-structural-gray group reveal-on-scroll" style="transition-delay: 200ms;">
-                        <div class="relative aspect-[1.5] overflow-hidden mb-6">
-                            <img alt="New Business Line Announcement" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_350b5ef48a2ce4e56a0dc2b69b991533.webp" width="450" height="300"/>
-                            <div class="absolute top-4 left-4 bg-deep-navy text-white text-caption px-3 py-1 font-label-bold">OCT 1, 2025</div>
-                        </div>
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-4 line-clamp-2 hover:text-primary transition-colors cursor-pointer">Launch of New Business Line – Construction Materials</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-3 text-xs">
-                            Officially launching our dedicated Construction Materials Business division to better serve the growing Indonesian market...
-                        </p>
-                        <a class="inline-block text-primary font-label-bold uppercase border-b border-primary hover:text-action-cyan hover:border-action-cyan transition-all" href="#">Read More</a>
-                    </article>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- Collaboration Section -->
-    <section class="py-margin-desktop-alt bg-deep-navy text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/20 -skew-x-12 transform translate-x-1/2"></div>
-        <div class="max-w-container-max mx-auto relative z-10 px-margin-desktop-alt">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-gutter text-center lg:text-left reveal-on-scroll">
-                <div class="max-w-2xl">
-                    <span class="text-action-cyan font-label-bold tracking-[0.2em] uppercase mb-4 block">Let's Collaborate!</span>
-                    <h2 class="font-display-md text-display-md mb-8">Bring your ideas to life with precision engineering</h2>
-                    <p class="font-body-lg text-body-lg text-outline-variant mb-0 opacity-80">
-                        Partner with us to create safer, sustainable, and reliable building environments.
+                    <p class="vm-label">Diversifikasi Lini Bisnis Grup</p>
+                    <p class="other-biz-desc">
+                        Selain pengembangan perumahan, grup menjalankan <strong>Contract Construction</strong>,
+                        <strong>Material Procurement Business</strong>, lapangan golf <strong>Eastwood Country Club (107 Ha)</strong>,
+                        <strong>Seawood Hotel Okinawa (13 Ha, 169 kamar)</strong>, serta pembiayaan perumahan
+                        <strong>Family Life Service (&gt;75.000 kali peminjaman)</strong>.
                     </p>
                 </div>
-                <div class="flex flex-col sm:flex-row gap-4 shrink-0 mt-8 lg:mt-0">
-                    <a class="bg-primary-container text-on-primary-container px-10 py-5 rounded font-label-bold uppercase shadow-xl hover:scale-105 active:scale-95 transition-all text-center" href="<?php echo esc_url(home_url('/contact/')); ?>">
-                        Get Started Now
+                <div class="link-row">
+                    <a href="<?php echo esc_url( home_url( '/our-business/' ) ); ?>" class="link-arrow">
+                        Eksplorasi Our Business
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16m0 0-6-6m6 6-6 6" />
+                        </svg>
                     </a>
-                    <a class="flex items-center justify-center gap-3 border border-white/30 px-10 py-5 rounded font-label-bold uppercase hover:bg-white/5 transition-all" href="tel:622186869299">
-                        <span class="material-symbols-outlined">phone</span>
-                        Contact Us
+                    <a href="<?php echo esc_url( home_url( '/product-construction-material/' ) ); ?>" class="link-arrow link-arrow--secondary">
+                        Katalog Material Konstruksi
                     </a>
                 </div>
             </div>
         </div>
     </section>
+
+
+    <!-- ============================================================
+         IG SCB — Iida Group Strong Concrete Block (PDF p.10-12)
+         ============================================================ -->
+    <section class="section section--dark" id="technology" aria-labelledby="tech-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="tech-grid">
+
+                <div class="tech-copy reveal">
+                    <p class="eyebrow eyebrow--on-dark">Teknologi Konstruksi</p>
+                    <h2 id="tech-title" class="section-title section-title--on-dark">
+                        IG SCB: Iida Group Strong Concrete Block
+                    </h2>
+                    <p class="section-lede section-lede--on-dark">
+                        Bahan bangunan khusus yang dirancang dengan teknologi tersendiri dan telah
+                        melalui uji ketahanan gempa hingga magnitudo &gt; 8,0. Produksi di pabrik
+                        Indonesia diawasi ketat oleh tenaga ahli Jepang guna menjaga standar kualitas.
+                    </p>
+
+                    <ul class="tech-points">
+                        <li>
+                            <strong>CB Interlocking Sistem</strong>
+                            Mempermudah proses instalasi presisi dan meningkatkan ketahanan dinding terhadap gaya gempa.
+                        </li>
+                        <li>
+                            <strong>Pengembangan Balok Khusus</strong>
+                            Meningkatkan kekuatan struktural bangunan dengan keseragaman kualitas blok pracetak.
+                        </li>
+                        <li>
+                            <strong>Penggunaan Material Baja</strong>
+                            Meringankan beban struktur, memperkuat daya tahan gempa, sekaligus mempercepat konstruksi.
+                        </li>
+                    </ul>
+
+                    <div class="tech-visuals">
+                        <figure class="tech-figure">
+                            <img src="<?php echo esc_url( $pdf_img . 'ig-scb-earthquake-diagram.webp' ); ?>"
+                                 alt="Diagram uji ketahanan gempa IG Strong Concrete Block hingga magnitudo lebih dari 8,0"
+                                 width="879" height="567" loading="lazy" decoding="async">
+                            <figcaption>Simulasi ketahanan gempa hingga Magnitudo &gt; 8,0</figcaption>
+                        </figure>
+                        <figure class="tech-figure">
+                            <img src="<?php echo esc_url( $pdf_img . 'ig-scb-mockup-150.webp' ); ?>"
+                                 alt="Mockup instalasi struktur CB 15 cm IG Strong Concrete Block"
+                                 width="647" height="414" loading="lazy" decoding="async">
+                            <figcaption>Pemasangan presisi dengan CB Interlocking Sistem</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="tech-specs reveal">
+                    <h3 class="specs-title">Spesifikasi Teknis IG SCB</h3>
+                    <dl class="specs-list">
+                        <div class="spec">
+                            <dt>Jenis Blok</dt>
+                            <dd>CB 15 cm (rumah 2 lantai) &middot; CB 10 cm (rumah 1 lantai)</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Berat Satuan</dt>
+                            <dd>&plusmn;12,5 Kg / CB</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Dimensi (P &times; L &times; T)</dt>
+                            <dd>390 &times; 190 &times; 150 mm</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Compressive Strength</dt>
+                            <dd>8 N/mm&sup2;</dd>
+                        </div>
+                        <div class="spec">
+                            <dt>Komposisi Material</dt>
+                            <dd>Semen, Pasir, &amp; Ash Stone</dd>
+                        </div>
+                    </dl>
+
+                    <div class="cert-badge">
+                        <p class="cert-label">Sertifikasi &amp; Paten Resmi</p>
+                        <p class="cert-value">Nomor Paten: IDP000069171</p>
+                        <p class="cert-note">Diberikan 17 Juni 2020 &middot; Tersertifikasi Standar Nasional Indonesia (SNI)</p>
+                    </div>
+
+                    <div class="tech-cta">
+                        <a href="<?php echo esc_url( home_url( '/product-osaka-strong-cb/' ) ); ?>" class="btn-hero btn-hero--solid">
+                            Lihat Katalog Produk IG Strong CB
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         PROJECTS — Authentic Indonesia & Japan portfolio (PDF p.9, 16-22, 26-27)
+         ============================================================ -->
+    <section class="section section--sunken" id="projects" aria-labelledby="projects-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <header class="section-head reveal">
+                <p class="eyebrow">Portofolio Proyek</p>
+                <h2 id="projects-title" class="section-title">
+                    Proyek Perusahaan di Indonesia &amp; Jepang
+                </h2>
+                <p class="section-lede">
+                    Pengembangan kawasan hunian tapak dan apartemen di Indonesia beserta
+                    proyek kondominium unggulan grup yang sedang berjalan di Jepang.
+                </p>
+            </header>
+
+            <div class="project-grid">
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'botania-2-residence.webp' ); ?>"
+                             alt="Botania 2 Residence dengan fasad desain Iida Group"
+                             width="1218" height="994"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Eksisting &middot; Indonesia</p>
+                        <h3 class="project-name">Botania 2 Residence</h3>
+                        <p class="project-desc">
+                            Proyek perumahan eksisting di Indonesia dengan pekerjaan desain
+                            fasad luar berstandar kualitas Jepang.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'heartful-town-depok-aerial.webp' ); ?>"
+                             alt="Kawasan Perumahan Heartful-Town Depok"
+                             width="1073" height="605"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Eksisting &middot; Indonesia</p>
+                        <h3 class="project-name">Heartful-Town Depok</h3>
+                        <p class="project-desc">
+                            Kawasan perumahan di Depok dengan cakupan pekerjaan desain
+                            fasad luar dan perancangan interior hunian.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'heartful-town-bekasi-facade.webp' ); ?>"
+                             alt="Heartful-Town Bekasi proyek 29 unit rumah 1 dan 2 lantai"
+                             width="1188" height="794"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Akan Datang &middot; Bekasi</p>
+                        <h3 class="project-name">Heartful-Town Bekasi</h3>
+                        <p class="project-desc">
+                            Tersedia 29 unit rumah pilihan 1 lantai dan 2 lantai; pengerjaan
+                            desain fasad dan interior sedang berlangsung.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'heartful-tower-bekasi-exterior.webp' ); ?>"
+                             alt="Heartful Tower Bekasi apartemen dengan 30 persen area hijau"
+                             width="870" height="1145"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Akan Datang &middot; Bekasi</p>
+                        <h3 class="project-name">Heartful Tower Bekasi</h3>
+                        <p class="project-desc">
+                            Apartemen dengan harga terbaik oleh developer Jepang. Area hijau 30%,
+                            pilihan Unit Studio (21,50/25,03 m&sup2;), 1 BR (28,67/33,38 m&sup2;), &amp; 2 BR (37,89/44,11 m&sup2;),
+                            dilengkapi Zen Garden, Gym, Kindergarden, Kolam Renang, &amp; Minimarket.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'condo-presis-kumagaya.webp' ); ?>"
+                             alt="PRESIS KUMAGAYA GINZA oleh Hajime Construction"
+                             width="1073" height="905"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Ongoing &middot; Jepang (Hajime Construction)</p>
+                        <h3 class="project-name">PRESIS KUMAGAYA GINZA</h3>
+                        <p class="project-desc">
+                            Berlokasi di <em>central zone &amp; residential zone</em> dengan pilihan
+                            lebih dari 5 tipe unit, termasuk 3LDK+S+FIC+WIC seluas 71,37 m&sup2;.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'condo-century-tobu.webp' ); ?>"
+                             alt="Century Tobudobutsukoen Blue Sky Residence dengan panorama Gunung Fuji"
+                             width="980" height="979"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Ongoing &middot; Jepang (Iida Sangyo)</p>
+                        <h3 class="project-name">Blue Sky Residence</h3>
+                        <p class="project-desc">
+                            Century Tobudobutsukoen menghadap ke selatan dengan panorama
+                            Gunung Fuji dan lebih dari 5 pilihan tipe unit hunian.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'condo-suncradle-nippori.webp' ); ?>"
+                             alt="SUNCRADLE NISHI NIPPORI II dan III oleh Arnest One"
+                             width="960" height="1080"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Ongoing &middot; Jepang (Arnest One)</p>
+                        <h3 class="project-name">SUNCRADLE Nishi Nippori II &amp; III</h3>
+                        <p class="project-desc">
+                            Menawarkan tipe Studio dan 2LDK dengan akses langsung
+                            ke 3 rute jalur kereta perkotaan di sekitarnya.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="<?php echo esc_url( $pdf_img . 'condo-asaka-pieces.webp' ); ?>"
+                             alt="ASAKA PIECES PROJECT dengan konsep 4 Musim"
+                             width="1247" height="1267"
+                             loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <p class="project-tag">Ongoing &middot; Jepang (Iida Sangyo)</p>
+                        <h3 class="project-name">ASAKA PIECES PROJECT</h3>
+                        <p class="project-desc">
+                            Mengusung konsep &ldquo;4 Musim di kawasan Asaka&rdquo; dengan
+                            lebih dari 28 variasi tipe tata ruang hunian.
+                        </p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="brand-block reveal">
+                <p class="brand-heading">6 Brand Perumahan Grup di Jepang</p>
+                <ul class="brand-list">
+                    <li>Livele Garden (Hajime Construction)</li>
+                    <li>Heartful-Town (Iida Sangyo)</li>
+                    <li>Blooming Garden (Touei Housing)</li>
+                    <li>GRAFARE (Tact Home)</li>
+                    <li>Cradle garden (Arnest One)</li>
+                    <li>LIGNAGE (ID Home Co., Ltd.)</li>
+                </ul>
+                <div class="link-row">
+                    <a href="<?php echo esc_url( home_url( '/development/' ) ); ?>" class="link-arrow">
+                        Lihat seluruh proyek &amp; spesifikasi lengkap
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16m0 0-6-6m6 6-6 6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         QUALITY & GOVERNANCE — Housing Performance Indication System (PDF p.14-15)
+         ============================================================ -->
+    <section class="section section--light" id="quality" aria-labelledby="quality-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="quality-grid">
+
+                <div class="quality-copy reveal">
+                    <p class="eyebrow">Kualitas &amp; Standar</p>
+                    <h2 id="quality-title" class="section-title">
+                        Housing Performance Indication System
+                    </h2>
+                    <p class="section-lede">
+                        Berdasarkan standarisasi rumah yang ditetapkan oleh Pemerintah Jepang,
+                        seluruh hunian grup kami meraih peringkat tertinggi,
+                        <strong>Highest Grade</strong>, termasuk standar
+                        <strong>Insulation Grade 4</strong> dan
+                        <strong>Primary Energy Consumption Grade 5</strong>.
+                    </p>
+                    <p class="quality-note">
+                        Penilaian mencakup 10 faktor (dengan 4 faktor wajib) dan dilakukan
+                        sebanyak 5 kali inspeksi ketat: saat proses design, pembangunan pondasi,
+                        saat proses kerangka selesai, sebelum finishing interior, hingga finishing akhir.
+                    </p>
+                </div>
+
+                <div class="quality-factors reveal">
+                    <h3 class="factors-title">10 Faktor Penilaian HPIS</h3>
+                    <ol class="factors-list">
+                        <li><span>Stabilitas struktural bangunan</span><em>Wajib</em></li>
+                        <li><span>Keamanan jika terjadi kebakaran</span></li>
+                        <li><span>Mengurangi kerusakan</span><em>Wajib</em></li>
+                        <li><span>Pemeliharaan &amp; pembaharuan bangunan</span><em>Wajib</em></li>
+                        <li><span>Thermal environment (Insulation Grade 4 / Energy Grade 5)</span><em>Wajib</em></li>
+                        <li><span>Lingkungan udara (ventilasi)</span></li>
+                        <li><span>Pencahayaan &amp; visualisasi</span></li>
+                        <li><span>Lingkungan suara</span></li>
+                        <li><span>Pertimbangan untuk lansia</span></li>
+                        <li><span>Keamanan</span></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CLOSING CTA
+         ============================================================ -->
+    <section class="cta-band" aria-labelledby="cta-title">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="cta-inner reveal">
+                <div>
+                    <h2 id="cta-title" class="cta-title">Tertarik dengan proyek &amp; produk kami?</h2>
+                    <p class="cta-text">
+                        Hubungi tim PT. Perumnas Iida Group di Bekasi maupun pabrik Bogor
+                        untuk informasi unit, material konstruksi IG SCB, dan kerja sama.
+                    </p>
+                </div>
+                <div class="cta-actions">
+                    <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-hero btn-hero--solid">
+                        Hubungi Kami
+                    </a>
+                    <a href="<?php echo esc_url( home_url( '/Indonesia_Company%20profile_20231025.pdf' ) ); ?>" target="_blank" rel="noopener noreferrer" class="btn-hero btn-hero--ghost">
+                        Company Profile PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
-<script nonce="<?php echo bricklet_get_nonce(); ?>">
-    document.addEventListener('DOMContentLoaded', function() {
-        // Slider Background Loop (cycles opacity and z-index for clickability)
-        const slides = document.querySelectorAll('.hero-slide');
-        if (slides.length > 1) {
-            let current = 0;
-            setInterval(() => {
-                slides[current].classList.remove('opacity-100', 'z-10');
-                slides[current].classList.add('opacity-0', 'z-0');
-                current = (current + 1) % slides.length;
-                slides[current].classList.remove('opacity-0', 'z-0');
-                slides[current].classList.add('opacity-100', 'z-10');
-            }, 5000);
-        }
+<?php get_footer(); ?>
 
-        // Video sound controls
-        const heroVideo = document.getElementById('hero-video');
-        const soundBtn = document.getElementById('video-sound-btn');
-        const soundIcon = document.getElementById('video-sound-icon');
-        const soundText = document.getElementById('video-sound-text');
-        
-        if (soundBtn && heroVideo) {
-            soundBtn.addEventListener('click', () => {
-                heroVideo.muted = !heroVideo.muted;
-                if (heroVideo.muted) {
-                    soundIcon.textContent = 'volume_off';
-                    soundText.textContent = 'Unmute';
-                } else {
-                    heroVideo.volume = 1.0; // Ensure volume is up
-                    soundIcon.textContent = 'volume_up';
-                    soundText.textContent = 'Mute';
-                }
-            });
-        }
-    });
-</script>
-
-<?php
-get_footer();
-?>

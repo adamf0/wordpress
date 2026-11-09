@@ -66,31 +66,94 @@ function bricklet_theme_setup() {
 }
 add_action('after_setup_theme', 'bricklet_theme_setup');
 
-// SEO Meta tags generator targeting PT Iida Group Holdings
+/**
+ * Enqueue theme assets.
+ *
+ * Landing page styles/scripts are only loaded on the front page to keep
+ * every other template lean.
+ */
+function bricklet_enqueue_assets() {
+    $theme_uri = get_template_directory_uri();
+    $theme_dir = get_template_directory();
+
+    // Landing page stylesheet (design tokens live in header.php)
+    if ( is_front_page() ) {
+        $landing_css = '/assets/css/landing.css';
+        wp_enqueue_style(
+            'bricklet-landing',
+            $theme_uri . $landing_css,
+            array(),
+            file_exists( $theme_dir . $landing_css ) ? filemtime( $theme_dir . $landing_css ) : '1.0.0'
+        );
+
+        $landing_js = '/assets/js/landing.js';
+        wp_enqueue_script(
+            'bricklet-landing',
+            $theme_uri . $landing_js,
+            array(),
+            file_exists( $theme_dir . $landing_js ) ? filemtime( $theme_dir . $landing_js ) : '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'bricklet_enqueue_assets');
+
+
+// Legacy URL redirects so bookmarked /aboutus/ routes never 404
+function bricklet_legacy_route_redirects() {
+    $req_path = wp_parse_url(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '', PHP_URL_PATH);
+    if (!$req_path) {
+        return;
+    }
+    $clean = trim($req_path, '/');
+    $base_prefix = trim(wp_parse_url(home_url('/'), PHP_URL_PATH) ?: '', '/');
+    if ($base_prefix !== '' && strpos($clean, $base_prefix . '/') === 0) {
+        $clean = substr($clean, strlen($base_prefix) + 1);
+    } elseif ($clean === $base_prefix) {
+        $clean = '';
+    }
+
+    $map = array(
+        'aboutus' => '/about-us/',
+        'aboutus/overview' => '/about-us/overview/',
+        'aboutus/vision_mission' => '/about-us/vision-mission/',
+        'aboutus/vision-mission' => '/about-us/vision-mission/',
+        'aboutus/awards' => '/about-us/awards/',
+        'aboutus/milestone' => '/about-us/milestone/',
+        'about-us/vision_mission' => '/about-us/vision-mission/',
+    );
+    if (isset($map[$clean])) {
+        wp_safe_redirect(home_url($map[$clean]), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'bricklet_legacy_route_redirects', 1);
+
+// SEO Meta tags generator targeting Iida Group Holdings & PT Perumnas Iida Group
 function bricklet_seo_meta() {
-    $description = "PT Iida Group Holdings is a Japanese Company that produces earthquake-resistant Concrete Blocks and Paving Blocks to support consumers in Indonesia.";
-    $keywords = "PT Iida Group Holdings, IG Strong CB, concrete blocks, paving blocks, earthquake resistant, construction materials, Iida Sangyo, Perumnas Iida Group, Hajime, Indonesia";
-    $og_title = "PT Iida Group Holdings - Japan Quality Concrete Blocks";
+    $description = "PT. Perumnas Iida Group & PT. Iida Group Holdings Co.,Ltd. mengembangkan perumahan estate berkualitas terjangkau di Indonesia dan teknologi pracetak tahan gempa IG Strong Concrete Block (Paten IDP000069171 & SNI).";
+    $keywords = "PT Perumnas Iida Group, PT Iida Group Holdings, IG Strong CB, concrete blocks, Heartful-Town Bekasi, Heartful Tower Bekasi, Heartful-Town Depok, Botania 2 Residence, perumahan Jepang Indonesia";
+    $og_title = "PT. Perumnas Iida Group | Iida Group Holdings Co.,Ltd.";
     $og_desc = $description;
-    $og_image = get_template_directory_uri() . '/images/PT-iida-logo.webp';
+    $og_image = get_template_directory_uri() . '/PT_Perumnas_Iida_Group_Logo3_transparent.png';
     $og_url = home_url('/');
-    
+
     if (is_front_page()) {
-        $description = "PT Iida Group Holdings is a Japanese Company that produces earthquake-resistant Concrete Blocks. We also produce Paving Blocks to support consumers.";
-        $og_title = "PT Iida Group Holdings Company Produces Concrete Blocks.";
+        $description = "PT. Perumnas Iida Group (joint venture Iida Sangyo 93% dan PT Propernas Griya Utama 7%) menghadirkan perumahan berkualitas di lokasi strategis dengan teknologi tahan gempa IG SCB.";
+        $og_title = "PT. Perumnas Iida Group - Mewujudkan Hunian Berkualitas di Indonesia";
         $og_desc = $description;
     } elseif (is_single()) {
         global $post;
         $og_title = get_the_title();
         $og_url = get_permalink();
-        
+
         if ($post->post_excerpt) {
             $description = wp_strip_all_tags($post->post_excerpt);
         } else {
             $description = wp_strip_all_tags(wp_trim_words($post->post_content, 30));
         }
         $og_desc = $description;
-        
+
         $img = get_post_meta($post->ID, '_featured_image_url', true);
         if (!empty($img)) {
             $og_image = $img;
@@ -99,43 +162,55 @@ function bricklet_seo_meta() {
         }
     } elseif (is_page()) {
         global $post;
-        $og_title = get_the_title() . ' - PT. Iida Group Holdings';
+        $og_title = get_the_title() . ' | PT. Perumnas Iida Group';
         $og_url = get_permalink();
-        $description = get_the_title() . " page on PT. Iida Group Holdings. Discover Japanese housing technology and earthquake resistant concrete products.";
+        $description = get_the_title() . " - Profil resmi, proyek hunian, jaringan bisnis, dan material konstruksi Iida Group Holdings & PT. Perumnas Iida Group.";
         $og_desc = $description;
     }
-    
+
     // Output meta tags
     echo "\n" . '<!-- SEO Meta Tags -->' . "\n";
     echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
     echo '<meta name="keywords" content="' . esc_attr($keywords) . '">' . "\n";
-    echo '<meta name="publisher" content="PT Iida Group Holdings">' . "\n";
-    echo '<meta name="author" content="PT Iida Group Holdings">' . "\n";
+    echo '<meta name="publisher" content="PT. Perumnas Iida Group / Iida Group Holdings Co.,Ltd.">' . "\n";
+    echo '<meta name="author" content="PT. Perumnas Iida Group">' . "\n";
     echo '<link class="yoast-seo-canonical" rel="canonical" href="' . esc_url($og_url) . '">' . "\n";
-    
+
     // Open Graph
     echo '<meta property="og:type" content="' . (is_single() ? 'article' : 'website') . '">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr($og_title) . '">' . "\n";
     echo '<meta property="og:description" content="' . esc_attr($og_desc) . '">' . "\n";
     echo '<meta property="og:image" content="' . esc_url($og_image) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url($og_url) . '">' . "\n";
-    echo '<meta property="og:site_name" content="PT. Iida Group Holdings">' . "\n";
-    
+    echo '<meta property="og:site_name" content="PT. Perumnas Iida Group">' . "\n";
+
     // Twitter Cards
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
     echo '<meta name="twitter:title" content="' . esc_attr($og_title) . '">' . "\n";
     echo '<meta name="twitter:description" content="' . esc_attr($og_desc) . '">' . "\n";
     echo '<meta name="twitter:image" content="' . esc_url($og_image) . '">' . "\n";
-    
+
     // JSON-LD Organization Schema
     echo '<script type="application/ld+json" nonce="' . bricklet_get_nonce() . '">' . "\n";
     echo json_encode(array(
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
-        'name' => 'PT. Iida Group Holdings',
+        'name' => 'PT. Perumnas Iida Group',
+        'parentOrganization' => array(
+            '@type' => 'Organization',
+            'name' => 'Iida Group Holdings Co.,Ltd.',
+            'url' => 'https://www.ighd.co.jp/en/'
+        ),
         'url' => esc_url(home_url('/')),
-        'logo' => get_template_directory_uri() . '/images/PT-iida-logo.webp',
-        'description' => esc_attr($description),
+        'logo' => get_template_directory_uri() . '/PT_Perumnas_Iida_Group_Logo3_transparent.png',
+        'address' => array(
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'Jl. Caringin Raya, RT.010/RW.002, Kec. Rawalumbu',
+            'addressLocality' => 'Kota Bekasi',
+            'addressRegion' => 'Jawa Barat',
+            'addressCountry' => 'ID'
+        ),
+        'description' => $description,
     ), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n";
     echo '</script>' . "\n";
     echo '<!-- End SEO Meta Tags -->' . "\n";

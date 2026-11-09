@@ -1,16 +1,13 @@
 <?php
 /**
  * Template Name: Awards & Recognition
- * Description: Official Corporate Awards & Honors Directory (79 Awards: 2017 - 2025)
- *              Featuring interactive expanding spotlight cards and filterable archive.
+ * Description: Daftar Penghargaan Korporasi (79 Awards: 2017-2025) serta Sertifikasi Paten Resmi IG SCB IDP000069171 & SNI.
  */
 
 get_header();
 
-// Fetch awards data
 $awards_by_year = function_exists('bricklet_get_awards_data') ? bricklet_get_awards_data() : array();
 
-// Flatten all awards and sort years
 $all_awards = array();
 $year_counts = array();
 $years_desc = array_keys($awards_by_year);
@@ -25,40 +22,58 @@ foreach ($years_desc as $yr) {
     }
 }
 $total_awards_count = count($all_awards);
-
-// Select top 5 spotlight awards for the Gambar 1-style expanding showcase
 $spotlight_awards = array_slice($all_awards, 0, 5);
 $theme_uri = get_template_directory_uri();
+$fallback_award_img = $theme_uri . '/images/pdf/ig-scb-patent-idp000069171.webp';
+$pdf_url = home_url('/Indonesia_Company%20profile_20231025.pdf');
 ?>
 
 <style>
 /* ==========================================================================
-   Awards & Recognition Corporate Layout (One Tone with Gambar 1)
+   Awards, Recognition & Certifications Layout
    ========================================================================== */
 
 .aw-page-wrapper {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #1e293b;
-    background-color: #ffffff;
+    font-family: var(--font-body);
+    color: var(--color-text-body);
+    background-color: var(--color-surface);
     width: 100%;
     overflow-x: hidden;
 }
 
-/* --------------------------------------------------------------------------
-   1. HERO BANNER
-   -------------------------------------------------------------------------- */
+.aw-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    width: 100%;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+}
+
+.aw-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 1. HERO BANNER */
 .aw-hero-banner {
     position: relative;
     width: 100%;
     min-height: 340px;
     display: flex;
     align-items: center;
-    background-color: #0a1f2c;
+    background-color: var(--color-deep-navy);
     overflow: hidden;
 }
 @media (min-width: 768px) {
     .aw-hero-banner {
-        min-height: 380px;
+        min-height: 390px;
     }
 }
 .aw-hero-bg {
@@ -73,84 +88,81 @@ $theme_uri = get_template_directory_uri();
 .aw-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(7, 23, 34, 0.90) 0%, rgba(10, 31, 44, 0.72) 50%, rgba(7, 23, 34, 0.65) 100%);
+    background: linear-gradient(90deg, rgba(10, 31, 44, 0.94) 0%, rgba(10, 31, 44, 0.80) 55%, rgba(10, 31, 44, 0.68) 100%);
     z-index: 2;
 }
 .aw-hero-inner {
     position: relative;
     z-index: 3;
-    max-width: 1280px;
+    max-width: var(--container-max);
     width: 100%;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem;
-}
-@media (min-width: 1024px) {
-    .aw-hero-inner {
-        padding: 4.5rem 3rem;
-    }
+    padding: 3rem var(--gutter);
 }
 .aw-breadcrumb {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    gap: 6px;
+    font-size: var(--text-xs);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1.5rem;
+    color: #cbd5e1;
+    margin-bottom: 1.25rem;
 }
 .aw-breadcrumb a {
-    color: rgba(255, 255, 255, 0.7);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 4px;
+    color: #cbd5e1;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--dur-fast) var(--ease-in-out);
 }
-.aw-breadcrumb a:hover {
-    color: #03c5f0;
+.aw-breadcrumb a:hover,
+.aw-breadcrumb a:focus-visible {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.aw-breadcrumb a:focus-visible {
+    outline: 2px solid var(--color-action-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 .aw-breadcrumb .separator {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55);
 }
 .aw-breadcrumb .current {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 700;
 }
 .aw-hero-title {
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-family: var(--font-display);
+    font-size: clamp(2.15rem, 4.5vw, 3.5rem);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.12;
     color: #ffffff;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.85rem 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.025em;
+    margin: 0 0 0.9rem;
 }
 .aw-hero-subtitle {
-    font-size: 1.0625rem;
+    font-size: 1.05rem;
     color: rgba(255, 255, 255, 0.85);
-    max-width: 680px;
-    line-height: 1.6;
+    max-width: 62ch;
+    line-height: 1.65;
     margin: 0;
 }
 
-/* --------------------------------------------------------------------------
-   2. SECTION 1: SPOTLIGHT SECTION (MATCHING GAMBAR 1)
-   -------------------------------------------------------------------------- */
+/* 2. SPOTLIGHT SECTION */
 .aw-spotlight-section {
-    padding: 5rem 1.5rem 5.5rem;
-    background-color: #ffffff;
+    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+    background-color: var(--color-surface);
 }
-@media (min-width: 1024px) {
-    .aw-spotlight-section {
-        padding: 6.5rem 3rem 6.5rem;
-    }
-}
-.aw-container {
-    max-width: 1240px;
-    margin: 0 auto;
-    width: 100%;
-}
-
 .aw-spotlight-split {
     display: grid;
     grid-template-columns: 1fr;
@@ -165,78 +177,65 @@ $theme_uri = get_template_directory_uri();
 }
 @media (min-width: 1280px) {
     .aw-spotlight-split {
-        grid-template-columns: 410px 1fr;
-        gap: 4.5rem;
+        grid-template-columns: 400px 1fr;
+        gap: 4rem;
     }
 }
-
-/* Left Column */
-.aw-spotlight-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 .aw-section-tag {
-    font-size: 0.8125rem;
+    display: block;
+    font-size: var(--text-xs);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: #006491;
-    margin-bottom: 0.85rem;
-    display: block;
+    color: var(--color-primary);
+    margin-bottom: 0.7rem;
 }
 .aw-spotlight-title {
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.3vw, 2.6rem);
     font-weight: 800;
-    color: #0a1f2c;
+    color: var(--color-text-heading);
     line-height: 1.15;
-    letter-spacing: -0.025em;
-    margin: 0 0 1.25rem 0;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.1rem;
 }
 .aw-spotlight-desc {
-    font-size: 1rem;
-    color: #475569;
+    font-size: var(--text-base);
+    color: var(--color-text-body);
     line-height: 1.65;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.75rem;
 }
 .aw-spotlight-actions {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
 }
 .aw-spotlight-cta {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
-    background-color: rgb(10 31 44 / var(--tw-bg-opacity, 1)); /* deep-navy */
+    min-height: 44px;
+    background-color: var(--color-deep-navy);
     color: #ffffff;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    padding: 0.85rem 1.85rem;
-    border-radius: 9999px;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-pill);
     text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 14px rgba(10, 31, 44, 0.25);
-    border: 1px solid transparent;
+    transition: background-color var(--dur-fast) var(--ease-in-out);
 }
 .aw-spotlight-cta:hover {
-    background-color: #006491; /* primary */
-    border-color: #00b3ff; /* theme action-cyan */
+    background-color: var(--color-primary);
     color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(0, 100, 145, 0.35);
 }
-.aw-spotlight-cta svg {
-    transition: transform 0.2s ease;
-}
-.aw-spotlight-cta:hover svg {
-    transform: translateY(2px);
+.aw-spotlight-cta:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
-/* Nav Controls */
 .aw-accordion-nav {
     display: inline-flex;
     align-items: center;
@@ -246,31 +245,33 @@ $theme_uri = get_template_directory_uri();
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1.5px solid #cbd5e1;
-    background-color: #ffffff;
-    color: #1e293b;
-    display: flex;
+    border: 1.5px solid var(--color-border-strong);
+    background-color: var(--color-surface);
+    color: var(--color-text-heading);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: border-color var(--dur-fast) var(--ease-in-out), background-color var(--dur-fast) var(--ease-in-out), color var(--dur-fast) var(--ease-in-out);
 }
 .aw-acc-nav-btn:hover {
-    border-color: #00b3ff;
-    color: #006491;
-    background-color: #f0f9ff;
-    transform: scale(1.05);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-container);
+}
+.aw-acc-nav-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 .aw-acc-nav-counter {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #64748b;
-    margin-left: 0.5rem;
-    letter-spacing: 0.05em;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    min-width: 48px;
+    text-align: center;
 }
 
-/* Right Column: Expanding Gallery (Gambar 1 Style) */
+/* Expanding Spotlight Gallery */
 .aw-spotlight-gallery {
     width: 100%;
     overflow: hidden;
@@ -278,32 +279,29 @@ $theme_uri = get_template_directory_uri();
 .aw-accordion-track {
     display: flex;
     gap: 1rem;
-    height: 500px;
+    height: 490px;
     width: 100%;
     align-items: stretch;
 }
 @media (max-width: 767px) {
     .aw-accordion-track {
-        height: 460px;
+        height: 450px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        padding-bottom: 1rem;
+        padding-bottom: 0.75rem;
         -webkit-overflow-scrolling: touch;
     }
 }
-
 .aw-acc-card {
     position: relative;
     flex: 1;
-    min-width: 80px;
+    min-width: 78px;
     height: 100%;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    cursor: pointer;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-    user-select: none;
+    background-color: var(--color-surface-sunken);
+    border: 1px solid var(--color-border);
+    transition: flex 0.5s var(--ease-out-expo), box-shadow var(--dur-base) var(--ease-in-out), border-color var(--dur-base) var(--ease-in-out);
 }
 @media (max-width: 767px) {
     .aw-acc-card {
@@ -311,184 +309,174 @@ $theme_uri = get_template_directory_uri();
         scroll-snap-align: center;
     }
 }
-.aw-acc-card:hover:not(.is-active) {
-    box-shadow: 0 10px 25px -6px rgba(15, 23, 42, 0.12);
-    border-color: #cbd5e1;
-}
 .aw-acc-card.is-active {
     flex: 3.4;
-    min-width: 300px;
-    max-width: 380px;
-    cursor: default;
-    border-color: #00b3ff;
-    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.16);
+    min-width: 280px;
+    max-width: 390px;
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
 }
 @media (max-width: 767px) {
     .aw-acc-card.is-active {
         flex: 0 0 300px;
     }
 }
-
+.aw-acc-card:has(.aw-acc-trigger:focus-visible) {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
 .aw-acc-inner {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    background-color: #ffffff;
+    background-color: var(--color-surface);
 }
-
-/* Image Wrapper */
 .aw-acc-image-wrapper {
     width: 100%;
     height: 100%;
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
-    transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    background-color: var(--color-surface-sunken);
+    transition: height 0.5s var(--ease-out-expo);
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem 1.5rem 1.5rem;
+    padding: 2.5rem 1.25rem 1.25rem;
 }
 .aw-acc-card.is-active .aw-acc-image-wrapper {
-    height: 58%;
-    padding: 2.25rem 1.25rem 1.25rem;
+    height: 56%;
+    padding: 2.25rem 1.25rem 1rem;
 }
 .aw-acc-img {
     max-width: 90%;
     max-height: 90%;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.15));
-    transition: transform 0.6s ease;
-    position: relative;
-    z-index: 1;
 }
-.aw-acc-card:hover .aw-acc-img {
-    transform: scale(1.05);
-}
-
 .aw-acc-badge-year {
     position: absolute;
-    top: 14px;
-    left: 14px;
-    background-color: rgb(10 31 44 / var(--tw-bg-opacity, 1)); /* deep-navy */
+    top: 12px;
+    left: 12px;
+    background-color: var(--color-deep-navy);
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     padding: 4px 11px;
-    border-radius: 9999px;
-    z-index: 10;
-    letter-spacing: 0.05em;
-    box-shadow: 0 2px 8px rgba(10, 31, 44, 0.35);
+    border-radius: var(--radius-pill);
+    z-index: 4;
+    letter-spacing: 0.04em;
     pointer-events: none;
 }
-
-/* Inactive Collapsed Hint */
 .aw-acc-collapsed-hint {
     position: absolute;
-    bottom: 16px;
-    left: 0;
-    right: 0;
+    bottom: 14px;
+    left: 6px;
+    right: 6px;
     display: flex;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--dur-fast) var(--ease-in-out);
     pointer-events: none;
-    z-index: 2;
 }
 .aw-acc-card:not(.is-active):hover .aw-acc-collapsed-hint {
     opacity: 1;
 }
 .aw-acc-hint-text {
-    background: rgba(10, 31, 44, 0.85);
+    background-color: rgba(10, 31, 44, 0.9);
     color: #ffffff;
-    font-size: 0.6875rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     padding: 4px 10px;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
     white-space: nowrap;
-    backdrop-filter: blur(4px);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .aw-acc-card.is-active .aw-acc-collapsed-hint {
     display: none;
 }
-
-/* Active Bottom Info Box (Theme Palette: Soft Cyan / Navy) */
 .aw-acc-card-info {
     width: 100%;
-    height: 42%;
-    background-color: #f0f9ff; /* Theme soft cyan surface */
-    border-top: 2px solid #00b3ff; /* Theme action-cyan accent line */
-    padding: 1.25rem 1.4rem;
+    height: 44%;
+    background-color: var(--color-primary-container);
+    border-top: 2px solid var(--color-primary);
+    padding: 1.15rem 1.35rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
     opacity: 0;
-    transform: translateY(16px);
     pointer-events: none;
-    transition: opacity 0.4s ease 0.15s, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.15s;
+    transition: opacity 0.35s var(--ease-in-out);
 }
 .aw-acc-card.is-active .aw-acc-card-info {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
 }
-.aw-acc-info-header {
-    margin-bottom: 0.25rem;
-}
 .aw-acc-award-name {
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: rgb(10 31 44 / var(--tw-text-opacity, 1)); /* deep-navy */
-    margin: 0 0 3px 0;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin: 0 0 4px;
     line-height: 1.25;
-    letter-spacing: -0.01em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+}
+.aw-acc-trigger {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+.aw-acc-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+}
+.aw-acc-trigger:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 .aw-acc-award-desc {
-    font-size: 0.8125rem;
+    font-size: var(--text-sm);
     font-weight: 500;
-    color: #4b5563;
+    color: var(--color-on-primary-container);
     margin: 0;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 .aw-acc-quote {
-    font-size: 0.8125rem;
-    color: #006491; /* primary corporate blue */
-    font-weight: 600;
+    font-size: var(--text-xs);
+    color: var(--color-primary-strong);
+    font-weight: 700;
     line-height: 1.4;
-    margin: 0.5rem 0 0 0;
+    margin: 0.5rem 0 0;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-/* Metrics Strip (One tone with Overview page) */
+/* Metrics Strip */
 .aw-metrics-strip {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
+    background-color: var(--color-surface-sunken);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
-    margin-top: 4rem;
+    margin-top: 3.5rem;
 }
 @media (min-width: 768px) {
     .aw-metrics-strip {
         grid-template-columns: repeat(3, 1fr);
-        padding: 2.5rem 2rem;
+        padding: 2.25rem 2rem;
     }
 }
 .aw-metric-box {
@@ -497,121 +485,231 @@ $theme_uri = get_template_directory_uri();
 }
 @media (min-width: 768px) {
     .aw-metric-box:not(:last-child) {
-        border-right: 1px solid #e2e8f0;
+        border-right: 1px solid var(--color-border-strong);
     }
 }
 .aw-metric-number {
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: 2.25rem;
+    font-family: var(--font-display);
+    font-size: 2.1rem;
     font-weight: 800;
-    color: #006491; /* primary blue */
-    line-height: 1;
-    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    line-height: 1.1;
+    margin-bottom: 0.45rem;
 }
 .aw-metric-label {
-    font-size: 0.8125rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #0a1f2c;
+    color: var(--color-text-heading);
     margin-bottom: 0.25rem;
 }
 .aw-metric-desc {
-    font-size: 0.75rem;
-    color: #64748b;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-muted);
 }
 
-/* --------------------------------------------------------------------------
-   3. SECTION 2: COMPREHENSIVE AWARDS DIRECTORY & FILTER
-   -------------------------------------------------------------------------- */
-.aw-directory-section {
-    padding: 5rem 1.5rem 7rem;
-    background-color: #f8fafc;
-    border-top: 1px solid #e2e8f0;
+/* 3. PATENT & SNI SECTION (PDF Hal. 10-12) */
+.aw-patent-section {
+    padding: clamp(3.5rem, 6vw, 5rem) 0;
+    background-color: var(--color-deep-navy);
+    color: #ffffff;
 }
-@media (min-width: 1024px) {
-    .aw-directory-section {
-        padding: 6rem 3rem 8rem;
+.aw-patent-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+}
+@media (min-width: 960px) {
+    .aw-patent-grid {
+        grid-template-columns: 1.1fr 0.9fr;
     }
 }
+.aw-patent-kicker {
+    display: block;
+    margin: 0 0 0.65rem;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-action-cyan);
+}
+.aw-patent-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+}
+.aw-patent-desc {
+    margin: 0 0 1.5rem;
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: #cbd5e1;
+}
+.aw-patent-list {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+.aw-patent-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: #ffffff;
+}
+.aw-patent-item .material-symbols-outlined {
+    color: var(--color-action-cyan);
+    font-size: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+.aw-patent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.aw-btn-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    background-color: #ffffff;
+    color: var(--color-deep-navy);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-in-out);
+}
+.aw-btn-light:hover {
+    background-color: var(--color-primary-container);
+    color: var(--color-deep-navy);
+}
+.aw-btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: #ffffff;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-in-out), border-color var(--dur-fast) var(--ease-in-out);
+}
+.aw-btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+.aw-patent-frame {
+    background-color: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    box-shadow: var(--shadow-lg);
+}
+.aw-patent-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+}
 
+/* 4. AWARDS DIRECTORY & FILTER */
+.aw-directory-section {
+    padding: clamp(3.5rem, 6vw, 5.5rem) 0 clamp(4.5rem, 7vw, 6.5rem);
+    background-color: var(--color-surface-sunken);
+    border-top: 1px solid var(--color-border);
+}
 .aw-dir-header {
     text-align: center;
-    max-width: 720px;
-    margin: 0 auto 3rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
 }
 .aw-dir-title {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(1.85rem, 3.2vw, 2.5rem);
     font-weight: 800;
-    color: #0a1f2c;
+    color: var(--color-text-heading);
     letter-spacing: -0.02em;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.85rem;
 }
 .aw-dir-subtitle {
-    font-size: 0.975rem;
-    color: #64748b;
-    line-height: 1.6;
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: 1.65;
     margin: 0;
 }
 
-/* Filter Toolbar */
 .aw-toolbar {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
+    gap: 1.35rem;
+    margin-bottom: 3rem;
     align-items: center;
 }
-
-/* Year Tabs */
 .aw-tabs-wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.55rem;
     justify-content: center;
     width: 100%;
 }
 .aw-tab-btn {
-    border: 1px solid #cbd5e1;
-    background-color: #ffffff;
-    color: #334155;
-    font-size: 0.875rem;
+    border: 1px solid var(--color-border-strong);
+    background-color: var(--color-surface);
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
     font-weight: 600;
-    padding: 0.6rem 1.25rem;
-    border-radius: 9999px;
+    min-height: 44px;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-pill);
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background-color var(--dur-fast) var(--ease-in-out), border-color var(--dur-fast) var(--ease-in-out), color var(--dur-fast) var(--ease-in-out);
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 .aw-tab-btn:hover {
-    border-color: #00b3ff;
-    color: #006491;
-    background-color: #f0f9ff;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-container);
 }
 .aw-tab-btn.is-active {
-    background-color: rgb(10 31 44 / var(--tw-bg-opacity, 1)); /* deep-navy */
+    background-color: var(--color-deep-navy);
     color: #ffffff;
-    border-color: rgb(10 31 44 / var(--tw-border-opacity, 1));
-    box-shadow: 0 4px 14px rgba(10, 31, 44, 0.25);
+    border-color: var(--color-deep-navy);
+}
+.aw-tab-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 .aw-tab-count {
-    font-size: 0.75rem;
-    opacity: 0.85;
+    font-size: var(--text-xs);
     font-weight: 700;
-    background: rgba(0,0,0,0.08);
+    background-color: var(--color-surface-sunken);
+    color: var(--color-text-heading);
     padding: 1px 7px;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
 }
 .aw-tab-btn.is-active .aw-tab-count {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.22);
     color: #ffffff;
 }
 
-/* Search Bar */
 .aw-search-box {
     position: relative;
     max-width: 480px;
@@ -619,34 +717,38 @@ $theme_uri = get_template_directory_uri();
 }
 .aw-search-input {
     width: 100%;
-    padding: 0.8rem 1.25rem 0.8rem 2.85rem;
-    border-radius: 9999px;
-    border: 1.5px solid #cbd5e1;
-    background-color: #ffffff;
-    font-size: 0.9375rem;
-    color: #1e293b;
-    outline: none;
-    transition: all 0.2s ease;
+    min-height: 44px;
+    padding: 0.75rem 1.25rem 0.75rem 2.85rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border-strong);
+    background-color: var(--color-surface);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-heading);
     box-sizing: border-box;
 }
-.aw-search-input:focus {
-    border-color: #00b3ff;
-    box-shadow: 0 0 0 3px rgba(0, 179, 255, 0.2);
+.aw-search-input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+}
+.aw-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
 }
 .aw-search-icon {
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #94a3b8;
+    color: var(--color-text-muted);
     pointer-events: none;
 }
 
-/* Grid of Cards */
 .aw-cards-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: 1.5rem;
 }
 @media (min-width: 640px) {
     .aw-cards-grid {
@@ -664,476 +766,515 @@ $theme_uri = get_template_directory_uri();
     }
 }
 
-/* Award Card (Matching Gambar 1 aesthetic) */
 .aw-card {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-    cursor: pointer;
+    transition: border-color var(--dur-base) var(--ease-in-out), box-shadow var(--dur-base) var(--ease-in-out);
+    box-shadow: var(--shadow-xs);
     position: relative;
 }
 .aw-card:hover {
-    transform: translateY(-6px);
-    border-color: #00b3ff;
-    box-shadow: 0 16px 36px -10px rgba(0, 100, 145, 0.16);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
 }
-
-/* Card Visual Header */
+.aw-card:has(.aw-card-trigger:focus-visible) {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
 .aw-card-media {
     position: relative;
-    height: 230px;
-    background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+    height: 220px;
+    background-color: var(--color-surface);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2.25rem 1.25rem 1.25rem;
     overflow: hidden;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--color-border);
 }
 .aw-card-img {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-    transition: transform 0.4s ease;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
     position: relative;
     z-index: 1;
-}
-.aw-card:hover .aw-card-img {
-    transform: scale(1.06);
 }
 .aw-card-badge {
     position: absolute;
     top: 12px;
     left: 12px;
-    background-color: rgb(10 31 44 / var(--tw-bg-opacity, 1)); /* deep-navy */
+    background-color: var(--color-deep-navy);
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     padding: 4px 11px;
-    border-radius: 9999px;
-    letter-spacing: 0.05em;
-    box-shadow: 0 2px 8px rgba(10, 31, 44, 0.35);
-    z-index: 10;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.04em;
+    z-index: 4;
     pointer-events: none;
 }
-.aw-card-zoom-hint {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1e293b;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-.aw-card:hover .aw-card-zoom-hint {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Card Body */
 .aw-card-body {
-    padding: 1.35rem 1.4rem;
+    padding: 1.25rem 1.35rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
-    background-color: #ffffff;
+    background-color: var(--color-surface);
 }
 .aw-card-title {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: var(--font-display);
     font-size: 1rem;
-    font-weight: 700;
-    color: #0a1f2c;
+    font-weight: 800;
+    color: var(--color-text-heading);
     line-height: 1.35;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.01em;
+    margin: 0 0 0.45rem;
+}
+.aw-card-trigger {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+.aw-card-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+}
+.aw-card-trigger:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 .aw-card-desc {
-    font-size: 0.8125rem;
-    color: #64748b;
-    line-height: 1.45;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.5;
     margin: 0;
 }
 
-/* Empty State */
 .aw-empty-state {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 4rem 1.5rem;
+    padding: 3.5rem 1.5rem;
     display: none;
 }
 .aw-empty-state.is-visible {
     display: block;
 }
 .aw-empty-icon {
-    width: 56px;
-    height: 56px;
-    color: #94a3b8;
-    margin: 0 auto 1rem;
+    width: 52px;
+    height: 52px;
+    color: var(--color-text-muted);
+    margin: 0 auto 0.85rem;
 }
 .aw-empty-text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: #475569;
+    color: var(--color-text-body);
 }
 
-/* --------------------------------------------------------------------------
-   4. LIGHTBOX MODAL
-   -------------------------------------------------------------------------- */
-.aw-modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(10, 31, 44, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 99999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.aw-modal-backdrop.is-open {
-    display: flex;
-    opacity: 1;
-}
-.aw-modal-content {
-    background: #ffffff;
-    border-radius: 24px;
+/* 5. NATIVE ACCESSIBLE LIGHTBOX DIALOG */
+.aw-dialog {
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     max-width: 680px;
-    width: 100%;
+    width: calc(100% - 2rem);
+    background-color: var(--color-surface);
+    color: var(--color-text-body);
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
-    position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-    transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin: auto;
 }
-.aw-modal-backdrop.is-open .aw-modal-content {
-    transform: scale(1);
+.aw-dialog:modal {
+    overscroll-behavior: contain;
+    max-height: 90dvh;
+    overflow-y: auto;
+}
+.aw-dialog::backdrop {
+    background-color: rgba(10, 31, 44, 0.82);
+    overflow: hidden;
+    overscroll-behavior: contain;
 }
 .aw-modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 38px;
-    height: 38px;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #e2e8f0;
-    color: #0f172a;
-    font-size: 1.25rem;
-    display: flex;
+    background-color: #ffffff;
+    border: 1.5px solid var(--color-border-strong);
+    color: var(--color-text-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.2s ease;
+    transition: background-color var(--dur-fast) var(--ease-in-out), color var(--dur-fast) var(--ease-in-out);
 }
 .aw-modal-close:hover {
-    background: rgb(10 31 44 / var(--tw-bg-opacity, 1)); /* deep-navy */
+    background-color: var(--color-deep-navy);
+    border-color: var(--color-deep-navy);
     color: #ffffff;
 }
+.aw-modal-close:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
 .aw-modal-image-box {
-    background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
-    padding: 2.5rem;
+    background-color: var(--color-surface-sunken);
+    padding: 2.25rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 320px;
-    max-height: 420px;
+    min-height: 280px;
+    max-height: 400px;
+    border-bottom: 1px solid var(--color-border);
 }
 .aw-modal-image-box img {
     max-width: 100%;
-    max-height: 360px;
+    max-height: 340px;
     object-fit: contain;
-    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
 }
 .aw-modal-body {
-    padding: 1.75rem 2rem;
-    background-color: #ffffff;
+    padding: 1.5rem 1.75rem;
+    background-color: var(--color-surface);
 }
 .aw-modal-year {
     display: inline-block;
-    background-color: #e0f2fe;
-    color: #006491;
-    border: 1px solid rgba(0, 179, 255, 0.3);
-    font-size: 0.75rem;
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    font-size: var(--text-xs);
     font-weight: 700;
     padding: 4px 12px;
-    border-radius: 9999px;
-    margin-bottom: 0.75rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 0.7rem;
 }
 .aw-modal-title {
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: 1.35rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
     font-weight: 800;
-    color: #0a1f2c;
+    color: var(--color-text-heading);
     line-height: 1.3;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
 }
 .aw-modal-desc {
-    font-size: 0.9375rem;
-    color: #475569;
-    line-height: 1.5;
+    font-size: var(--text-base);
+    color: var(--color-text-body);
+    line-height: 1.55;
     margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aw-acc-card,
+    .aw-acc-image-wrapper,
+    .aw-acc-collapsed-hint,
+    .aw-acc-card-info,
+    .aw-tab-btn,
+    .aw-card,
+    .aw-modal-close,
+    .aw-spotlight-cta,
+    .aw-btn-light,
+    .aw-btn-outline-light {
+        transition: none;
+    }
 }
 </style>
 
-<main class="aw-page-wrapper">
+<main id="main-content" class="aw-page-wrapper">
 
-    <!-- ========================================================================
-         1. HERO BANNER
-         ======================================================================== -->
-    <section class="aw-hero-banner">
-        <img 
-            src="<?php echo esc_url($theme_uri . '/images/vision-mission/bg-header-company-data.jpg'); ?>" 
-            alt="Awards & Recognition" 
-            class="aw-hero-bg" 
+    <!-- 1. HERO BANNER -->
+    <section class="aw-hero-banner" aria-labelledby="aw-hero-title">
+        <img
+            src="<?php echo esc_url($theme_uri . '/images/vision-mission/bg-header-company-data.jpg'); ?>"
+            alt="Gedung PT. Iida Group Holdings"
+            class="aw-hero-bg"
+            width="1920"
+            height="1080"
             fetchpriority="high"
+            decoding="sync"
         />
-        <div class="aw-hero-overlay"></div>
+        <div class="aw-hero-overlay" aria-hidden="true"></div>
 
         <div class="aw-hero-inner">
             <nav class="aw-breadcrumb" aria-label="Breadcrumb">
                 <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
-                <span class="separator">/</span>
-                <a href="<?php echo esc_url(home_url('/aboutus/overview/')); ?>">About Us</a>
-                <span class="separator">/</span>
+                <span class="separator" aria-hidden="true">/</span>
+                <a href="<?php echo esc_url(home_url('/about-us/overview/')); ?>">About Us</a>
+                <span class="separator" aria-hidden="true">/</span>
                 <span class="current" aria-current="page">Awards</span>
             </nav>
 
-            <h1 class="aw-hero-title">Awards &amp; Recognition</h1>
+            <h1 id="aw-hero-title" class="aw-hero-title">Awards, Paten &amp; Sertifikasi</h1>
             <p class="aw-hero-subtitle">
-                Apresiasi dan rekam jejak pengakuan prestisius atas dedikasi tinggi, inovasi digital, serta komitmen mutu tanpa henti untuk Indonesia.
+                Apresiasi korporasi (2017 - 2025) serta pengakuan paten resmi Indonesia No. IDP000069171 dan sertifikasi SNI untuk teknologi konstruksi tahan gempa IG Strong Concrete Block.
             </p>
         </div>
     </section>
 
-    <!-- ========================================================================
-         2. SECTION 1: SPOTLIGHT SECTION (MATCHING GAMBAR 1 TONE)
-         ======================================================================== -->
-    <section class="aw-spotlight-section">
+    <!-- 2. SECTION 1: SPOTLIGHT SHOWCASE -->
+    <section class="aw-spotlight-section" aria-labelledby="aw-spotlight-title">
         <div class="aw-container">
 
             <div class="aw-spotlight-split">
-                <!-- Left Column -->
-                <div class="aw-spotlight-info">
-                    <span class="aw-section-tag">HONORS &amp; RECOGNITION</span>
-                    <h2 class="aw-spotlight-title">Prestasi &amp; Penghargaan Bergengsi</h2>
+                <div>
+                    <span class="aw-section-tag">Honors &amp; Recognition</span>
+                    <h2 id="aw-spotlight-title" class="aw-spotlight-title">Prestasi &amp; Penghargaan Bergengsi</h2>
                     <p class="aw-spotlight-desc">
                         Apresiasi ini menjadi bukti konsistensi kami dalam menghadirkan hunian berkualitas tinggi, keunggulan tata kelola korporat, inovasi transformasi digital, serta komitmen keberlanjutan bagi masyarakat Indonesia.
                     </p>
 
                     <div class="aw-spotlight-actions">
                         <a href="#awardsDirectory" class="aw-spotlight-cta">
-                            <span>Jelajahi Seluruh Arsip (<?php echo $total_awards_count; ?>)</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <span>Jelajahi Seluruh Arsip (<?php echo esc_html((string) $total_awards_count); ?>)</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <polyline points="19 12 12 19 5 12"></polyline>
                             </svg>
                         </a>
                     </div>
 
-                    <?php if (count($spotlight_awards) > 1): ?>
-                    <!-- Gallery Controls -->
+                    <?php if (count($spotlight_awards) > 1) : ?>
                     <div class="aw-accordion-nav">
                         <button type="button" class="aw-acc-nav-btn" id="awSpotPrev" aria-label="Penghargaan Sebelumnya">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         <button type="button" class="aw-acc-nav-btn" id="awSpotNext" aria-label="Penghargaan Berikutnya">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </button>
-                        <span class="aw-acc-nav-counter" id="awSpotCounter">1 / <?php echo count($spotlight_awards); ?></span>
+                        <span class="aw-acc-nav-counter" id="awSpotCounter" aria-live="polite">1 / <?php echo esc_html((string) count($spotlight_awards)); ?></span>
                     </div>
                     <?php endif; ?>
                 </div>
 
-                <!-- Right Column: Interactive Expanding Accordion Gallery (Gambar 1) -->
                 <div class="aw-spotlight-gallery">
                     <div class="aw-accordion-track" id="awAccordionTrack">
-                        <?php 
+                        <?php
                         $s_idx = 0;
-                        foreach ($spotlight_awards as $spot):
-                            $is_active = ($s_idx === 0) ? 'is-active' : '';
-                            $img_src = !empty($spot['img_local']) ? $theme_uri . '/' . $spot['img_local'] : $spot['img_remote'];
+                        foreach ($spotlight_awards as $spot) :
+                            $is_active = ($s_idx === 0) ? ' is-active' : '';
+                            $img_src = !empty($spot['img_local']) ? $theme_uri . '/' . $spot['img_local'] : $fallback_award_img;
                         ?>
-                        <div class="aw-acc-card <?php echo $is_active; ?>" data-index="<?php echo $s_idx; ?>" role="button" tabindex="0" aria-label="<?php echo esc_attr($spot['title']); ?>">
+                        <article class="aw-acc-card<?php echo $is_active; ?>" data-index="<?php echo esc_attr((string) $s_idx); ?>">
                             <div class="aw-acc-inner">
-                                <!-- Trophy Visual Container -->
                                 <div class="aw-acc-image-wrapper">
                                     <span class="aw-acc-badge-year"><?php echo esc_html($spot['year']); ?></span>
-                                    <img 
-                                        src="<?php echo esc_url($img_src); ?>" 
-                                        alt="<?php echo esc_attr($spot['title']); ?>" 
+                                    <img
+                                        src="<?php echo esc_url($img_src); ?>"
+                                        alt="<?php echo esc_attr($spot['title']); ?>"
                                         class="aw-acc-img"
                                         loading="lazy"
+                                        decoding="async"
                                     />
-                                    <div class="aw-acc-collapsed-hint">
-                                        <span class="aw-acc-hint-text"><?php echo esc_html($spot['year']); ?> &#8226; <?php echo esc_html(mb_strimwidth($spot['title'], 0, 24, '...')); ?></span>
+                                    <div class="aw-acc-collapsed-hint" aria-hidden="true">
+                                        <span class="aw-acc-hint-text"><?php echo esc_html($spot['year']); ?> &middot; <?php echo esc_html(mb_strimwidth($spot['title'], 0, 24, '...')); ?></span>
                                     </div>
                                 </div>
 
-                                <!-- Expanded Info Bottom Panel (Gambar 1 Mint Container) -->
                                 <div class="aw-acc-card-info">
-                                    <div class="aw-acc-info-header">
-                                        <h3 class="aw-acc-award-name"><?php echo esc_html($spot['title']); ?></h3>
+                                    <div>
+                                        <h3 class="aw-acc-award-name">
+                                            <button
+                                                type="button"
+                                                class="aw-acc-trigger"
+                                                aria-expanded="<?php echo $s_idx === 0 ? 'true' : 'false'; ?>"
+                                            >
+                                                <?php echo esc_html($spot['title']); ?>
+                                            </button>
+                                        </h3>
                                         <p class="aw-acc-award-desc"><?php echo esc_html($spot['desc']); ?></p>
                                     </div>
                                     <div class="aw-acc-quote">
-                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                         </svg>
                                         <span>Prestasi Utama <?php echo esc_html($spot['year']); ?></span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php 
+                        </article>
+                        <?php
                             $s_idx++;
-                        endforeach; 
+                        endforeach;
                         ?>
                     </div>
                 </div>
             </div>
 
             <!-- Corporate Metrics Strip -->
-            <div class="aw-metrics-strip">
+            <div class="aw-metrics-strip" aria-label="Ringkasan Prestasi">
                 <div class="aw-metric-box">
                     <div class="aw-metric-number">79+</div>
                     <div class="aw-metric-label">Penghargaan Nasional</div>
                     <div class="aw-metric-desc">Pengakuan resmi dari kementerian, BUMN &amp; lembaga independen</div>
                 </div>
                 <div class="aw-metric-box">
-                    <div class="aw-metric-number">9 Tahun</div>
-                    <div class="aw-metric-label">Rekam Jejak Prestasi</div>
-                    <div class="aw-metric-desc">Konsistensi pencapaian tanpa henti sejak 2017 hingga 2025</div>
+                    <div class="aw-metric-number">IDP000069171</div>
+                    <div class="aw-metric-label">Sertifikat Paten Resmi</div>
+                    <div class="aw-metric-desc">Diterbitkan 17 Juni 2020 untuk sistem blok pracetak IG SCB</div>
                 </div>
                 <div class="aw-metric-box">
-                    <div class="aw-metric-number">Gold &amp; Top 1</div>
-                    <div class="aw-metric-label">Kategori Unggulan</div>
-                    <div class="aw-metric-desc">Tata kelola, ESG lingkungan, human capital &amp; inovasi digital</div>
+                    <div class="aw-metric-number">SNI &amp; HPIS</div>
+                    <div class="aw-metric-label">Standar Mutu &amp; Seismik</div>
+                    <div class="aw-metric-desc">Tersertifikasi SNI, uji gempa Magnitudo &gt; 8,0 &amp; standar Highest Grade</div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- ========================================================================
-         3. SECTION 2: AWARDS ARCHIVE & DIRECTORY
-         ======================================================================== -->
-    <section class="aw-directory-section" id="awardsDirectory">
+    <!-- 3. SECTION 2: OFFICIAL PATENT & SNI CERTIFICATION (PDF Hal. 10-12) -->
+    <section class="aw-patent-section" aria-labelledby="aw-patent-title">
+        <div class="aw-container">
+            <div class="aw-patent-grid">
+                <div>
+                    <span class="aw-patent-kicker">Hak Kekayaan Intelektual &amp; Uji Mutu Resmi (PDF Hal. 10-12)</span>
+                    <h2 id="aw-patent-title" class="aw-patent-title">Paten Indonesia IDP000069171 &amp; Sertifikasi SNI IG SCB</h2>
+                    <p class="aw-patent-desc">
+                        Teknologi struktur dinding beton bertautan <strong>IG Strong Concrete Block (IG SCB)</strong> yang diproduksi oleh PT. Perumnas Iida Group telah memperoleh pengakuan hukum resmi di Indonesia serta lolos pengujian standar nasional dan ketahanan gempa ekstrem.
+                    </p>
+
+                    <ul class="aw-patent-list">
+                        <li class="aw-patent-item">
+                            <span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>
+                            <span><strong>Nomor Paten Resmi:</strong> IDP000069171, ditetapkan pada tanggal <strong>17 Juni 2020</strong> di Indonesia.</span>
+                        </li>
+                        <li class="aw-patent-item">
+                            <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                            <span><strong>Sertifikasi SNI:</strong> Blok beton IG SCB diproduksi secara presisi di fasilitas pabrik sesuai Standar Nasional Indonesia.</span>
+                        </li>
+                        <li class="aw-patent-item">
+                            <span class="material-symbols-outlined" aria-hidden="true">shield</span>
+                            <span><strong>Pengujian Seismik &amp; HPIS:</strong> Teruji ketahanan terhadap gempa hingga <strong>Magnitudo &gt; 8,0</strong> serta mengikuti prinsip kualitas Jepang <strong>HPIS Highest Grade</strong>.</span>
+                        </li>
+                    </ul>
+
+                    <div class="aw-patent-actions">
+                        <a href="<?php echo esc_url(home_url('/product-osaka-strong-cb/')); ?>" class="aw-btn-light">
+                            Pelajari Spesifikasi IG SCB
+                        </a>
+                        <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener noreferrer" class="aw-btn-outline-light">
+                            Unduh Company Profile (PDF Nov 2023)
+                        </a>
+                    </div>
+                </div>
+
+                <div class="aw-patent-frame">
+                    <img
+                        src="<?php echo esc_url($theme_uri . '/images/pdf/ig-scb-patent-idp000069171.webp'); ?>"
+                        alt="Sertifikat Paten Indonesia Nomor IDP000069171 tertanggal 17 Juni 2020 untuk IG Strong Concrete Block"
+                        width="934"
+                        height="645"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SECTION 3: AWARDS ARCHIVE & DIRECTORY -->
+    <section class="aw-directory-section" id="awardsDirectory" aria-labelledby="aw-dir-title">
         <div class="aw-container">
 
             <div class="aw-dir-header">
-                <span class="aw-section-tag">AWARDS DIRECTORY</span>
-                <h2 class="aw-dir-title">Arsip Lengkap Penghargaan</h2>
+                <span class="aw-section-tag">Awards Directory</span>
+                <h2 id="aw-dir-title" class="aw-dir-title">Arsip Lengkap Penghargaan</h2>
                 <p class="aw-dir-subtitle">
-                    Koleksi lengkap 79 penghargaan resmi yang diterima sejak tahun 2017 hingga 2025. Gunakan filter tahun atau kolom pencarian untuk menemukan penghargaan spesifik.
+                    Koleksi lengkap <?php echo esc_html((string) $total_awards_count); ?> penghargaan resmi yang diterima sejak tahun 2017 hingga 2025. Gunakan filter tahun atau kolom pencarian untuk menemukan penghargaan spesifik.
                 </p>
             </div>
 
-            <!-- Filter Toolbar -->
             <div class="aw-toolbar">
-                <!-- Year Tabs -->
-                <div class="aw-tabs-wrap" id="awYearTabs">
-                    <button type="button" class="aw-tab-btn is-active" data-year="all">
+                <div class="aw-tabs-wrap" id="awYearTabs" role="group" aria-label="Filter penghargaan berdasarkan tahun">
+                    <button type="button" class="aw-tab-btn is-active" data-year="all" aria-pressed="true">
                         <span>Semua</span>
-                        <span class="aw-tab-count"><?php echo $total_awards_count; ?></span>
+                        <span class="aw-tab-count"><?php echo esc_html((string) $total_awards_count); ?></span>
                     </button>
-                    <?php foreach ($years_desc as $yr): ?>
-                    <button type="button" class="aw-tab-btn" data-year="<?php echo esc_attr($yr); ?>">
+                    <?php foreach ($years_desc as $yr) : ?>
+                    <button type="button" class="aw-tab-btn" data-year="<?php echo esc_attr($yr); ?>" aria-pressed="false">
                         <span><?php echo esc_html($yr); ?></span>
-                        <span class="aw-tab-count"><?php echo $year_counts[$yr]; ?></span>
+                        <span class="aw-tab-count"><?php echo esc_html((string) $year_counts[$yr]); ?></span>
                     </button>
                     <?php endforeach; ?>
                 </div>
 
-                <!-- Search Input -->
                 <div class="aw-search-box">
-                    <svg class="aw-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <label for="awSearchInput" class="aw-visually-hidden">Cari nama penghargaan, kategori, atau penyelenggara</label>
+                    <svg class="aw-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input 
-                        type="text" 
-                        id="awSearchInput" 
-                        class="aw-search-input" 
-                        placeholder="Cari nama penghargaan, kategori, atau penyelenggara..." 
-                        aria-label="Cari Penghargaan"
+                    <input
+                        type="search"
+                        id="awSearchInput"
+                        class="aw-search-input"
+                        placeholder="Cari nama penghargaan, kategori, atau penyelenggara..."
                     />
                 </div>
             </div>
 
-            <!-- Cards Grid -->
             <div class="aw-cards-grid" id="awCardsGrid">
-                <?php 
-                foreach ($all_awards as $award):
-                    $card_img = !empty($award['img_local']) ? $theme_uri . '/' . $award['img_local'] : $award['img_remote'];
-                    $full_img = !empty($award['img_remote']) ? $award['img_remote'] : $card_img;
+                <?php
+                foreach ($all_awards as $award) :
+                    $card_img = !empty($award['img_local']) ? $theme_uri . '/' . $award['img_local'] : $fallback_award_img;
                     $search_text = strtolower($award['title'] . ' ' . $award['desc'] . ' ' . $award['year']);
                 ?>
-                <div 
-                    class="aw-card" 
-                    data-year="<?php echo esc_attr($award['year']); ?>" 
+                <article
+                    class="aw-card"
+                    data-year="<?php echo esc_attr($award['year']); ?>"
                     data-search="<?php echo esc_attr($search_text); ?>"
-                    data-img="<?php echo esc_url($card_img); ?>"
-                    data-title="<?php echo esc_attr($award['title']); ?>"
-                    data-desc="<?php echo esc_attr($award['desc']); ?>"
-                    role="button"
-                    tabindex="0"
                 >
                     <div class="aw-card-media">
                         <span class="aw-card-badge"><?php echo esc_html($award['year']); ?></span>
-                        <img 
-                            src="<?php echo esc_url($card_img); ?>" 
-                            alt="<?php echo esc_attr($award['title']); ?>" 
-                            class="aw-card-img" 
-                            loading="lazy" 
+                        <img
+                            src="<?php echo esc_url($card_img); ?>"
+                            alt="<?php echo esc_attr($award['title']); ?>"
+                            class="aw-card-img"
+                            loading="lazy"
                             decoding="async"
                         />
-                        <div class="aw-card-zoom-hint" title="Lihat Detail">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                <line x1="11" y1="8" x2="11" y2="14"></line>
-                                <line x1="8" y1="11" x2="14" y2="11"></line>
-                            </svg>
-                        </div>
                     </div>
 
                     <div class="aw-card-body">
                         <div>
-                            <h3 class="aw-card-title"><?php echo esc_html($award['title']); ?></h3>
-                            <?php if (!empty($award['desc'])): ?>
+                            <h3 class="aw-card-title">
+                                <button
+                                    type="button"
+                                    class="aw-card-trigger"
+                                    data-img="<?php echo esc_url($card_img); ?>"
+                                    data-year="<?php echo esc_attr($award['year']); ?>"
+                                    data-title="<?php echo esc_attr($award['title']); ?>"
+                                    data-desc="<?php echo esc_attr($award['desc']); ?>"
+                                >
+                                    <?php echo esc_html($award['title']); ?>
+                                </button>
+                            </h3>
+                            <?php if (!empty($award['desc'])) : ?>
                             <p class="aw-card-desc"><?php echo esc_html($award['desc']); ?></p>
                             <?php endif; ?>
                         </div>
                     </div>
-                </div>
+                </article>
                 <?php endforeach; ?>
 
-                <!-- Empty State -->
-                <div class="aw-empty-state" id="awEmptyState">
-                    <svg class="aw-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <div class="aw-empty-state" id="awEmptyState" role="status" aria-live="polite">
+                    <svg class="aw-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="8" x2="12" y2="12"></line>
                         <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -1147,33 +1288,31 @@ $theme_uri = get_template_directory_uri();
 
 </main>
 
-<!-- Lightbox Modal -->
-<div class="aw-modal-backdrop" id="awModalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="aw-modal-content">
-        <button type="button" class="aw-modal-close" id="awModalClose" aria-label="Tutup Detail">&#x2715;</button>
-        <div class="aw-modal-image-box">
-            <img id="awModalImg" src="" alt="Award Trophy" />
-        </div>
-        <div class="aw-modal-body">
-            <span class="aw-modal-year" id="awModalYear">2025</span>
-            <h3 class="aw-modal-title" id="awModalTitle">Award Title</h3>
-            <p class="aw-modal-desc" id="awModalDesc">Organizer / Category</p>
-        </div>
+<!-- Native Accessible Lightbox Dialog -->
+<dialog class="aw-dialog" id="awModal" closedby="any" aria-labelledby="awModalTitle">
+    <button type="button" class="aw-modal-close" id="awModalClose" aria-label="Tutup Detail">&#x2715;</button>
+    <div class="aw-modal-image-box">
+        <img id="awModalImg" src="<?php echo esc_url($fallback_award_img); ?>" alt="Visual Penghargaan" />
     </div>
-</div>
+    <div class="aw-modal-body">
+        <span class="aw-modal-year" id="awModalYear">2025</span>
+        <h2 class="aw-modal-title" id="awModalTitle">Detail Penghargaan</h2>
+        <p class="aw-modal-desc" id="awModalDesc">Penyelenggara / Kategori</p>
+    </div>
+</dialog>
 
-<!-- Vanilla JS Lightweight Controller -->
-<script type="text/javascript" nonce="<?php echo bricklet_get_nonce(); ?>">
-document.addEventListener('DOMContentLoaded', function() {
-    // ----------------------------------------------------
-    // 1. Expanding Spotlight Cards Gallery (Gambar 1 Style)
-    // ----------------------------------------------------
-    const spotCards = document.querySelectorAll('.aw-acc-card');
-    const spotPrevBtn = document.getElementById('awSpotPrev');
-    const spotNextBtn = document.getElementById('awSpotNext');
-    const spotCounter = document.getElementById('awSpotCounter');
-    const totalSpot = spotCards.length;
-    let activeSpotIndex = 0;
+<script nonce="<?php echo bricklet_get_nonce(); ?>">
+document.addEventListener('DOMContentLoaded', function () {
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Expanding Spotlight Cards Gallery
+    var spotCards = document.querySelectorAll('.aw-acc-card');
+    var spotTriggers = document.querySelectorAll('.aw-acc-trigger');
+    var spotPrevBtn = document.getElementById('awSpotPrev');
+    var spotNextBtn = document.getElementById('awSpotNext');
+    var spotCounter = document.getElementById('awSpotCounter');
+    var totalSpot = spotCards.length;
+    var activeSpotIndex = 0;
 
     function activateSpot(index) {
         if (totalSpot === 0) return;
@@ -1185,14 +1324,19 @@ document.addEventListener('DOMContentLoaded', function() {
             activeSpotIndex = index;
         }
 
-        spotCards.forEach((card, i) => {
-            if (i === activeSpotIndex) {
-                card.classList.add('is-active');
-                if (window.innerWidth < 768) {
-                    card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                }
-            } else {
-                card.classList.remove('is-active');
+        spotCards.forEach(function (card, i) {
+            var active = (i === activeSpotIndex);
+            card.classList.toggle('is-active', active);
+            var trigger = card.querySelector('.aw-acc-trigger');
+            if (trigger) {
+                trigger.setAttribute('aria-expanded', active ? 'true' : 'false');
+            }
+            if (active && window.innerWidth < 768) {
+                card.scrollIntoView({
+                    behavior: prefersReduced ? 'auto' : 'smooth',
+                    inline: 'center',
+                    block: 'nearest'
+                });
             }
         });
 
@@ -1201,51 +1345,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    spotCards.forEach((card, idx) => {
-        card.addEventListener('mouseenter', function() {
+    spotCards.forEach(function (card, idx) {
+        card.addEventListener('mouseenter', function () {
             activateSpot(idx);
         });
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             activateSpot(idx);
         });
-        card.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                activateSpot(idx);
-            }
+    });
+
+    spotTriggers.forEach(function (btn, idx) {
+        btn.addEventListener('focus', function () {
+            activateSpot(idx);
         });
     });
 
     if (spotPrevBtn) {
-        spotPrevBtn.addEventListener('click', function() {
+        spotPrevBtn.addEventListener('click', function () {
             activateSpot(activeSpotIndex - 1);
         });
     }
 
     if (spotNextBtn) {
-        spotNextBtn.addEventListener('click', function() {
+        spotNextBtn.addEventListener('click', function () {
             activateSpot(activeSpotIndex + 1);
         });
     }
 
-    // ----------------------------------------------------
     // 2. Archive Filtering & Realtime Search
-    // ----------------------------------------------------
-    const tabBtns = document.querySelectorAll('.aw-tab-btn');
-    const searchInput = document.getElementById('awSearchInput');
-    const awardCards = document.querySelectorAll('.aw-card');
-    const emptyState = document.getElementById('awEmptyState');
-    let currentYear = 'all';
-    let searchQuery = '';
+    var tabBtns = document.querySelectorAll('.aw-tab-btn');
+    var searchInput = document.getElementById('awSearchInput');
+    var awardCards = document.querySelectorAll('.aw-card');
+    var emptyState = document.getElementById('awEmptyState');
+    var currentYear = 'all';
+    var searchQuery = '';
 
     function filterCards() {
-        let visibleCount = 0;
-        awardCards.forEach(card => {
-            const cardYear = card.getAttribute('data-year');
-            const searchData = card.getAttribute('data-search') || '';
-
-            const matchesYear = (currentYear === 'all' || cardYear === currentYear);
-            const matchesSearch = (!searchQuery || searchData.includes(searchQuery));
+        var visibleCount = 0;
+        awardCards.forEach(function (card) {
+            var cardYear = card.getAttribute('data-year');
+            var searchData = card.getAttribute('data-search') || '';
+            var matchesYear = (currentYear === 'all' || cardYear === currentYear);
+            var matchesSearch = (!searchQuery || searchData.indexOf(searchQuery) !== -1);
 
             if (matchesYear && matchesSearch) {
                 card.style.display = '';
@@ -1256,102 +1397,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         if (emptyState) {
-            if (visibleCount === 0) {
-                emptyState.classList.add('is-visible');
-            } else {
-                emptyState.classList.remove('is-visible');
-            }
+            emptyState.classList.toggle('is-visible', visibleCount === 0);
         }
     }
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            tabBtns.forEach(b => b.classList.remove('is-active'));
-            this.classList.add('is-active');
-            currentYear = this.getAttribute('data-year');
+    tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabBtns.forEach(function (other) {
+                var active = other === btn;
+                other.classList.toggle('is-active', active);
+                other.setAttribute('aria-pressed', active ? 'true' : 'false');
+            });
+            currentYear = btn.getAttribute('data-year');
             filterCards();
         });
     });
 
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            searchQuery = this.value.trim().toLowerCase();
+        searchInput.addEventListener('input', function () {
+            searchQuery = searchInput.value.trim().toLowerCase();
             filterCards();
         });
     }
 
-    // ----------------------------------------------------
-    // 3. Lightbox Modal Controller
-    // ----------------------------------------------------
-    const modalBackdrop = document.getElementById('awModalBackdrop');
-    const modalClose = document.getElementById('awModalClose');
-    const modalImg = document.getElementById('awModalImg');
-    const modalYear = document.getElementById('awModalYear');
-    const modalTitle = document.getElementById('awModalTitle');
-    const modalDesc = document.getElementById('awModalDesc');
+    // 3. Native <dialog> Lightbox Controller
+    var modal = document.getElementById('awModal');
+    var modalClose = document.getElementById('awModalClose');
+    var modalImg = document.getElementById('awModalImg');
+    var modalYear = document.getElementById('awModalYear');
+    var modalTitle = document.getElementById('awModalTitle');
+    var modalDesc = document.getElementById('awModalDesc');
+    var cardTriggers = document.querySelectorAll('.aw-card-trigger');
 
-    function openModal(data) {
-        if (!modalBackdrop) return;
-        modalImg.src = data.img;
-        modalImg.alt = data.title;
-        modalYear.textContent = data.year;
-        modalTitle.textContent = data.title;
-        modalDesc.textContent = data.desc;
-
-        modalBackdrop.classList.add('is-open');
-        modalBackdrop.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+    function openModal(btn) {
+        if (!modal || typeof modal.showModal !== 'function') return;
+        modalImg.src = btn.getAttribute('data-img') || '';
+        modalImg.alt = btn.getAttribute('data-title') || 'Visual Penghargaan';
+        modalYear.textContent = btn.getAttribute('data-year') || '';
+        modalTitle.textContent = btn.getAttribute('data-title') || '';
+        modalDesc.textContent = btn.getAttribute('data-desc') || '';
+        modal.showModal();
     }
 
-    function closeModal() {
-        if (!modalBackdrop) return;
-        modalBackdrop.classList.remove('is-open');
-        modalBackdrop.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    }
-
-    awardCards.forEach(card => {
-        card.addEventListener('click', function() {
-            openModal({
-                img: this.getAttribute('data-img'),
-                year: this.getAttribute('data-year'),
-                title: this.getAttribute('data-title'),
-                desc: this.getAttribute('data-desc')
-            });
-        });
-
-        card.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openModal({
-                    img: this.getAttribute('data-img'),
-                    year: this.getAttribute('data-year'),
-                    title: this.getAttribute('data-title'),
-                    desc: this.getAttribute('data-desc')
-                });
-            }
+    cardTriggers.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            openModal(btn);
         });
     });
 
-    if (modalClose) {
-        modalClose.addEventListener('click', closeModal);
-    }
-
-    if (modalBackdrop) {
-        modalBackdrop.addEventListener('click', function(e) {
-            if (e.target === modalBackdrop) {
-                closeModal();
-            }
+    if (modalClose && modal) {
+        modalClose.addEventListener('click', function () {
+            modal.close();
         });
     }
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
+    // Light-dismiss fallback when closedby="any" is unsupported
+    if (modal && !('closedBy' in HTMLDialogElement.prototype)) {
+        var isOutside = function (e) {
+            var r = modal.getBoundingClientRect();
+            return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        };
+        var pressedOutside = false;
+        modal.addEventListener('pointerdown', function (e) {
+            pressedOutside = isOutside(e);
+        });
+        modal.addEventListener('pointerup', function (e) {
+            if (pressedOutside && isOutside(e)) {
+                modal.close();
+            }
+            pressedOutside = false;
+        });
+    }
 });
 </script>
 
 <?php
 get_footer();
+?>

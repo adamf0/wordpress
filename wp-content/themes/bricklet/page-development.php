@@ -1,477 +1,1668 @@
 <?php
 /**
  * Template Name: Development
+ *
+ * Portofolio Proyek Perumahan Indonesia, Kondominium Jepang, dan 6 Brand Rumah Grup.
+ * Seluruh data dan citra bersumber dari Company Profile resmi (Nov 2023).
  */
 get_header();
+
+$pdf_img = get_template_directory_uri() . '/images/pdf/';
+
+$projects = array(
+    array(
+        'id'            => 'botania-2',
+        'category'      => 'indonesia-existing',
+        'categoryLabel' => 'Indonesia Eksisting',
+        'statusLabel'   => 'Eksisting',
+        'title'         => 'Botania 2 Residence',
+        'location'      => 'Indonesia',
+        'developer'     => 'PT. Perumnas Iida Group / Iida Group',
+        'summary'       => 'Proyek perumahan eksisting di Indonesia dengan pekerjaan desain fasad luar oleh tim arsitektur Jepang.',
+        'highlights'    => array(
+            'Pekerjaan desain fasad luar (External Facade Design Work)',
+            'Sentuhan estetika hunian modern Jepang untuk iklim tropis Indonesia',
+        ),
+        'specs'         => array(
+            array( 'Kategori', 'Proyek Perumahan Eksisting (Indonesia)' ),
+            array( 'Cakupan Pekerjaan', 'Desain Fasad Luar (External Facade)' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 9' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => '',
+        'externalLabel' => '',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'botania-2-residence.webp',
+                'alt'   => 'Fasad luar proyek perumahan Botania 2 Residence di Indonesia',
+                'label' => 'Fasad Proyek',
+                'w'     => 1218,
+                'h'     => 994,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'depok',
+        'category'      => 'indonesia-existing',
+        'categoryLabel' => 'Indonesia Eksisting',
+        'statusLabel'   => 'Eksisting',
+        'title'         => 'Heartful-Town Depok',
+        'location'      => 'Depok, Jawa Barat',
+        'developer'     => 'PT. Perumnas Iida Group / Iida Group',
+        'summary'       => 'Kawasan perumahan eksisting dengan cakupan pekerjaan desain fasad luar dan desain interior hunian lengkap.',
+        'highlights'    => array(
+            'Pekerjaan desain fasad luar kawasan residensial',
+            'Pekerjaan desain interior terintegrasi (Interior Design Work)',
+        ),
+        'specs'         => array(
+            array( 'Kategori', 'Proyek Perumahan Eksisting (Indonesia)' ),
+            array( 'Lokasi', 'Depok, Jawa Barat' ),
+            array( 'Cakupan Pekerjaan', 'Desain Fasad Luar & Desain Interior' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 9' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => '',
+        'externalLabel' => '',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'heartful-town-depok-aerial.webp',
+                'alt'   => 'Tampak udara kawasan perumahan Heartful-Town Depok',
+                'label' => 'Kawasan Depok',
+                'w'     => 1073,
+                'h'     => 605,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'bekasi',
+        'category'      => 'indonesia-upcoming',
+        'categoryLabel' => 'Indonesia Akan Datang',
+        'statusLabel'   => '29 Unit · Proses Berjalan',
+        'title'         => 'Heartful-Town Bekasi',
+        'location'      => 'Bekasi, Jawa Barat',
+        'developer'     => 'PT. Perumnas Iida Group',
+        'summary'       => 'Pengembangan perumahan 1 Lantai & 2 Lantai berjumlah 29 Unit dengan pengerjaan desain fasad dan interior yang sedang berlangsung.',
+        'highlights'    => array(
+            'Total 29 Unit dengan pilihan rumah 1 Lantai dan 2 Lantai',
+            'Pengerjaan Fasad (On Progress) dan Desain Interior (On Progress)',
+        ),
+        'specs'         => array(
+            array( 'Kategori', 'Proyek Akan Datang (Indonesia)' ),
+            array( 'Lokasi', 'Bekasi, Jawa Barat' ),
+            array( 'Pilihan Rumah', '1 Lantai & 2 Lantai' ),
+            array( 'Total Unit', '29 Unit' ),
+            array( 'Status Pengerjaan', 'Desain Fasad & Interior On Progress' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 26' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => '',
+        'externalLabel' => '',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'heartful-town-bekasi-facade.webp',
+                'alt'   => 'Ilustrasi fasad unit rumah Heartful-Town Bekasi 29 unit',
+                'label' => 'Fasad Proyek',
+                'w'     => 1188,
+                'h'     => 794,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'heartful-tower-bekasi',
+        'category'      => 'indonesia-upcoming',
+        'categoryLabel' => 'Indonesia Akan Datang',
+        'statusLabel'   => 'Greenery Area 30%',
+        'title'         => 'Heartful Tower Bekasi',
+        'location'      => 'Bekasi, Jawa Barat',
+        'developer'     => 'Iida Group Holdings / PT. Perumnas Iida Group',
+        'summary'       => '"Apartemen dengan Harga Terbaik oleh Developer Jepang" dengan Greenery Area 30%, 3 pilihan tipe unit, serta 6 fasilitas pendukung penghuni.',
+        'highlights'    => array(
+            'Konsep utama: Apartemen dengan Harga Terbaik oleh Developer Jepang',
+            'Rasio ruang hijau kawasan: Greenery Area 30%',
+            'Pilihan 3 tipe unit: UNIT STUDIO, UNIT 1 BR, dan UNIT 2 BR',
+            '6 Fasilitas: Zen Garden, Ruang Serbaguna, Kindergarden, Gym, Kolam Renang, Minimarket',
+        ),
+        'specs'         => array(
+            array( 'Kategori', 'Proyek Apartemen Akan Datang (Indonesia)' ),
+            array( 'Lokasi', 'Bekasi, Jawa Barat' ),
+            array( 'Tagline Resmi', 'Apartemen dengan Harga Terbaik oleh Developer Jepang' ),
+            array( 'Area Hijau', 'Greenery Area 30%' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 27' ),
+        ),
+        'unitTypes'     => array(
+            array( 'type' => 'UNIT STUDIO', 'nett' => '21,50 m²', 'semigross' => '25,03 m²' ),
+            array( 'type' => 'UNIT 1 BR',   'nett' => '28,67 m²', 'semigross' => '33,38 m²' ),
+            array( 'type' => 'UNIT 2 BR',   'nett' => '37,89 m²', 'semigross' => '44,11 m²' ),
+        ),
+        'facilities'    => array(
+            'Zen Garden',
+            'Ruang Serbaguna',
+            'Kindergarden',
+            'Gym',
+            'Kolam Renang',
+            'Minimarket',
+        ),
+        'externalUrl'   => '',
+        'externalLabel' => '',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'heartful-tower-bekasi-exterior.webp',
+                'alt'   => 'Eksterior menara apartemen Heartful Tower Bekasi',
+                'label' => 'Eksterior Tower',
+                'w'     => 870,
+                'h'     => 1145,
+            ),
+            array(
+                'url'   => $pdf_img . 'heartful-tower-bekasi-overview.webp',
+                'alt'   => 'Overview unit Studio, 1 BR, 2 BR serta fasilitas Heartful Tower Bekasi',
+                'label' => 'Overview Unit & Fasilitas',
+                'w'     => 1378,
+                'h'     => 1153,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'presis-kumagaya',
+        'category'      => 'japan-condo',
+        'categoryLabel' => 'Kondominium Jepang',
+        'statusLabel'   => 'Ongoing · >5 Type',
+        'title'         => 'PRESIS KUMAGAYA GINZA',
+        'location'      => 'Kumagaya, Saitama, Jepang',
+        'developer'     => 'Hajime Construction Co., Ltd.',
+        'summary'       => 'Proyek kondominium di Central Zone & Residential Zone dengan >5 tipe unit, termasuk tipe 3LDK+S+FIC+WIC seluas 71,37 m².',
+        'highlights'    => array(
+            'Lokasi strategis di Central Zone dan Residential Zone',
+            'Menawarkan lebih dari 5 tipe unit (>5 Type)',
+            'Contoh tipe unggulan: 3LDK+S+FIC+WIC (71,37 m²)',
+        ),
+        'specs'         => array(
+            array( 'Pengembang Grup', 'Hajime Construction Co., Ltd.' ),
+            array( 'Zona Lokasi', 'Central Zone & Residential Zone' ),
+            array( 'Variasi Unit', '>5 Type (termasuk 3LDK+S+FIC+WIC 71,37 m²)' ),
+            array( 'Skala Grup Jepang', '±1.700 Unit Kondominium / Tahun' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 19' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => 'https://www.presis.com/saitama/kumagayaginza_555057/',
+        'externalLabel' => 'Kunjungi Situs Proyek (presis.com)',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'condo-presis-kumagaya.webp',
+                'alt'   => 'Kondominium PRESIS KUMAGAYA GINZA oleh Hajime Construction',
+                'label' => 'Tampak Bangunan',
+                'w'     => 1073,
+                'h'     => 905,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'century-tobu',
+        'category'      => 'japan-condo',
+        'categoryLabel' => 'Kondominium Jepang',
+        'statusLabel'   => 'Ongoing · >5 Type',
+        'title'         => 'Century Tobudobutsukoen "BLUE SKY RESIDENCE"',
+        'location'      => 'Saitama, Jepang',
+        'developer'     => 'Iida Sangyo Co., Ltd.',
+        'summary'       => 'Kondominium oleh Iida Sangyo yang menghadap ke arah selatan dengan pemandangan Gunung Fuji dan lebih dari 5 tipe unit.',
+        'highlights'    => array(
+            'Orientasi unit menghadap ke selatan untuk pencahayaan optimal',
+            'Panorama langsung menuju Gunung Fuji',
+            'Menawarkan >5 pilihan tipe tata ruang unit',
+        ),
+        'specs'         => array(
+            array( 'Pengembang Grup', 'Iida Sangyo Co., Ltd.' ),
+            array( 'Orientasi & Panorama', 'Menghadap Selatan & Pemandangan Gunung Fuji' ),
+            array( 'Variasi Unit', '>5 Type' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 20' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => 'https://www.c-tobudobutsukoen.com/',
+        'externalLabel' => 'Kunjungi Situs Proyek (c-tobudobutsukoen.com)',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'condo-century-tobu.webp',
+                'alt'   => 'Kondominium Century Tobudobutsukoen BLUE SKY RESIDENCE',
+                'label' => 'Tampak Bangunan',
+                'w'     => 980,
+                'h'     => 979,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'suncradle-nippori',
+        'category'      => 'japan-condo',
+        'categoryLabel' => 'Kondominium Jepang',
+        'statusLabel'   => 'Ongoing · Studio & 2LDK',
+        'title'         => 'SUNCRADLE NISHI NIPPORI II · III',
+        'location'      => 'Nishi Nippori, Tokyo, Jepang',
+        'developer'     => 'Arnest One Co., Ltd.',
+        'summary'       => 'Kondominium urban dekat dengan 3 rute kereta di sekitarnya, menyediakan pilihan unit tipe Studio dan 2LDK.',
+        'highlights'    => array(
+            'Akses mobilitas tinggi dekat 3 rute kereta di sekitarnya',
+            'Pilihan tipe unit praktis: Studio dan 2LDK',
+        ),
+        'specs'         => array(
+            array( 'Pengembang Grup', 'Arnest One Co., Ltd.' ),
+            array( 'Aksesibilitas', 'Dekat 3 Rute Kereta Sekitarnya' ),
+            array( 'Tipe Unit', 'Studio & 2LDK' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 21' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => 'https://sc-nishinippori2-3.jp/',
+        'externalLabel' => 'Kunjungi Situs Proyek (sc-nishinippori2-3.jp)',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'condo-suncradle-nippori.webp',
+                'alt'   => 'Kondominium SUNCRADLE NISHI NIPPORI II dan III oleh Arnest One',
+                'label' => 'Tampak Bangunan',
+                'w'     => 960,
+                'h'     => 1080,
+            ),
+        ),
+    ),
+    array(
+        'id'            => 'asaka-pieces',
+        'category'      => 'japan-condo',
+        'categoryLabel' => 'Kondominium Jepang',
+        'statusLabel'   => 'Ongoing · >28 Type',
+        'title'         => 'ASAKA PIECES PROJECT',
+        'location'      => 'Asaka, Saitama, Jepang',
+        'developer'     => 'Iida Sangyo Co., Ltd.',
+        'summary'       => 'Proyek kondominium dengan konsep "4 Musim di kawasan ASAKA" yang menyediakan lebih dari 28 variasi tipe hunian.',
+        'highlights'    => array(
+            'Konsep rancangan "4 Musim di kawasan ASAKA"',
+            'Ragam pilihan lebih dari 28 tipe unit (>28 Type)',
+        ),
+        'specs'         => array(
+            array( 'Pengembang Grup', 'Iida Sangyo Co., Ltd.' ),
+            array( 'Konsep Kawasan', '4 Musim di kawasan ASAKA' ),
+            array( 'Variasi Unit', '>28 Type' ),
+            array( 'Referensi Profil', 'Company Profile Nov 2023, hal. 22' ),
+        ),
+        'unitTypes'     => array(),
+        'facilities'    => array(),
+        'externalUrl'   => 'https://www.c-asaka.com/design/',
+        'externalLabel' => 'Kunjungi Situs Proyek (c-asaka.com)',
+        'images'        => array(
+            array(
+                'url'   => $pdf_img . 'condo-asaka-pieces.webp',
+                'alt'   => 'Kondominium ASAKA PIECES PROJECT oleh Iida Sangyo',
+                'label' => 'Tampak Bangunan',
+                'w'     => 1247,
+                'h'     => 1267,
+            ),
+        ),
+    ),
+);
+
+$brands = array(
+    array(
+        'id'        => 'brand-livele-garden',
+        'name'      => 'Livele Garden',
+        'company'   => 'Hajime Construction Co., Ltd.',
+        'image'     => $pdf_img . 'brand-livele-garden.webp',
+        'w'         => 745,
+        'h'         => 487,
+        'note'      => 'Brand perumahan tapak utama dari Hajime Construction di bawah konsolidasi Iida Group Holdings.',
+    ),
+    array(
+        'id'        => 'brand-heartful-town',
+        'name'      => 'Heartful-Town',
+        'company'   => 'Iida Sangyo Co., Ltd.',
+        'image'     => $pdf_img . 'brand-heartful-town.webp',
+        'w'         => 748,
+        'h'         => 489,
+        'note'      => 'Brand hunian terkemuka Iida Sangyo yang turut dihadirkan di Indonesia bersama Perumnas.',
+    ),
+    array(
+        'id'        => 'brand-blooming-garden',
+        'name'      => 'Blooming Garden',
+        'company'   => 'Touei Housing Corporation',
+        'image'     => $pdf_img . 'brand-blooming-garden.webp',
+        'w'         => 763,
+        'h'         => 473,
+        'note'      => 'Koleksi perumahan keluarga oleh Touei Housing Corporation dengan tata lingkungan rapi.',
+    ),
+    array(
+        'id'        => 'brand-grafare',
+        'name'      => 'GRAFARE',
+        'company'   => 'Tact Home Co., Ltd.',
+        'image'     => $pdf_img . 'brand-grafare.webp',
+        'w'         => 764,
+        'h'         => 468,
+        'note'      => 'Seri perumahan tapak modern produksi Tact Home Co., Ltd. untuk kebutuhan urban Jepang.',
+    ),
+    array(
+        'id'        => 'brand-cradle-garden',
+        'name'      => 'Cradle garden',
+        'company'   => 'Arnest One Co., Ltd.',
+        'image'     => $pdf_img . 'brand-cradle-garden.webp',
+        'w'         => 749,
+        'h'         => 469,
+        'note'      => 'Produk perumahan terstandarisasi oleh Arnest One Co., Ltd. di seluruh Jepang.',
+    ),
+    array(
+        'id'        => 'brand-lignage',
+        'name'      => 'LIGNAGE',
+        'company'   => 'ID Home Co., Ltd.',
+        'image'     => $pdf_img . 'brand-lignage.webp',
+        'w'         => 748,
+        'h'         => 469,
+        'note'      => 'Lini hunian residensial dari ID Home Co., Ltd. bagian dari jaringan Iida Group Holdings.',
+    ),
+);
 ?>
 
-<main class="overflow-hidden">
-    <!-- Hero Section (Preserving exact layout structure of products page) -->
-    <section class="relative overflow-hidden bg-deep-navy py-margin-desktop-alt">
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <img class="w-full h-full object-cover object-center mix-blend-overlay" alt="Heartful Town Residential Development" src="<?php echo get_template_directory_uri(); ?>/images/layout/lh3_200c8e9568e0d3681efcc487d0b0f5f8.webp" fetchpriority="high" decoding="sync" />
-        </div>
-        <div class="max-w-container-max mx-auto px-margin-desktop-alt relative z-10 text-center">
-            <span class="text-action-cyan font-label-bold text-label-bold uppercase tracking-widest mb-4 block">
-                Modern Japanese Living &amp; Engineering
-            </span>
-            <h1 class="text-white font-display-lg text-display-lg md:max-w-3xl mx-auto leading-tight mb-6">
-                High-Quality Residential Developments
-            </h1>
-            <p class="text-surface-variant font-body-lg text-body-lg md:max-w-2xl mx-auto opacity-90 mb-10">
-                Mengintegrasikan presisi rekayasa Jepang dengan gaya hidup tropis Indonesia untuk menghadirkan hunian berkualitas tinggi, tahan gempa, dan berkelanjutan bagi keluarga masa kini.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a class="bg-primary text-white hover:bg-primary-container hover:text-on-primary-container px-8 py-4 rounded font-body-md font-bold hover:shadow-lg transition-all" href="#product-grid">
-                    Jelajahi Portofolio
-                </a>
-                <a class="border-2 border-white/20 text-white hover:border-action-cyan hover:text-action-cyan px-8 py-4 rounded font-body-md font-bold hover:bg-white/10 transition-all" href="<?php echo esc_url(home_url('/contact/')); ?>">
-                    Konsultasi Penjualan
-                </a>
-            </div>
-        </div>
-    </section>
+<style type="text/css">
+    .dev-page {
+        background: var(--color-surface);
+        color: var(--color-text-body);
+    }
 
-    <!-- Development / Product Grid Section -->
-    <section class="py-margin-desktop-alt bg-surface" id="product-grid">
+    /* Hero */
+    .dev-hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        background: var(--color-deep-navy);
+        color: #ffffff;
+        padding-top: clamp(56px, 8vw, 96px);
+        padding-bottom: clamp(48px, 6vw, 72px);
+    }
+    .dev-hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+    }
+    .dev-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0.28;
+    }
+    .dev-hero-scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(10, 31, 44, 0.78) 0%, rgba(10, 31, 44, 0.92) 100%);
+    }
+    .dev-hero-inner {
+        max-width: 48rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .dev-hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 18px;
+        padding: 6px 14px;
+        border-radius: var(--radius-pill);
+        border: 1px solid rgba(3, 197, 240, 0.35);
+        background: rgba(3, 197, 240, 0.12);
+        color: var(--color-action-cyan);
+        font-size: var(--text-xs);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+    .dev-hero-title {
+        margin: 0 0 18px;
+        font-size: clamp(2rem, 4.4vw, 3.25rem);
+        font-weight: 800;
+        line-height: 1.1;
+        color: #ffffff;
+        text-wrap: balance;
+    }
+    .dev-hero-lede {
+        margin: 0 auto 30px;
+        max-width: 40rem;
+        font-size: clamp(1rem, 1.4vw, 1.125rem);
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.88);
+    }
+    .dev-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+    .dev-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 11px 22px;
+        border-radius: var(--radius-md);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: background-color var(--dur-fast) var(--ease-in-out),
+                    border-color var(--dur-fast) var(--ease-in-out),
+                    color var(--dur-fast) var(--ease-in-out),
+                    transform var(--dur-fast) var(--ease-spring);
+    }
+    .dev-btn:active { transform: scale(0.98); }
+    .dev-btn:focus-visible {
+        outline: 2px solid var(--color-action-cyan);
+        outline-offset: 2px;
+    }
+    .dev-btn--light {
+        background: #ffffff;
+        color: var(--color-deep-navy);
+    }
+    .dev-btn--light:hover {
+        background: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+    }
+    .dev-btn--outline-dark {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.35);
+        color: #ffffff;
+    }
+    .dev-btn--outline-dark:hover {
+        border-color: #ffffff;
+        background: rgba(255, 255, 255, 0.14);
+    }
+    .dev-btn--primary {
+        background: var(--color-primary);
+        color: #ffffff;
+    }
+    .dev-btn--primary:hover {
+        background: var(--color-primary-strong);
+        color: #ffffff;
+    }
+    .dev-btn--secondary {
+        background: var(--color-surface);
+        border-color: var(--color-border-strong);
+        color: var(--color-text-heading);
+    }
+    .dev-btn--secondary:hover {
+        background: var(--color-surface-sunken);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    /* Hero summary metrics */
+    .dev-metrics-bar {
+        margin-top: clamp(32px, 5vw, 52px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--radius-lg);
+        background: rgba(10, 31, 44, 0.85);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (min-width: 900px) {
+        .dev-metrics-bar {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+    .dev-metric-item {
+        padding: 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    @media (min-width: 900px) {
+        .dev-metric-item { border-bottom: 0; }
+        .dev-metric-item:last-child { border-right: 0; }
+    }
+    .dev-metric-label {
+        margin: 0 0 4px;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .dev-metric-value {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+        font-weight: 700;
+        color: #ffffff;
+        font-variant-numeric: tabular-nums;
+    }
+    .dev-metric-note {
+        margin: 4px 0 0;
+        font-size: var(--text-xs);
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Catalog Sections & Filter Bar */
+    .dev-section {
+        padding-top: clamp(48px, 6vw, 80px);
+        padding-bottom: clamp(48px, 6vw, 80px);
+    }
+    .dev-section--sunken {
+        background: var(--color-surface-sunken);
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+    .dev-eyebrow {
+        margin: 0 0 8px;
+        font-size: var(--text-xs);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+    }
+    .dev-title {
+        margin: 0 0 10px;
+        font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-subtitle {
+        margin: 0;
+        max-width: 60ch;
+        font-size: var(--text-base);
+        color: var(--color-text-body);
+    }
+    .dev-count-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: var(--radius-pill);
+        background: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+        font-size: var(--text-xs);
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .dev-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 36px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-filter-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 18px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--color-border-strong);
+        background: var(--color-surface);
+        color: var(--color-text-body);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color var(--dur-fast) var(--ease-in-out),
+                    border-color var(--dur-fast) var(--ease-in-out),
+                    color var(--dur-fast) var(--ease-in-out);
+    }
+    .dev-filter-btn:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        background: var(--color-surface-sunken);
+    }
+    .dev-filter-btn.is-active {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #ffffff;
+    }
+    .dev-filter-btn:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    /* Project Cards Grid */
+    .dev-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    @media (min-width: 768px) {
+        .dev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1120px) {
+        .dev-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .dev-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-xs);
+        scroll-margin-top: 112px;
+        transition: border-color var(--dur-base) var(--ease-out-expo),
+                    box-shadow var(--dur-base) var(--ease-out-expo),
+                    transform var(--dur-base) var(--ease-out-expo);
+    }
+    .dev-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+    .dev-card.is-hidden {
+        display: none;
+    }
+    .dev-card.is-highlighted {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    .dev-card-media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: var(--color-surface-sunken);
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-card-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .dev-card-media--portrait img {
+        object-position: center 22%;
+    }
+    .dev-card-body {
+        padding: 22px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    .dev-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    .dev-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        background: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+        font-size: var(--text-xs);
+        font-weight: 700;
+    }
+    .dev-status-tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        background: var(--color-surface-sunken);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+    }
+    .dev-card-title {
+        margin: 0 0 6px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text-heading);
+        line-height: 1.25;
+    }
+    .dev-card-dev {
+        margin: 0 0 12px;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        color: var(--color-text-muted);
+    }
+    .dev-card-desc {
+        margin: 0 0 18px;
+        font-size: var(--text-sm);
+        line-height: 1.6;
+        color: var(--color-text-body);
+    }
+    .dev-card-foot {
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .dev-detail-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 44px;
+        padding: 8px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-primary);
+        background: var(--color-surface);
+        color: var(--color-primary);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color var(--dur-fast) var(--ease-in-out),
+                    color var(--dur-fast) var(--ease-in-out);
+    }
+    .dev-detail-trigger:hover {
+        background: var(--color-primary);
+        color: #ffffff;
+    }
+    .dev-detail-trigger:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    .dev-ext-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        min-height: 44px;
+        padding: 8px 10px;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        color: var(--color-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+    .dev-ext-link:hover {
+        color: var(--color-primary-strong);
+    }
+
+    /* Japan 6 Housing Brands Section */
+    .dev-brands-block.is-hidden,
+    .dev-projects-block.is-hidden {
+        display: none;
+    }
+    .dev-brands-block {
+        margin-top: 56px;
+        padding-top: 48px;
+        border-top: 1px solid var(--color-border);
+    }
+    .dev-brands-block.is-solo {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+    .dev-brands-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .dev-condo-note {
+        margin-bottom: 28px;
+        padding: 18px 22px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        border-left: 4px solid var(--color-primary);
+        background: var(--color-surface-sunken);
+        font-size: var(--text-sm);
+        color: var(--color-text-body);
+    }
+    .dev-condo-note strong {
+        color: var(--color-text-heading);
+    }
+    .dev-brands-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    @media (min-width: 640px) {
+        .dev-brands-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+        .dev-brands-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .dev-brand-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-xs);
+    }
+    .dev-brand-media {
+        aspect-ratio: 16 / 10;
+        background: var(--color-surface-sunken);
+        border-bottom: 1px solid var(--color-border);
+        overflow: hidden;
+    }
+    .dev-brand-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .dev-brand-body {
+        padding: 18px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    .dev-brand-name {
+        margin: 0 0 4px;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-brand-co {
+        margin: 0 0 10px;
+        font-size: var(--text-xs);
+        font-weight: 700;
+        color: var(--color-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .dev-brand-note {
+        margin: 0;
+        font-size: var(--text-sm);
+        line-height: 1.55;
+        color: var(--color-text-muted);
+    }
+
+    /* Cross-Link Strip to IG SCB, Material Konstruksi, Contact */
+    .dev-links-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    @media (min-width: 900px) {
+        .dev-links-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .dev-link-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 24px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        text-decoration: none;
+        box-shadow: var(--shadow-xs);
+        transition: border-color var(--dur-fast) var(--ease-in-out),
+                    box-shadow var(--dur-fast) var(--ease-in-out);
+    }
+    .dev-link-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+    }
+    .dev-link-card:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    .dev-link-card-label {
+        margin: 0 0 6px;
+        font-size: var(--text-xs);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+    }
+    .dev-link-card-title {
+        margin: 0 0 8px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-link-card-desc {
+        margin: 0 0 16px;
+        font-size: var(--text-sm);
+        line-height: 1.55;
+        color: var(--color-text-body);
+    }
+    .dev-link-card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--color-primary);
+    }
+
+    /* Native Accessible Detail Dialog */
+    dialog.dev-dialog {
+        width: min(820px, calc(100vw - 24px));
+        max-height: min(90vh, 860px);
+        margin: auto;
+        padding: 0;
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-lg);
+        background: var(--color-surface);
+        color: var(--color-text-body);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        overscroll-behavior: contain;
+    }
+    dialog.dev-dialog::backdrop {
+        background: rgba(10, 31, 44, 0.72);
+        backdrop-filter: blur(4px);
+    }
+    .dev-dialog-shell {
+        display: flex;
+        flex-direction: column;
+        max-height: min(90vh, 860px);
+    }
+    .dev-dialog-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 24px;
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-dialog-eyebrow {
+        margin: 0 0 4px;
+        font-size: var(--text-xs);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-primary);
+    }
+    .dev-dialog-title {
+        margin: 0;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-dialog-close {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-strong);
+        background: var(--color-surface);
+        color: var(--color-text-heading);
+        cursor: pointer;
+    }
+    .dev-dialog-close:hover {
+        background: var(--color-surface-sunken);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+    .dev-dialog-close:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    .dev-dialog-body {
+        padding: 24px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        display: grid;
+        gap: 20px;
+    }
+    .dev-dialog-image-box {
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        background: var(--color-surface-sunken);
+    }
+    .dev-dialog-image-box img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        background: var(--color-surface-sunken);
+    }
+    .dev-dialog-thumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    .dev-thumb-btn {
+        min-height: 44px;
+        padding: 8px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-strong);
+        background: var(--color-surface);
+        color: var(--color-text-body);
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .dev-thumb-btn.is-active {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #ffffff;
+    }
+    .dev-thumb-btn:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    .dev-dialog-summary {
+        margin: 0;
+        font-size: var(--text-base);
+        line-height: 1.65;
+        color: var(--color-text-body);
+    }
+    .dev-dialog-panel {
+        padding: 18px 20px;
+        border-radius: var(--radius-md);
+        background: var(--color-surface-sunken);
+        border: 1px solid var(--color-border);
+    }
+    .dev-dialog-panel-title {
+        margin: 0 0 12px;
+        font-size: var(--text-sm);
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-spec-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px 24px;
+        margin: 0;
+    }
+    @media (min-width: 640px) {
+        .dev-spec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .dev-spec-row {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-spec-row dt {
+        font-size: var(--text-xs);
+        font-weight: 600;
+        color: var(--color-text-muted);
+    }
+    .dev-spec-row dd {
+        margin: 2px 0 0;
+        font-size: var(--text-sm);
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-unit-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--text-sm);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+    }
+    .dev-unit-table th,
+    .dev-unit-table td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .dev-unit-table th {
+        background: var(--color-surface-sunken);
+        font-weight: 700;
+        color: var(--color-text-heading);
+    }
+    .dev-unit-table td {
+        color: var(--color-text-body);
+    }
+    .dev-facility-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .dev-facility-chip {
+        padding: 6px 12px;
+        border-radius: var(--radius-pill);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        color: var(--color-text-heading);
+        font-size: var(--text-xs);
+        font-weight: 600;
+    }
+    .dev-dialog-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 4px;
+    }
+</style>
+
+<main id="main-content" class="dev-page">
+    <!-- Hero Section -->
+    <section class="dev-hero" aria-labelledby="dev-hero-title">
+        <div class="dev-hero-bg" aria-hidden="true">
+            <img src="<?php echo esc_url( $pdf_img . 'heartful-town-bekasi-facade.webp' ); ?>"
+                 alt=""
+                 width="1188"
+                 height="794"
+                 fetchpriority="high"
+                 decoding="sync" />
+            <div class="dev-hero-scrim"></div>
+        </div>
+
         <div class="max-w-container-max mx-auto px-margin-desktop-alt">
-            <div class="mb-8 md:mb-16">
-                <span class="text-xs uppercase tracking-widest text-[#006491] font-bold block mb-2">Our Masterpieces</span>
-                <h2 class="font-headline-lg text-headline-lg text-deep-navy mb-4">Featured Residential Developments</h2>
-                <div class="h-1 w-24 bg-action-cyan"></div>
+            <div class="dev-hero-inner">
+                <span class="dev-hero-eyebrow">Portofolio Resmi · Iida Group Holdings</span>
+                <h1 id="dev-hero-title" class="dev-hero-title">
+                    Proyek Perumahan &amp; Kondominium
+                </h1>
+                <p class="dev-hero-lede">
+                    Pengembangan perumahan tapak dan apartemen di Indonesia oleh PT. Perumnas Iida Group bersama Iida Group Holdings, dilengkapi portofolio kondominium serta enam brand rumah utama grup di Jepang.
+                </p>
+                <div class="dev-hero-actions">
+                    <a class="dev-btn dev-btn--light" href="#portfolio-catalog">
+                        Jelajahi Portofolio Proyek
+                    </a>
+                    <a class="dev-btn dev-btn--outline-dark" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
+                        Konsultasi Penjualan
+                    </a>
+                </div>
             </div>
 
-            <!-- 3 Product Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter items-stretch" id="projects-container">
-                
-                <!-- Card 1: Heartful Town Bekasi -->
-                <article id="bekasi" data-category="bekasi" class="dev-card group bg-white border border-structural-gray rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-action-cyan/50 flex flex-col scroll-mt-28 reveal-on-scroll">
-                    <div class="relative aspect-video overflow-hidden bg-slate-100">
-                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Heartful Town Bekasi" src="<?php echo get_template_directory_uri(); ?>/images/layout/image44.png" width="640" height="360" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                        <div class="absolute bottom-3 left-4 right-4 z-10 flex items-center justify-between text-white text-xs">
-                            <span class="flex items-center gap-1.5 font-medium drop-shadow-sm">
-                                <svg class="w-4 h-4 text-action-cyan shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                                Mustikajaya, Kota Bekasi
-                            </span>
-                            <span class="bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-semibold">Ready &amp; Indent</span>
-                        </div>
-                    </div>
-                    
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-2 group-hover:text-[#006491] transition-colors">
-                            Heartful Town Bekasi
-                        </h3>
-                        <p class="font-body-md text-on-surface-variant mb-6 line-clamp-3 leading-relaxed">
-                            Hunian modern berstandar konstruksi tahan gempa Jepang. Memadukan kenyamanan tropis dengan sistem tata ruang efisien, taman asri di setiap unit, serta akses cepat 15 menit ke Gerbang Tol Bekasi Timur &amp; Grand Galaxy.
-                        </p>
-                        
-                        <div class="mt-auto flex items-center justify-end pt-4 border-t border-structural-gray">
-                            <button type="button" onclick="openDevModal('modal-bekasi')" class="inline-flex items-center gap-2 text-primary hover:text-action-cyan font-label-bold group-hover:gap-3 transition-all cursor-pointer">
-                                <span>Lihat Detail</span>
-                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 2: Heartful Town Taman Mini -->
-                <article id="taman-mini" data-category="taman-mini" class="dev-card group bg-white border border-structural-gray rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-action-cyan/50 flex flex-col scroll-mt-28 reveal-on-scroll" style="transition-delay: 100ms;">
-                    <div class="relative aspect-video overflow-hidden bg-slate-100">
-                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Heartful Town Taman Mini" src="<?php echo get_template_directory_uri(); ?>/images/layout/heartful-town-taman-mini.webp" width="640" height="360" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                        <div class="absolute bottom-3 left-4 right-4 z-10 flex items-center justify-between text-white text-xs">
-                            <span class="flex items-center gap-1.5 font-medium drop-shadow-sm">
-                                <svg class="w-4 h-4 text-action-cyan shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                                Pinang Ranti, Jakarta Timur
-                            </span>
-                            <span class="bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-semibold">2 Lantai Premium</span>
-                        </div>
-                    </div>
-                    
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-2 group-hover:text-[#006491] transition-colors">
-                            Heartful Town Taman Mini
-                        </h3>
-                        <p class="font-body-md text-on-surface-variant mb-6 line-clamp-3 leading-relaxed">
-                            Klaster hunian mewah eksklusif 2 lantai bernuansa Jepang kontemporer di lokasi emas Jakarta Timur. Terkoneksi 1 menit ke Stasiun LRT Taman Mini, utilitas bawah tanah (underground cabling), dan sistem keamanan terpadu 24 jam.
-                        </p>
-                        
-                        <div class="mt-auto flex items-center justify-end pt-4 border-t border-structural-gray">
-                            <button type="button" onclick="openDevModal('modal-taman-mini')" class="inline-flex items-center gap-2 text-primary hover:text-action-cyan font-label-bold group-hover:gap-3 transition-all cursor-pointer">
-                                <span>Lihat Detail</span>
-                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 3: Heartful Town Depok -->
-                <article id="depok" data-category="depok" class="dev-card group bg-white border border-structural-gray rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-action-cyan/50 flex flex-col scroll-mt-28 reveal-on-scroll" style="transition-delay: 200ms;">
-                    <div class="relative aspect-video overflow-hidden bg-slate-100">
-                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Heartful Town Depok" src="<?php echo get_template_directory_uri(); ?>/images/layout/heartful-town-fg-ready-stock-1.jpg" width="640" height="360" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                        <div class="absolute bottom-3 left-4 right-4 z-10 flex items-center justify-between text-white text-xs">
-                            <span class="flex items-center gap-1.5 font-medium drop-shadow-sm">
-                                <svg class="w-4 h-4 text-action-cyan shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                                Bojongsari, Kota Depok
-                            </span>
-                            <span class="bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-semibold">Kota Mandiri</span>
-                        </div>
-                    </div>
-                    
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <h3 class="font-headline-md text-headline-md text-deep-navy mb-2 group-hover:text-[#006491] transition-colors">
-                            Heartful Town Depok
-                        </h3>
-                        <p class="font-body-md text-on-surface-variant mb-6 line-clamp-3 leading-relaxed">
-                            Kawasan kota mandiri terpadu seluas 15 hektar yang memadukan keasrian alam dan teknologi struktur Jepang. Dilengkapi masjid kawasan, area komersial ritel, jogging track, taman bermain, dan akses tol Desari / JORR 2.
-                        </p>
-                        
-                        <div class="mt-auto flex items-center justify-end pt-4 border-t border-structural-gray">
-                            <button type="button" onclick="openDevModal('modal-depok')" class="inline-flex items-center gap-2 text-primary hover:text-action-cyan font-label-bold group-hover:gap-3 transition-all cursor-pointer">
-                                <span>Lihat Detail</span>
-                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
+            <dl class="dev-metrics-bar" aria-label="Ringkasan skala proyek berdasarkan profil perusahaan">
+                <div class="dev-metric-item">
+                    <dt class="dev-metric-label">Proyek Indonesia</dt>
+                    <dd class="dev-metric-value">4 Kawasan</dd>
+                    <p class="dev-metric-note">2 Eksisting &amp; 2 Akan Datang</p>
+                </div>
+                <div class="dev-metric-item">
+                    <dt class="dev-metric-label">Kondominium Jepang</dt>
+                    <dd class="dev-metric-value">&plusmn;1.700 Unit</dd>
+                    <p class="dev-metric-note">Dipasarkan setiap tahun (hal. 18)</p>
+                </div>
+                <div class="dev-metric-item">
+                    <dt class="dev-metric-label">Pangsa Pasar Jepang</dt>
+                    <dd class="dev-metric-value">30%</dd>
+                    <p class="dev-metric-note">&plusmn;46.000 rumah terjual per tahun</p>
+                </div>
+                <div class="dev-metric-item">
+                    <dt class="dev-metric-label">Brand Rumah Grup</dt>
+                    <dd class="dev-metric-value">6 Brand</dd>
+                    <p class="dev-metric-note">Enam pengembang utama di Jepang</p>
+                </div>
+            </dl>
         </div>
     </section>
 
-
-    <!-- Call to Action Banner (Preserving exact layout and pattern) -->
-    <section class="py-margin-desktop-alt animate-fade-in">
+    <!-- Main Filterable Portfolio Catalog -->
+    <section class="dev-section" id="portfolio-catalog" aria-labelledby="catalog-heading">
         <div class="max-w-container-max mx-auto px-margin-desktop-alt">
-            <div class="bg-primary py-16 px-8 md:px-20 text-center rounded-2xl relative overflow-hidden reveal-on-scroll shadow-xl">
-                <div class="absolute inset-0 opacity-10 pointer-events-none">
-                    <div class="w-full h-full bg-[length:400px_400px] bg-repeat" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/layout/lh3_138e322720c49ad45d683962ff83c4e3.webp')"></div>
-                </div>
-                <div class="relative z-10">
-                    <span class="text-action-cyan uppercase tracking-widest text-xs font-bold block mb-3">Heartful Town Collection</span>
-                    <h2 class="text-white font-headline-lg text-headline-lg mb-6">Siap Menemukan Rumah Idaman Anda?</h2>
-                    <p class="text-white/90 font-body-lg text-body-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                        Hubungi tim konsultan properti kami untuk ketersediaan unit terbaru, promo suku bunga KPR spesial, serta penjadwalan survey show unit langsung di lokasi.
+            <div class="dev-head">
+                <div>
+                    <p class="dev-eyebrow">Indonesia &amp; Jepang</p>
+                    <h2 id="catalog-heading" class="dev-title">Katalog Proyek &amp; Brand Hunian</h2>
+                    <p class="dev-subtitle">
+                        Saring daftar proyek berdasarkan status pengembangan di Indonesia, kondominium yang sedang berjalan di Jepang, atau enam merek perumahan grup.
                     </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20proyek%20Heartful%20Town" target="_blank" rel="noopener noreferrer" class="bg-white text-[#006491] hover:bg-slate-50 px-10 py-4 rounded-lg font-body-md font-bold hover:shadow-2xl transition-all text-center flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                            <span>Hubungi via WhatsApp</span>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="border-2 border-white/60 text-white hover:border-white hover:bg-white/10 px-10 py-4 rounded-lg font-body-md font-bold transition-all text-center">
-                            Kirim Formulir Pertanyaan
-                        </a>
-                    </div>
                 </div>
+                <div id="catalog-count" class="dev-count-badge" aria-live="polite">
+                    Menampilkan 8 proyek &amp; 6 brand rumah
+                </div>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="dev-filters" role="group" aria-label="Filter kategori portofolio">
+                <button type="button" class="dev-filter-btn is-active" data-filter="all" aria-pressed="true">
+                    Semua
+                </button>
+                <button type="button" class="dev-filter-btn" data-filter="indonesia-existing" aria-pressed="false">
+                    Indonesia Eksisting (2)
+                </button>
+                <button type="button" class="dev-filter-btn" data-filter="indonesia-upcoming" aria-pressed="false">
+                    Indonesia Akan Datang (2)
+                </button>
+                <button type="button" class="dev-filter-btn" data-filter="japan-condo" aria-pressed="false">
+                    Kondominium Jepang (4)
+                </button>
+                <button type="button" class="dev-filter-btn" data-filter="japan-brands" aria-pressed="false">
+                    6 Brand Rumah (6)
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-block" class="dev-projects-block">
+                <div class="dev-grid" id="projects-grid">
+                    <?php foreach ( $projects as $idx => $proj ) :
+                        $primary_img = $proj['images'][0];
+                        $is_portrait = ( $primary_img['h'] > $primary_img['w'] );
+                    ?>
+                        <article id="<?php echo esc_attr( $proj['id'] ); ?>"
+                                 class="dev-card"
+                                 data-cat="<?php echo esc_attr( $proj['category'] ); ?>">
+                            <div class="dev-card-media<?php echo $is_portrait ? ' dev-card-media--portrait' : ''; ?>">
+                                <img src="<?php echo esc_url( $primary_img['url'] ); ?>"
+                                     alt="<?php echo esc_attr( $primary_img['alt'] ); ?>"
+                                     width="<?php echo esc_attr( $primary_img['w'] ); ?>"
+                                     height="<?php echo esc_attr( $primary_img['h'] ); ?>"
+                                     loading="lazy"
+                                     decoding="async" />
+                            </div>
+                            <div class="dev-card-body">
+                                <div class="dev-card-meta">
+                                    <span class="dev-badge"><?php echo esc_html( $proj['categoryLabel'] ); ?></span>
+                                    <span class="dev-status-tag"><?php echo esc_html( $proj['statusLabel'] ); ?></span>
+                                </div>
+                                <h3 class="dev-card-title"><?php echo esc_html( $proj['title'] ); ?></h3>
+                                <p class="dev-card-dev"><?php echo esc_html( $proj['developer'] ); ?> &middot; <?php echo esc_html( $proj['location'] ); ?></p>
+                                <p class="dev-card-desc"><?php echo esc_html( $proj['summary'] ); ?></p>
+                                <div class="dev-card-foot">
+                                    <button type="button"
+                                            class="dev-detail-trigger"
+                                            data-project-index="<?php echo esc_attr( $idx ); ?>"
+                                            aria-label="Lihat detail proyek <?php echo esc_attr( $proj['title'] ); ?>">
+                                        <span>Lihat Detail</span>
+                                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                                    </button>
+                                    <?php if ( ! empty( $proj['externalUrl'] ) ) : ?>
+                                        <a href="<?php echo esc_url( $proj['externalUrl'] ); ?>"
+                                           class="dev-ext-link"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            Situs Resmi
+                                            <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Cross-Navigation Strip -->
+    <section class="dev-section dev-section--sunken" aria-labelledby="related-heading">
+        <div class="max-w-container-max mx-auto px-margin-desktop-alt">
+            <div class="dev-head">
+                <div>
+                    <p class="dev-eyebrow">Teknologi &amp; Layanan Terkait</p>
+                    <h2 id="related-heading" class="dev-title">Eksplorasi Produk &amp; Konsultasi Proyek</h2>
+                </div>
+            </div>
+
+            <div class="dev-links-grid">
+                <a href="<?php echo esc_url( home_url( '/product-osaka-strong-cb/' ) ); ?>" class="dev-link-card">
+                    <div>
+                        <p class="dev-link-card-label">Teknologi Konstruksi</p>
+                        <h3 class="dev-link-card-title">IG Strong Concrete Block (IG SCB)</h3>
+                        <p class="dev-link-card-desc">
+                            Blok beton interlock tahan gempa hingga magnitudo &gt; 8,0 dengan Paten IDP000069171 dan sertifikasi SNI.
+                        </p>
+                    </div>
+                    <span class="dev-link-card-cta">
+                        Lihat Spesifikasi IG SCB
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                    </span>
+                </a>
+
+                <a href="<?php echo esc_url( home_url( '/product-construction-material/' ) ); ?>" class="dev-link-card">
+                    <div>
+                        <p class="dev-link-card-label">Material Procurement Business</p>
+                        <h3 class="dev-link-card-title">Katalog Material Konstruksi</h3>
+                        <p class="dev-link-card-desc">
+                            Suplai material bangunan terstandarisasi dari merek Rucika, RB Shera, Granito, Terraco, dan Dusaspun.
+                        </p>
+                    </div>
+                    <span class="dev-link-card-cta">
+                        Buka Katalog Material
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                    </span>
+                </a>
+
+                <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="dev-link-card">
+                    <div>
+                        <p class="dev-link-card-label">Hubungi Kami</p>
+                        <h3 class="dev-link-card-title">Konsultasi Proyek &amp; Kemitraan</h3>
+                        <p class="dev-link-card-desc">
+                            Terhubung dengan kantor pusat PT. Perumnas Iida Group di Bekasi untuk pertanyaan proyek atau pengadaan.
+                        </p>
+                    </div>
+                    <span class="dev-link-card-cta">
+                        Kirim Pertanyaan
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Details Modals -->
-    <!-- Modal 1: Heartful Town Bekasi -->
-    <div id="modal-bekasi" class="dev-modal fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative animate-fade-in">
-            <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between z-20">
+    <!-- Accessible Detail Dialog -->
+    <dialog id="dev-project-dialog" class="dev-dialog" aria-labelledby="dev-dialog-title" aria-describedby="dev-dialog-desc">
+        <div class="dev-dialog-shell">
+            <div class="dev-dialog-head">
                 <div>
-                    <span class="text-xs uppercase tracking-wider text-[#006491] font-bold">Proyek Residensial</span>
-                    <h3 class="text-xl font-bold text-deep-navy">Heartful Town Bekasi</h3>
+                    <p id="dev-dialog-category" class="dev-dialog-eyebrow"></p>
+                    <h3 id="dev-dialog-title" class="dev-dialog-title"></h3>
                 </div>
-                <button type="button" onclick="closeDevModal('modal-bekasi')" class="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors">
-                    <span class="material-symbols-outlined">close</span>
+                <button type="button" id="dev-dialog-close" class="dev-dialog-close" aria-label="Tutup detail proyek">
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 </button>
             </div>
-            
-            <div class="p-6 space-y-6">
-                <div class="relative rounded-xl overflow-hidden aspect-video bg-slate-100">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/layout/image44.png" alt="Heartful Town Bekasi Unit" class="w-full h-full object-cover" />
-                    <div class="absolute bottom-3 left-4 bg-deep-navy/85 backdrop-blur-xs text-white text-xs px-3 py-1 rounded font-medium">
-                        Padurenan, Mustikajaya, Kota Bekasi
-                    </div>
-                </div>
-
+            <div class="dev-dialog-body">
                 <div>
-                    <h4 class="font-bold text-deep-navy mb-2">Tentang Proyek</h4>
-                    <p class="text-sm text-on-surface-variant leading-relaxed">
-                        Heartful Town Bekasi merupakan perwujudan hunian modern yang mengadopsi standar konstruksi tahan gempa Jepang. Memadukan tata ruang yang mengoptimalkan sirkulasi udara dan cahaya alami, setiap rumah dilengkapi taman tersendiri dan dibangun dengan material berkualitas tinggi demi kenyamanan keluarga generasi masa kini.
-                    </p>
+                    <div class="dev-dialog-image-box">
+                        <img id="dev-dialog-img" src="" alt="" />
+                    </div>
+                    <div id="dev-dialog-thumbs" class="dev-dialog-thumbs" hidden></div>
                 </div>
 
-                <div class="bg-surface-container-low rounded-xl p-5 border border-slate-200">
-                    <h4 class="font-bold text-deep-navy text-sm mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-action-cyan text-[20px]">list</span>
-                        Spesifikasi Bangunan &amp; Unit
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Tipe Rumah:</span>
-                            <span class="font-semibold text-deep-navy">Tipe 36/60 &amp; 45/72</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Kamar Tidur / Mandi:</span>
-                            <span class="font-semibold text-deep-navy">2 KT / 1 KM</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Struktur:</span>
-                            <span class="font-semibold text-deep-navy">Beton Bertulang Tahan Gempa</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Dinding:</span>
-                            <span class="font-semibold text-deep-navy">Bata Ringan / Strong CB</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Lantai:</span>
-                            <span class="font-semibold text-deep-navy">Homogeneous Tile 60x60</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Daya Listrik:</span>
-                            <span class="font-semibold text-deep-navy">1300 / 2200 VA</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Legalitas:</span>
-                            <span class="font-semibold text-deep-navy">SHM &amp; PBG Lengkap</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Fasilitas Keamanan:</span>
-                            <span class="font-semibold text-deep-navy">One Gate System &amp; Security 24H</span>
-                        </div>
+                <p id="dev-dialog-desc" class="dev-dialog-summary"></p>
+
+                <div id="dev-dialog-specs-wrap" class="dev-dialog-panel">
+                    <h4 class="dev-dialog-panel-title">Informasi &amp; Spesifikasi Resmi</h4>
+                    <dl id="dev-dialog-specs" class="dev-spec-grid"></dl>
+                </div>
+
+                <div id="dev-dialog-units-wrap" class="dev-dialog-panel" hidden>
+                    <h4 class="dev-dialog-panel-title">Tipe Unit Apartemen</h4>
+                    <div style="overflow-x: auto;">
+                        <table class="dev-unit-table">
+                            <thead>
+                                <tr>
+                                    <th>Tipe Unit</th>
+                                    <th>Luas Nett</th>
+                                    <th>Luas Semigross</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dev-dialog-units-body"></tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                    <a href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20unit%20Heartful%20Town%20Bekasi" target="_blank" rel="noopener noreferrer" class="flex-1 bg-deep-navy text-white hover:bg-black py-3 px-6 rounded-lg text-center font-semibold text-sm transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>Tanya Marketing via WhatsApp</span>
+                <div id="dev-dialog-facilities-wrap" class="dev-dialog-panel" hidden>
+                    <h4 class="dev-dialog-panel-title">Fasilitas Kawasan (6 Fasilitas)</h4>
+                    <ul id="dev-dialog-facilities" class="dev-facility-list"></ul>
+                </div>
+
+                <div class="dev-dialog-actions">
+                    <a id="dev-dialog-ext-link"
+                       href="#"
+                       class="dev-btn dev-btn--primary"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       hidden>
+                        <span>Kunjungi Situs Resmi</span>
+                        <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
                     </a>
-                    <button type="button" onclick="closeDevModal('modal-bekasi')" class="px-6 py-3 border border-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-50 text-slate-700 transition-colors">
+                    <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="dev-btn dev-btn--primary">
+                        Hubungi Tim Penjualan
+                    </a>
+                    <button type="button" id="dev-dialog-dismiss" class="dev-btn dev-btn--secondary">
                         Tutup
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal 2: Heartful Town Taman Mini -->
-    <div id="modal-taman-mini" class="dev-modal fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative animate-fade-in">
-            <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between z-20">
-                <div>
-                    <span class="text-xs uppercase tracking-wider text-[#006491] font-bold">Proyek Residensial Mewah</span>
-                    <h3 class="text-xl font-bold text-deep-navy">Heartful Town Taman Mini</h3>
-                </div>
-                <button type="button" onclick="closeDevModal('modal-taman-mini')" class="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <div class="p-6 space-y-6">
-                <div class="relative rounded-xl overflow-hidden aspect-video bg-slate-100">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/layout/heartful-town-taman-mini.webp" alt="Heartful Town Taman Mini Unit" class="w-full h-full object-cover" />
-                    <div class="absolute bottom-3 left-4 bg-deep-navy/85 backdrop-blur-xs text-white text-xs px-3 py-1 rounded font-medium">
-                        Pinang Ranti, Makasar, Jakarta Timur
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-deep-navy mb-2">Tentang Proyek</h4>
-                    <p class="text-sm text-on-surface-variant leading-relaxed">
-                        Heartful Town Taman Mini menghadirkan gaya hidup urban prestisius dengan hunian 2 lantai berarsitektur modern Jepang di episentrum Jakarta Timur. Mengusung konsep Transit-Oriented Development (TOD), proyek ini berada tepat di dekat Stasiun LRT Taman Mini serta jalan bebas hambatan Tol Jagorawi &amp; Tol JORR, memberikan mobilitas prima tanpa tanding.
-                    </p>
-                </div>
-
-                <div class="bg-surface-container-low rounded-xl p-5 border border-slate-200">
-                    <h4 class="font-bold text-deep-navy text-sm mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-action-cyan text-[20px]">list</span>
-                        Spesifikasi Bangunan &amp; Unit
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Tipe Bangunan:</span>
-                            <span class="font-semibold text-deep-navy">Rumah 2 Lantai Premium</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Kamar Tidur / Mandi:</span>
-                            <span class="font-semibold text-deep-navy">3-4 KT / 2-3 KM</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Carport:</span>
-                            <span class="font-semibold text-deep-navy">2 Mobil (Canopy Ready)</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Infrastruktur:</span>
-                            <span class="font-semibold text-deep-navy">Underground Cables &amp; Fiber Optic</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Akses Utama:</span>
-                            <span class="font-semibold text-deep-navy">1 Menit LRT Taman Mini &amp; Tol</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Daya Listrik:</span>
-                            <span class="font-semibold text-deep-navy">3500 VA</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Legalitas:</span>
-                            <span class="font-semibold text-deep-navy">SHM &amp; PBG Pecah Unit</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Fasilitas Klaster:</span>
-                            <span class="font-semibold text-deep-navy">Smart Lock, CCTV, Playground</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                    <a href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20unit%20Heartful%20Town%20Taman%20Mini" target="_blank" rel="noopener noreferrer" class="flex-1 bg-deep-navy text-white hover:bg-black py-3 px-6 rounded-lg text-center font-semibold text-sm transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>Tanya Marketing via WhatsApp</span>
-                    </a>
-                    <button type="button" onclick="closeDevModal('modal-taman-mini')" class="px-6 py-3 border border-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-50 text-slate-700 transition-colors">
-                        Tutup
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 3: Heartful Town Depok -->
-    <div id="modal-depok" class="dev-modal fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative animate-fade-in">
-            <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between z-20">
-                <div>
-                    <span class="text-xs uppercase tracking-wider text-[#006491] font-bold">Kota Mandiri 15 Hektar</span>
-                    <h3 class="text-xl font-bold text-deep-navy">Heartful Town Depok</h3>
-                </div>
-                <button type="button" onclick="closeDevModal('modal-depok')" class="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <div class="p-6 space-y-6">
-                <div class="relative rounded-xl overflow-hidden aspect-video bg-slate-100">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/layout/heartful-town-fg-ready-stock-1.jpg" alt="Heartful Town Depok Unit" class="w-full h-full object-cover" />
-                    <div class="absolute bottom-3 left-4 bg-deep-navy/85 backdrop-blur-xs text-white text-xs px-3 py-1 rounded font-medium">
-                        Jl. Arco Raya, Duren Seribu, Bojongsari, Depok
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-deep-navy mb-2">Tentang Proyek</h4>
-                    <p class="text-sm text-on-surface-variant leading-relaxed">
-                        Heartful Town Depok adalah kawasan kota mandiri (masterplanned township) seluas 15 hektar yang dirancang untuk mewujudkan keseimbangan antara kenyamanan alam dan teknologi hunian maju. Dilengkapi infrastruktur lengkap mulai dari masjid raya kawasan, sentra kuliner dan ritel komersial, taman rekreasi anak, hingga jalur lari asri.
-                    </p>
-                </div>
-
-                <div class="bg-surface-container-low rounded-xl p-5 border border-slate-200">
-                    <h4 class="font-bold text-deep-navy text-sm mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-action-cyan text-[20px]">list</span>
-                        Spesifikasi Bangunan &amp; Unit
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Total Luas Area:</span>
-                            <span class="font-semibold text-deep-navy">15 Hektar Township</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Tipe Rumah:</span>
-                            <span class="font-semibold text-deep-navy">Tipe 36/60 &amp; 45/72</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Kamar Tidur / Mandi:</span>
-                            <span class="font-semibold text-deep-navy">2 KT / 1 KM</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Taman:</span>
-                            <span class="font-semibold text-deep-navy">Front &amp; Backyard Private Garden</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Akses Transportasi:</span>
-                            <span class="font-semibold text-deep-navy">Tol Sawangan &amp; Tol Pamulang-Serpong</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Daya Listrik:</span>
-                            <span class="font-semibold text-deep-navy">1300 / 2200 VA</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Legalitas:</span>
-                            <span class="font-semibold text-deep-navy">SHM &amp; PBG Lengkap</span>
-                        </div>
-                        <div class="flex justify-between py-1.5 border-b border-slate-200">
-                            <span class="text-slate-500">Fasilitas Kawasan:</span>
-                            <span class="font-semibold text-deep-navy">Masjid Raya, Ritel, Jogging Track</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                    <a href="https://wa.me/6281288336230?text=Halo%20saya%20tertarik%20dengan%20unit%20Heartful%20Town%20Depok" target="_blank" rel="noopener noreferrer" class="flex-1 bg-deep-navy text-white hover:bg-black py-3 px-6 rounded-lg text-center font-semibold text-sm transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>Tanya Marketing via WhatsApp</span>
-                    </a>
-                    <button type="button" onclick="closeDevModal('modal-depok')" class="px-6 py-3 border border-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-50 text-slate-700 transition-colors">
-                        Tutup
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </dialog>
 </main>
 
-<script type="text/javascript" nonce="<?php echo bricklet_get_nonce(); ?>">
-    document.addEventListener("DOMContentLoaded", function() {
-        // Hash link auto-scroll & highlight
-        if (window.location.hash) {
-            const targetId = window.location.hash.substring(1);
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) {
-                setTimeout(() => {
-                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    targetEl.classList.add("ring-2", "ring-action-cyan");
-                    setTimeout(() => {
-                        targetEl.classList.remove("ring-2", "ring-action-cyan");
-                    }, 2500);
-                }, 300);
+<script nonce="<?php echo bricklet_get_nonce(); ?>">
+(function() {
+    const projectsData = <?php echo wp_json_encode( $projects, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); ?>;
+
+    const filterButtons = Array.from(document.querySelectorAll('.dev-filter-btn'));
+    const projectCards  = Array.from(document.querySelectorAll('#projects-grid .dev-card'));
+    const projectsBlock = document.getElementById('projects-block');
+    const brandsBlock   = document.getElementById('brands-block');
+    const countBadge    = document.getElementById('catalog-count');
+
+    const dialog        = document.getElementById('dev-project-dialog');
+    const dialogClose   = document.getElementById('dev-dialog-close');
+    const dialogDismiss = document.getElementById('dev-dialog-dismiss');
+    const dialogCat     = document.getElementById('dev-dialog-category');
+    const dialogTitle   = document.getElementById('dev-dialog-title');
+    const dialogImg     = document.getElementById('dev-dialog-img');
+    const dialogThumbs  = document.getElementById('dev-dialog-thumbs');
+    const dialogDesc    = document.getElementById('dev-dialog-desc');
+    const dialogSpecs   = document.getElementById('dev-dialog-specs');
+    const unitsWrap     = document.getElementById('dev-dialog-units-wrap');
+    const unitsBody     = document.getElementById('dev-dialog-units-body');
+    const facWrap       = document.getElementById('dev-dialog-facilities-wrap');
+    const facList       = document.getElementById('dev-dialog-facilities');
+    const extLink       = document.getElementById('dev-dialog-ext-link');
+
+    let lastTriggerEl = null;
+
+    function applyFilter(filterKey) {
+        filterButtons.forEach((btn) => {
+            const active = btn.dataset.filter === filterKey;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+
+        if (filterKey === 'japan-brands') {
+            projectsBlock.classList.add('is-hidden');
+            brandsBlock.classList.remove('is-hidden');
+            brandsBlock.classList.add('is-solo');
+            countBadge.textContent = 'Menampilkan 6 brand perumahan Jepang';
+            return;
+        }
+
+        projectsBlock.classList.remove('is-hidden');
+        let visibleCount = 0;
+
+        projectCards.forEach((card) => {
+            const matches = (filterKey === 'all' || card.dataset.cat === filterKey);
+            card.classList.toggle('is-hidden', !matches);
+            if (matches) {
+                visibleCount += 1;
+            }
+        });
+
+        if (filterKey === 'all') {
+            brandsBlock.classList.remove('is-hidden', 'is-solo');
+            countBadge.textContent = 'Menampilkan ' + visibleCount + ' proyek & 6 brand rumah';
+        } else {
+            brandsBlock.classList.add('is-hidden');
+            brandsBlock.classList.remove('is-solo');
+            countBadge.textContent = 'Menampilkan ' + visibleCount + ' proyek';
+        }
+    }
+
+    filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            applyFilter(btn.dataset.filter);
+        });
+    });
+
+    function clearElement(el) {
+        while (el.firstChild) {
+            el.removeChild(el.firstChild);
+        }
+    }
+
+    function openProjectDialog(index, triggerEl) {
+        const proj = projectsData[index];
+        if (!proj || !dialog) {
+            return;
+        }
+
+        lastTriggerEl = triggerEl || document.activeElement;
+
+        dialogCat.textContent = proj.categoryLabel + ' · ' + proj.statusLabel;
+        dialogTitle.textContent = proj.title;
+        dialogDesc.textContent = proj.summary;
+
+        // Primary image + thumbnail switcher when >1 image exists
+        const imgs = proj.images || [];
+        clearElement(dialogThumbs);
+        if (imgs.length > 0) {
+            dialogImg.src = imgs[0].url;
+            dialogImg.alt = imgs[0].alt;
+        }
+        if (imgs.length > 1) {
+            dialogThumbs.hidden = false;
+            imgs.forEach((imgObj, i) => {
+                const thumbBtn = document.createElement('button');
+                thumbBtn.type = 'button';
+                thumbBtn.className = 'dev-thumb-btn' + (i === 0 ? ' is-active' : '');
+                thumbBtn.textContent = imgObj.label;
+                thumbBtn.addEventListener('click', () => {
+                    dialogImg.src = imgObj.url;
+                    dialogImg.alt = imgObj.alt;
+                    Array.from(dialogThumbs.children).forEach((b, bi) => {
+                        b.classList.toggle('is-active', bi === i);
+                    });
+                });
+                dialogThumbs.appendChild(thumbBtn);
+            });
+        } else {
+            dialogThumbs.hidden = true;
+        }
+
+        // Specs list
+        clearElement(dialogSpecs);
+        (proj.specs || []).forEach((pair) => {
+            const row = document.createElement('div');
+            row.className = 'dev-spec-row';
+            const dt = document.createElement('dt');
+            dt.textContent = pair[0];
+            const dd = document.createElement('dd');
+            dd.textContent = pair[1];
+            row.appendChild(dt);
+            row.appendChild(dd);
+            dialogSpecs.appendChild(row);
+        });
+
+        // Apartment unit types (Heartful Tower Bekasi)
+        clearElement(unitsBody);
+        if (proj.unitTypes && proj.unitTypes.length > 0) {
+            unitsWrap.hidden = false;
+            proj.unitTypes.forEach((u) => {
+                const tr = document.createElement('tr');
+                const tdType = document.createElement('td');
+                tdType.textContent = u.type;
+                const tdNett = document.createElement('td');
+                tdNett.textContent = u.nett;
+                const tdSemi = document.createElement('td');
+                tdSemi.textContent = u.semigross;
+                tr.appendChild(tdType);
+                tr.appendChild(tdNett);
+                tr.appendChild(tdSemi);
+                unitsBody.appendChild(tr);
+            });
+        } else {
+            unitsWrap.hidden = true;
+        }
+
+        // Facilities (Heartful Tower Bekasi)
+        clearElement(facList);
+        if (proj.facilities && proj.facilities.length > 0) {
+            facWrap.hidden = false;
+            proj.facilities.forEach((f) => {
+                const li = document.createElement('li');
+                li.className = 'dev-facility-chip';
+                li.textContent = f;
+                facList.appendChild(li);
+            });
+        } else {
+            facWrap.hidden = true;
+        }
+
+        // External link if present
+        if (proj.externalUrl) {
+            extLink.hidden = false;
+            extLink.href = proj.externalUrl;
+            const spanLabel = extLink.querySelector('span');
+            if (spanLabel) {
+                spanLabel.textContent = proj.externalLabel || 'Kunjungi Situs Resmi';
+            }
+        } else {
+            extLink.hidden = true;
+        }
+
+        document.body.style.overflow = 'hidden';
+        if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+        } else {
+            dialog.setAttribute('open', '');
+        }
+        dialogClose.focus();
+    }
+
+    function closeProjectDialog() {
+        if (!dialog) {
+            return;
+        }
+        if (typeof dialog.close === 'function' && dialog.open) {
+            dialog.close();
+        } else {
+            dialog.removeAttribute('open');
+            document.body.style.overflow = '';
+            if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
+                lastTriggerEl.focus();
             }
         }
-    });
-
-    // Modal Handlers
-    function openDevModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
     }
 
-    function closeDevModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+    document.querySelectorAll('.dev-detail-trigger').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const idx = parseInt(btn.dataset.projectIndex, 10);
+            openProjectDialog(idx, btn);
+        });
+    });
+
+    if (dialog) {
+        dialogClose.addEventListener('click', closeProjectDialog);
+        dialogDismiss.addEventListener('click', closeProjectDialog);
+        dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) {
+                closeProjectDialog();
+            }
+        });
+        dialog.addEventListener('close', () => {
             document.body.style.overflow = '';
-        }
+            if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
+                lastTriggerEl.focus();
+            }
+        });
     }
 
-    // Close on outside click or escape key
-    window.addEventListener("click", function(e) {
-        if (e.target.classList.contains("dev-modal")) {
-            e.target.classList.add("hidden");
-            e.target.classList.remove("flex");
-            document.body.style.overflow = '';
+    // Hash anchor handling (e.g. /development/#bekasi or #heartful-tower-bekasi)
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.location.hash) {
+            return;
         }
-    });
-
-    window.addEventListener("keydown", function(e) {
-        if (e.key === "Escape") {
-            document.querySelectorAll(".dev-modal").forEach(m => {
-                m.classList.add("hidden");
-                m.classList.remove("flex");
-            });
-            document.body.style.overflow = '';
+        const targetId = window.location.hash.substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (!targetEl) {
+            return;
         }
+        if (targetEl.classList.contains('dev-brand-card')) {
+            applyFilter('japan-brands');
+        } else if (targetEl.dataset && targetEl.dataset.cat) {
+            applyFilter('all');
+        }
+        setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetEl.classList.add('is-highlighted');
+            setTimeout(() => {
+                targetEl.classList.remove('is-highlighted');
+            }, 2500);
+        }, 200);
     });
+})();
 </script>
 
 <?php
