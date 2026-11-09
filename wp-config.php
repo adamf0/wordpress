@@ -90,6 +90,17 @@ $table_prefix = 'wp_';
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
 define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', false );
+define( 'WP_DEBUG_DISPLAY', false );
+@ini_set( 'display_errors', 0 );
+/* Add any custom values between this line and the "stop editing" line. */
+// Security Hardening: Mencegah eksekusi dan modifikasi file langsung
+define( 'DISALLOW_FILE_EDIT', true );        // Nonaktifkan theme & plugin editor di dashboard WP-Admin
+define( 'ALLOW_UNFILTERED_UPLOADS', false ); // Larang upload file tanpa filter MIME type (bahkan untuk admin)
+define( 'WP_HTTP_BLOCK_EXTERNAL', true );
+define( 'WP_ACCESSIBLE_HOSTS', 'api.wordpress.org,downloads.wordpress.org' );
+define( 'DISALLOW_FILE_MODS', true ); 
+define('FS_METHOD', 'direct');
 
 /* Add any custom values between this line and the "stop editing" line. */
 

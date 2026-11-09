@@ -48,8 +48,19 @@ $entities = $wpdb->get_results("SELECT * FROM $table_entities ORDER BY sort_orde
             </div>
             <?php if (!empty($entities)): ?>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <?php foreach ($entities as $index => $e): ?>
-                        <div class="bento-hover bg-white border border-structural-gray p-8 flex flex-col justify-between group reveal-on-scroll" style="<?php echo $index > 0 ? "transition-delay: " . ($index * 100) . "ms;" : ""; ?>">
+                    <?php foreach ($entities as $index => $e): 
+                        $card_anchor = sanitize_title($e['name']);
+                        if (stripos($e['name'], 'iida sangyo') !== false) {
+                            $card_anchor = 'iida-sangyo';
+                        } elseif (stripos($e['name'], 'hajime') !== false) {
+                            $card_anchor = 'hajime';
+                        } elseif (stripos($e['name'], 'tact home') !== false) {
+                            $card_anchor = 'tact-home';
+                        } elseif (stripos($e['name'], 'touei') !== false) {
+                            $card_anchor = 'touei';
+                        }
+                    ?>
+                        <div id="<?php echo esc_attr($card_anchor); ?>" class="bento-hover bg-white border border-structural-gray p-8 flex flex-col justify-between group reveal-on-scroll scroll-mt-28 transition-all hover:border-action-cyan/50 hover:shadow-xl rounded-xl" style="<?php echo $index > 0 ? "transition-delay: " . ($index * 100) . "ms;" : ""; ?>">
                             <div>
                                 <div class="h-12 w-full mb-8 flex items-center">
                                     <span class="material-symbols-outlined text-primary text-4xl" data-weight="fill"><?php echo esc_html($e['icon']); ?></span>
@@ -156,6 +167,24 @@ $entities = $wpdb->get_results("SELECT * FROM $table_entities ORDER BY sort_orde
         </div>
     </section>
 </main>
+
+<script type="text/javascript" nonce="<?php echo bricklet_get_nonce(); ?>">
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                setTimeout(() => {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetEl.classList.add("ring-2", "ring-action-cyan");
+                    setTimeout(() => {
+                        targetEl.classList.remove("ring-2", "ring-action-cyan");
+                    }, 2500);
+                }, 300);
+            }
+        }
+    });
+</script>
 
 <?php
 get_footer();

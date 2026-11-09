@@ -44,17 +44,40 @@
       }
     </script>
 
-    <!-- Google Fonts Stylesheets -->
+    <!-- Preload Material Symbols Font for Instant Icon Rendering -->
+    <link rel="preload" href="<?php echo get_template_directory_uri(); ?>/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Google Fonts Stylesheets (Full glyphset fallback) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@600;700;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=architecture,arrow_back,arrow_forward,assignment_return,call,check_circle,chevron_left,chevron_right,close,corporate_fare,directions,domain,eco,engineering,error,foundation,group,handshake,home_work,inventory_2,landscape,list,location_city,location_on,mail,menu,north_east,phone,precision_manufacturing,public,rocket_launch,search,security,send,settings_suggest,shopping_cart,verified,visibility,volume_off,zoom_in&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
 
     <!-- Compiled Tailwind CSS -->
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/tailwind-build.css" />
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/style.css" />
 
-    <!-- Custom CSS for layout effects -->
+    <!-- Custom CSS for layout effects and font icons -->
     <style type="text/css">
+        @font-face {
+            font-family: 'Material Symbols Outlined';
+            font-style: normal;
+            font-weight: 100 700;
+            font-display: block;
+            src: url('<?php echo get_template_directory_uri(); ?>/fonts/material-symbols-outlined.woff2') format('woff2');
+        }
         .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .text-gradient-primary {
@@ -110,20 +133,160 @@
             color: #004d70 !important;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
         }
+        /* Premium Corporate Navbar & Dropdown Styling */
+        .nav-item-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+        .nav-main-link {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            padding: 0.35rem 0;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            text-decoration: none;
+        }
+        @media (min-width: 1024px) {
+            .nav-main-link {
+                font-size: 0.8125rem;
+            }
+        }
+        .nav-main-link:hover {
+            color: #c49e2b;
+        }
+        .nav-main-link.is-active {
+            color: #c49e2b;
+            font-weight: 700;
+            border-bottom: 2px solid #c49e2b;
+            padding-bottom: calc(0.35rem - 2px);
+        }
+        .nav-arrow-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            min-width: 10px;
+            max-width: 10px;
+            margin-left: 5px;
+            vertical-align: middle;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0.65;
+            flex-shrink: 0;
+        }
+        .nav-item-wrapper:hover .nav-arrow-icon,
+        .nav-item-wrapper:focus-within .nav-arrow-icon,
+        .nav-item-wrapper.is-open .nav-arrow-icon {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+        /* Reset button to look like link */
+        button.nav-main-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            gap: 0;
+        }
+
+        /* Hover Popover Dropdown (No Icons) */
+        .nav-dropdown-wrapper {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            z-index: 60;
+            padding-top: 6px;
+        }
+        .nav-item-wrapper:hover .nav-dropdown-wrapper,
+        .nav-item-wrapper:focus-within .nav-dropdown-wrapper,
+        .nav-item-wrapper.is-open .nav-dropdown-wrapper {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-card {
+            background-color: #ffffff;
+            min-width: 220px;
+            box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 0;
+        }
+        .nav-dropdown-card a {
+            display: block;
+            padding: 8px 18px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #4b5563;
+            text-decoration: none;
+            white-space: nowrap;
+            text-align: left;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .nav-dropdown-card a:hover {
+            background-color: #faf5e6;
+            color: #c49e2b;
+            font-weight: 600;
+        }
+        .nav-dropdown-card a.is-active {
+            color: #c49e2b;
+            font-weight: 600;
+            background-color: #faf5e6;
+        }
+
+        /* Scrolled Header Styling */
         header.is-scrolled #subnav-container {
             background-color: #00a2e8 !important;
             border-top-color: rgba(255, 255, 255, 0.2) !important;
         }
-        header.is-scrolled #subnav-container nav a {
+        header.is-scrolled #subnav-container .nav-main-link {
             color: #ffffff !important;
-            transition: color 0.2s ease, border-color 0.2s ease;
         }
-        header.is-scrolled #subnav-container nav a:hover {
-            color: #e0f2fe !important;
+        header.is-scrolled #subnav-container .nav-main-link:hover {
+            color: #fef08a !important;
         }
-        header.is-scrolled #subnav-container nav a[class*="border-[#c49e2b]"] {
+        header.is-scrolled #subnav-container .nav-main-link.is-active {
             color: #ffffff !important;
-            border-color: #ffffff !important;
+            border-bottom-color: #ffffff !important;
+        }
+        header.is-scrolled #subnav-container .nav-arrow-icon {
+            stroke: #ffffff !important;
+            opacity: 0.9;
+        }
+        header.is-scrolled #subnav-container .nav-dropdown-card {
+            background-color: #ffffff !important;
+            border-color: #e5e7eb !important;
+            box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.22) !important;
+        }
+        header.is-scrolled #subnav-container .nav-dropdown-card a {
+            color: #374151 !important;
+        }
+        header.is-scrolled #subnav-container .nav-dropdown-card a:hover {
+            color: #c49e2b !important;
+            background-color: #faf5e6 !important;
+        }
+        header.is-scrolled #subnav-container .nav-dropdown-card a.is-active {
+            color: #c49e2b !important;
+            background-color: #faf5e6 !important;
+        }
+        header.is-scrolled #subnav-container .mobile-submenu {
+            border-color: rgba(255, 255, 255, 0.35) !important;
+        }
+        header.is-scrolled #subnav-container .mobile-submenu a {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+        header.is-scrolled #subnav-container .mobile-submenu a:hover {
+            color: #ffffff !important;
         }
         /* Mobile menu transitions */
         #mobile-menu-drawer {
@@ -150,7 +313,7 @@
     <div class="scroll-progress" id="progressBar" style="width: 0%;"></div>
 
     <?php
-    // Fetch current page slug
+    // Fetch current page slug & path
     global $post;
     $current_slug = '';
     if ( is_front_page() || is_home() ) {
@@ -158,15 +321,49 @@
     } elseif ( $post ) {
         $current_slug = $post->post_name;
     }
+    $current_path = trim(wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
 
-    // Dynamic menu data based on page slugs
+    // Dynamic hierarchical menu data adapted to localhost (clean, no icons)
     $nav_items = array(
-        array( 'title' => 'BERANDA', 'slug' => 'home', 'url' => home_url('/') ),
-        array( 'title' => 'OUR PROJECT', 'slug' => 'products', 'url' => home_url('/products/') ),
-        array( 'title' => 'COMPANY PROFILE', 'slug' => 'company-profile', 'url' => home_url('/company-profile/') ),
-        array( 'title' => 'OUR BUSINESS', 'slug' => 'our-business', 'url' => home_url('/our-business/') ),
-        array( 'title' => 'GROUP COMPANY', 'slug' => 'group-company', 'url' => home_url('/group-company/') ),
-        array( 'title' => 'KONTAK', 'slug' => 'contact', 'url' => home_url('/contact/') ),
+        array(
+            'title'    => 'ABOUT US',
+            'slug'     => 'aboutus',
+            'url'      => home_url('/aboutus'),
+            'children' => array(
+                array( 'title' => 'Overview', 'slug' => 'overview', 'url' => home_url('/aboutus/overview') ),
+                array( 'title' => 'Vision & Mission', 'slug' => 'vision_mission', 'url' => home_url('/aboutus/vision_mission') ),
+                array( 'title' => 'Milestone', 'slug' => 'milestone', 'url' => home_url('/aboutus/milestone') ),
+                array( 'title' => 'Awards', 'slug' => 'awards', 'url' => home_url('/aboutus/awards') ),
+            ),
+        ),
+        array(
+            'title'    => 'PRODUCT',
+            'slug'     => 'products',
+            'url'      => home_url('/products'),
+            'children' => array(),
+        ),
+        array(
+            'title'    => 'GROUP COMPANY',
+            'slug'     => 'group-company',
+            'url'      => home_url('/group-company'),
+            'children' => array(),
+        ),
+        array(
+            'title'    => 'LATEST UPDATES',
+            'slug'     => 'latest_updates',
+            'url'      => home_url('/latest_updates'),
+            'children' => array(
+                array( 'title' => 'News', 'slug' => 'news', 'url' => home_url('/news?newsData=1') ),
+                array( 'title' => 'E-newsletter', 'slug' => 'e-newsletter', 'url' => home_url('/latest_updates/e-newsletter') ),
+                array( 'title' => 'Press Release', 'slug' => 'press_release', 'url' => home_url('/news?pressReleaseData=1') ),
+            ),
+        ),
+        array(
+            'title'    => 'CONTACT US',
+            'slug'     => 'contact',
+            'url'      => home_url('/contact'),
+            'children' => array(),
+        ),
     );
     ?>
 
@@ -210,19 +407,86 @@
             </div>
         </div>
 
-        <!-- Sub-Bar: Expandable Menu Links (Image 3) -->
+        <!-- Sub-Bar: Expandable Menu Links (Tree Structure with Clean Dropdowns, No Icons) -->
         <div id="subnav-container" class="hidden border-t border-gray-200 bg-white transition-all duration-300">
             <div class="max-w-container-max mx-auto px-4 py-3 md:py-4">
-                <nav class="flex flex-wrap justify-center items-center gap-5 md:gap-10">
+                <!-- Desktop Navigation: Horizontal flex with elegant dropdowns -->
+                <nav class="hidden md:flex flex-wrap justify-center items-center gap-6 lg:gap-10">
                     <?php foreach ($nav_items as $item) : 
-                        $is_active = ($current_slug === $item['slug']);
-                        $class = $is_active 
-                            ? 'text-[#c49e2b] font-bold uppercase tracking-widest text-xs md:text-sm pb-1 border-b-2 border-[#c49e2b]' 
-                            : 'text-gray-700 hover:text-[#c49e2b] font-semibold uppercase tracking-widest text-xs md:text-sm transition-colors';
-                        ?>
-                        <a class="<?php echo esc_attr($class); ?>" href="<?php echo esc_url($item['url']); ?>">
-                            <?php echo esc_html($item['title']); ?>
-                        </a>
+                        $has_children = !empty($item['children']);
+                        $is_active = ($current_slug === $item['slug'])
+                            || (!empty($current_path) && strpos($current_path, $item['slug']) !== false)
+                            || ($item['slug'] === 'products' && ($current_slug === 'development' || (!empty($current_path) && strpos($current_path, 'development') !== false)));
+                        if (!$is_active && $has_children) {
+                            foreach ($item['children'] as $child) {
+                                if ($current_slug === $child['slug'] || (!empty($current_path) && strpos($current_path, $child['slug']) !== false)) {
+                                    $is_active = true;
+                                    break;
+                                }
+                            }
+                        }
+                    ?>
+                        <div class="nav-item-wrapper py-2">
+                            <?php if ($has_children) : ?>
+                                <button type="button" class="nav-main-link nav-dropdown-trigger <?php echo $is_active ? 'is-active' : ''; ?>" aria-expanded="false" aria-haspopup="true">
+                                    <span><?php echo esc_html($item['title']); ?></span>
+                                    <svg class="nav-arrow-icon" viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M2 3.5L5 6.5L8 3.5" />
+                                    </svg>
+                                </button>
+                            <?php else : ?>
+                                <a class="nav-main-link <?php echo $is_active ? 'is-active' : ''; ?>" href="<?php echo esc_url($item['url']); ?>">
+                                    <span><?php echo esc_html($item['title']); ?></span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($has_children) : ?>
+                                <!-- Dropdown Menu Popover -->
+                                <div class="nav-dropdown-wrapper">
+                                    <div class="nav-dropdown-card">
+                                        <?php foreach ($item['children'] as $child) : 
+                                            $is_child_active = ($current_slug === $child['slug'] || (!empty($current_path) && strpos($current_path, $child['slug']) !== false));
+                                        ?>
+                                            <a href="<?php echo esc_url($child['url']); ?>" class="<?php echo $is_child_active ? 'is-active' : ''; ?>">
+                                                <?php echo esc_html($child['title']); ?>
+                                            </a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </nav>
+
+                <!-- Mobile Navigation: Clean Vertical Tree without Icons -->
+                <nav class="md:hidden flex flex-col divide-y divide-gray-100 py-2">
+                    <?php foreach ($nav_items as $item) : 
+                        $has_children = !empty($item['children']);
+                        $is_active = ($current_slug === $item['slug'])
+                            || (!empty($current_path) && strpos($current_path, $item['slug']) !== false)
+                            || ($item['slug'] === 'products' && ($current_slug === 'development' || (!empty($current_path) && strpos($current_path, 'development') !== false)));
+                    ?>
+                        <div class="py-2.5">
+                            <a href="<?php echo esc_url($item['url']); ?>" class="nav-main-link font-bold text-xs uppercase tracking-wider <?php echo $is_active ? 'is-active' : ''; ?>">
+                                <span><?php echo esc_html($item['title']); ?></span>
+                                <?php if ($has_children) : ?>
+                                    <svg class="nav-arrow-icon" viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M2 3.5L5 6.5L8 3.5" />
+                                    </svg>
+                                <?php endif; ?>
+                            </a>
+                            <?php if ($has_children) : ?>
+                                <div class="mobile-submenu mt-2 pl-3 border-l-2 border-amber-300 space-y-1">
+                                    <?php foreach ($item['children'] as $child) : 
+                                        $is_child_active = ($current_slug === $child['slug'] || (!empty($current_path) && strpos($current_path, $child['slug']) !== false));
+                                    ?>
+                                        <a href="<?php echo esc_url($child['url']); ?>" class="block py-1 text-xs text-gray-600 hover:text-[#c49e2b] transition-colors <?php echo $is_child_active ? 'text-[#c49e2b] font-semibold' : ''; ?>">
+                                            <?php echo esc_html($child['title']); ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     <?php endforeach; ?>
                 </nav>
             </div>
@@ -250,5 +514,35 @@
                     }
                 });
             }
+
+            // Dropdown trigger buttons (items with children) — toggle on click
+            const dropdownTriggers = document.querySelectorAll(".nav-dropdown-trigger");
+            dropdownTriggers.forEach(function(trigger) {
+                trigger.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    const wrapper = trigger.closest(".nav-item-wrapper");
+                    const isOpen = wrapper.classList.contains("is-open");
+                    // Close all other open dropdowns first
+                    document.querySelectorAll(".nav-item-wrapper.is-open").forEach(function(el) {
+                        el.classList.remove("is-open");
+                        const btn = el.querySelector(".nav-dropdown-trigger");
+                        if (btn) btn.setAttribute("aria-expanded", "false");
+                    });
+                    if (!isOpen) {
+                        wrapper.classList.add("is-open");
+                        trigger.setAttribute("aria-expanded", "true");
+                    }
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", function() {
+                document.querySelectorAll(".nav-item-wrapper.is-open").forEach(function(el) {
+                    el.classList.remove("is-open");
+                    const btn = el.querySelector(".nav-dropdown-trigger");
+                    if (btn) btn.setAttribute("aria-expanded", "false");
+                });
+            });
         });
     </script>
+

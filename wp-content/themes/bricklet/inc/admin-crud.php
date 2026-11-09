@@ -348,28 +348,20 @@ function bricklet_setup_database() {
         // 6. Group Company Entities
         if ($wpdb->get_var("SELECT COUNT(*) FROM $table_entities") == 0) {
             $wpdb->insert($table_entities, array(
-                'name' => 'Hajime Construction Co., Ltd.',
-                'icon' => 'architecture',
-                'description' => 'Specializing in high-efficiency residential construction and innovative housing systems that redefine modern living standards.',
-                'link_text' => 'JAPAN HQ',
-                'link_url' => 'https://www.hajime-kensetsu.co.jp/en/',
-                'sort_order' => 1
-            ));
-            $wpdb->insert($table_entities, array(
                 'name' => 'Iida Sangyo Co., Ltd.',
                 'icon' => 'domain',
                 'description' => 'A leader in large-scale residential development with a focus on community-centric design and sustainable infrastructure.',
                 'link_text' => 'ESTABLISHED 1977',
                 'link_url' => 'https://www.iidasangyo.co.jp/iida_en/',
-                'sort_order' => 2
+                'sort_order' => 1
             ));
             $wpdb->insert($table_entities, array(
-                'name' => 'Touei Housing Corporation',
-                'icon' => 'home_work',
-                'description' => 'Expertise in premium urban housing, focusing on architectural aesthetics and high-durability construction techniques.',
-                'link_text' => 'URBAN DESIGN',
-                'link_url' => 'https://www.ighd.co.jp/en/corporate/group/touei_housing.html',
-                'sort_order' => 3
+                'name' => 'Hajime Construction Co., Ltd.',
+                'icon' => 'architecture',
+                'description' => 'Specializing in high-efficiency residential construction and innovative housing systems that redefine modern living standards.',
+                'link_text' => 'JAPAN HQ',
+                'link_url' => 'https://www.hajime-kensetsu.co.jp/en/',
+                'sort_order' => 2
             ));
             $wpdb->insert($table_entities, array(
                 'name' => 'Tact Home Co., Ltd.',
@@ -377,6 +369,14 @@ function bricklet_setup_database() {
                 'description' => 'Innovative prefab solutions and swift delivery systems that maintain rigorous Japanese structural integrity standards.',
                 'link_text' => 'FAST-TRACK CONST.',
                 'link_url' => 'https://www.tacthome.co.id/',
+                'sort_order' => 3
+            ));
+            $wpdb->insert($table_entities, array(
+                'name' => 'Touei Housing Corporation',
+                'icon' => 'home_work',
+                'description' => 'Expertise in premium urban housing, focusing on architectural aesthetics and high-durability construction techniques.',
+                'link_text' => 'URBAN DESIGN',
+                'link_url' => 'https://www.ighd.co.jp/en/corporate/group/touei_housing.html',
                 'sort_order' => 4
             ));
             $wpdb->insert($table_entities, array(

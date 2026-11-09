@@ -70,7 +70,20 @@ get_header();
                 </div>
             </article>
         <?php endwhile; else: ?>
-            <p class="text-gray-500 text-center col-span-3">No posts found matching the criteria.</p>
+            <div class="col-span-full text-center py-16 px-4 bg-gray-50 rounded-2xl border border-gray-200">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-width="1.75"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12" stroke-width="1.75" stroke-linecap="round"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"></line>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Belum Ada Konten Ditemukan</h3>
+                <p class="text-gray-500 text-sm max-w-md mx-auto mb-6">Artikel atau topik yang Anda cari saat ini belum tersedia atau sedang dalam proses pembaruan.</p>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 bg-deep-navy hover:bg-primary text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all shadow-sm border border-transparent hover:border-[#00b3ff]">
+                    <span>Kembali ke Beranda</span>
+                </a>
+            </div>
         <?php endif; ?>
     </div>
 

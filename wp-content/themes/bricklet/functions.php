@@ -410,19 +410,144 @@ function bricklet_send_robots_headers() {
 }
 add_action('send_headers', 'bricklet_send_robots_headers');
 
+// ============================================================
+// AJAX Contact Form Handler
+// ============================================================
+add_action('wp_ajax_bricklet_contact',        'bricklet_ajax_contact');
+add_action('wp_ajax_nopriv_bricklet_contact', 'bricklet_ajax_contact');
+
+function bricklet_ajax_contact() {
+    // Verify nonce
+    if (!isset($_POST['contact_nonce']) || !wp_verify_nonce($_POST['contact_nonce'], 'send_contact_message')) {
+        wp_send_json_error(['message' => 'Verifikasi keamanan gagal. Silakan muat ulang halaman.']);
+    }
+
+    $fullname        = isset($_POST['fullname'])        ? sanitize_text_field($_POST['fullname'])        : '';
+    $email           = isset($_POST['email'])           ? sanitize_email($_POST['email'])                : '';
+    $phone           = isset($_POST['phone'])           ? sanitize_text_field($_POST['phone'])           : '';
+    $unit_destination = isset($_POST['unit_destination']) ? sanitize_text_field($_POST['unit_destination']) : 'Head Office PT Perumnas Iida Group';
+    $subject_type    = isset($_POST['subject_type'])    ? sanitize_text_field($_POST['subject_type'])    : '';
+    $message         = isset($_POST['message'])         ? sanitize_textarea_field($_POST['message'])     : '';
+
+    // Validate required fields
+    if (empty($fullname) || empty($email) || empty($message)) {
+        wp_send_json_error(['message' => 'Mohon lengkapi seluruh kolom yang wajib diisi.']);
+    }
+    if (!is_email($email)) {
+        wp_send_json_error(['message' => 'Alamat email yang dimasukkan tidak valid.']);
+    }
+
+    // Build email
+    $to      = bricklet_get_env_var('CONTACT_TO_EMAIL', 'info@perumnasiidagroup.com');
+    $subject = 'Inquiry Baru [' . $unit_destination . ']: ' . $subject_type;
+
+    $fullname_esc     = esc_html($fullname);
+    $email_esc        = esc_html($email);
+    $phone_esc        = esc_html($phone);
+    $unit_dest_esc    = esc_html($unit_destination);
+    $subject_type_esc = esc_html($subject_type);
+    $message_esc      = nl2br(esc_html($message));
+
+    $body = '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;font-family:\'Helvetica Neue\',Helvetica,Arial,sans-serif;background-color:#f8fafc;color:#0a1f2c;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f8fafc;padding:40px 20px;">
+  <tr><td align="center">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;">
+      <tr><td style="background-color:#0a1f2c;padding:30px 40px;border-bottom:3px solid #00b3ff;">
+        <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">PT PERUMNAS IIDA GROUP</h1>
+        <p style="margin:6px 0 0;color:#00b3ff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Notifikasi Permintaan Informasi</p>
+      </td></tr>
+      <tr><td style="padding:40px;">
+        <p style="margin:0 0 24px;font-size:15px;line-height:24px;color:#334155;">Halo Tim PT Perumnas Iida Group,<br><br>Anda menerima pesan baru melalui portal kontak website resmi:</p>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin-bottom:30px;">
+          <tr><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;font-weight:700;color:#0a1f2c;width:140px;">Tujuan Unit</td><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;color:#006491;font-weight:600;">' . $unit_dest_esc . '</td></tr>
+          <tr><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;font-weight:700;color:#0a1f2c;">Nama</td><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;color:#334155;">' . $fullname_esc . '</td></tr>
+          <tr><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;font-weight:700;color:#0a1f2c;">Email</td><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;color:#006491;"><a href="mailto:' . $email_esc . '" style="color:#006491;text-decoration:none;">' . $email_esc . '</a></td></tr>
+          <tr><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;font-weight:700;color:#0a1f2c;">Telepon</td><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;color:#334155;">' . ($phone_esc ?: '-') . '</td></tr>
+          <tr><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;font-weight:700;color:#0a1f2c;">Topik</td><td style="padding:12px 0;border-bottom:1px solid #E2E8F0;font-size:14px;color:#334155;">' . $subject_type_esc . '</td></tr>
+          <tr><td colspan="2" style="padding:16px 0 0;font-size:14px;font-weight:700;color:#0a1f2c;">Pesan:</td></tr>
+          <tr><td colspan="2" style="padding:10px 0 0;font-size:14px;line-height:22px;color:#334155;"><div style="background:#f8fafc;border:1px solid #E2E8F0;padding:15px;border-radius:6px;white-space:pre-wrap;">' . $message_esc . '</div></td></tr>
+        </table>
+        <p style="margin:0;font-size:13px;color:#64748b;">Pesan ini dikirim otomatis melalui portal website resmi <strong>PT Perumnas Iida Group</strong>.</p>
+      </td></tr>
+      <tr><td style="background:#f1f5f9;padding:20px 40px;text-align:center;border-top:1px solid #E2E8F0;">
+        <p style="margin:0;font-size:12px;color:#64748b;">&copy; ' . date('Y') . ' PT Perumnas Iida Group. All rights reserved.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>';
+
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'Reply-To: ' . $fullname . ' <' . $email . '>',
+    ];
+
+    $smtp_user  = bricklet_get_env_var('WP_SMTP_USER', '');
+    $from_email = (!empty($smtp_user) && $smtp_user !== 'your-email@gmail.com') ? $smtp_user : 'noreply@perumnasiidagroup.com';
+
+    $from_filter      = function() use ($from_email) { return $from_email; };
+    $from_name_filter = function() { return 'PT Perumnas Iida Group'; };
+    add_filter('wp_mail_from',      $from_filter);
+    add_filter('wp_mail_from_name', $from_name_filter);
+
+    global $phpmailer;
+    $mail_sent = wp_mail($to, $subject, $body, $headers);
+
+    $error_info = '';
+    if (!$mail_sent && isset($phpmailer) && !empty($phpmailer->ErrorInfo)) {
+        $error_info = $phpmailer->ErrorInfo;
+    }
+
+    remove_filter('wp_mail_from',      $from_filter);
+    remove_filter('wp_mail_from_name', $from_name_filter);
+
+    if ($mail_sent) {
+        wp_send_json_success(['message' => 'Pesan berhasil terkirim! Tim kami akan segera menghubungi Anda.']);
+    } else {
+        $msg = 'Gagal mengirim pesan. Silakan coba lagi atau hubungi kami via WhatsApp.';
+        if (!empty($error_info) && defined('WP_DEBUG') && WP_DEBUG) {
+            $msg .= ' [' . $error_info . ']';
+        }
+        wp_send_json_error(['message' => $msg]);
+    }
+}
+
 /**
- * Configure SMTP using constants defined in wp-config.php
+ * Configure SMTP using .env variables (reads directly from .env file at ABSPATH).
+ * Fallback to constants defined in wp-config.php if env keys are missing.
  */
 add_action('phpmailer_init', 'bricklet_configure_smtp');
 function bricklet_configure_smtp($phpmailer) {
-    if (defined('WP_SMTP_HOST') && defined('WP_SMTP_USER') && defined('WP_SMTP_PASS')) {
+    // Read directly from .env for SMTP — ensures values are loaded at phpmailer_init time
+    $env_path = defined('ABSPATH') ? ABSPATH . '.env' : dirname(dirname(dirname(dirname(__FILE__)))) . '/.env';
+    $env = array();
+    if (file_exists($env_path)) {
+        $lines = file($env_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line) || $line[0] === '#') continue;
+            if (strpos($line, '=') !== false) {
+                list($k, $v) = explode('=', $line, 2);
+                $env[trim($k)] = trim(trim($v), '"\'');
+            }
+        }
+    }
+
+    $host   = !empty($env['WP_SMTP_HOST'])   ? $env['WP_SMTP_HOST']   : (defined('WP_SMTP_HOST')   ? WP_SMTP_HOST   : '');
+    $user   = !empty($env['WP_SMTP_USER'])   ? $env['WP_SMTP_USER']   : (defined('WP_SMTP_USER')   ? WP_SMTP_USER   : '');
+    $pass   = !empty($env['WP_SMTP_PASS'])   ? $env['WP_SMTP_PASS']   : (defined('WP_SMTP_PASS')   ? WP_SMTP_PASS   : '');
+    $port   = !empty($env['WP_SMTP_PORT'])   ? (int)$env['WP_SMTP_PORT']   : (defined('WP_SMTP_PORT')   ? WP_SMTP_PORT   : 587);
+    $secure = !empty($env['WP_SMTP_SECURE']) ? $env['WP_SMTP_SECURE'] : (defined('WP_SMTP_SECURE') ? WP_SMTP_SECURE : 'tls');
+
+    if (!empty($host) && !empty($user) && !empty($pass)) {
         $phpmailer->isSMTP();
-        $phpmailer->Host       = WP_SMTP_HOST;
-        $phpmailer->SMTPAuth   = defined('WP_SMTP_AUTH') ? WP_SMTP_AUTH : true;
-        $phpmailer->Port       = defined('WP_SMTP_PORT') ? WP_SMTP_PORT : 587;
-        $phpmailer->Username   = WP_SMTP_USER;
-        $phpmailer->Password   = WP_SMTP_PASS;
-        $phpmailer->SMTPSecure = defined('WP_SMTP_SECURE') ? WP_SMTP_SECURE : 'tls';
+        $phpmailer->Host       = $host;
+        $phpmailer->SMTPAuth   = true;
+        $phpmailer->Port       = $port;
+        $phpmailer->Username   = $user;
+        $phpmailer->Password   = $pass;
+        $phpmailer->SMTPSecure = $secure;
     }
 }
 
@@ -455,6 +580,8 @@ function bricklet_get_env_var($key, $default = '') {
 
 // Require admin CRUD and database integration
 require_once get_template_directory() . '/inc/admin-crud.php';
+require_once get_template_directory() . '/inc/admin-leadership-crud.php';
+require_once get_template_directory() . '/inc/awards-data.php';
 
 // ----------------------------------------------------
 // Obscure WordPress Tech Footprint
@@ -521,7 +648,7 @@ function bricklet_send_security_headers() {
              . "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
              . "img-src 'self' data: https://lh3.googleusercontent.com https://www.ighd.co.id https://www.ighd.co.jp https://www.iidasangyo.co.jp https://www.hajime-kensetsu.co.jp https://www.tacthome.co.id https://idhome.co.jp; "
              . "font-src 'self' data: https://fonts.gstatic.com https://fonts.googleapis.com; "
-             . "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; "
+             . "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; "
              . "connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://www.ighd.co.id https://www.ighd.co.jp https://www.iidasangyo.co.jp https://www.hajime-kensetsu.co.jp https://www.tacthome.co.id https://idhome.co.jp; "
              . "media-src 'self' data: blob:; "
              . "form-action 'self' https://www.ighd.co.id https://www.ighd.co.jp https://www.iidasangyo.co.jp https://www.hajime-kensetsu.co.jp https://www.tacthome.co.id https://idhome.co.jp https://maps.app.goo.gl; "
