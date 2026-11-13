@@ -63,8 +63,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => '',
-        'externalLabel' => '',
+        'externalUrl'   => 'https://www.heartfultown-depok.com/',
+        'externalLabel' => 'Kunjungi Situs Resmi (heartfultown-depok.com)',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'heartful-town-depok-aerial.webp',
@@ -98,8 +98,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => '',
-        'externalLabel' => '',
+        'externalUrl'   => 'https://www.heartfultown-bekasi.com/',
+        'externalLabel' => 'Kunjungi Situs Resmi (heartfultown-bekasi.com)',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'heartful-town-bekasi-facade.webp',
@@ -187,8 +187,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => 'https://www.presis.com/saitama/kumagayaginza_555057/',
-        'externalLabel' => 'Kunjungi Situs Proyek (presis.com)',
+        'externalUrl'   => '',
+        'externalLabel' => '',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'condo-presis-kumagaya.webp',
@@ -221,8 +221,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => 'https://www.c-tobudobutsukoen.com/',
-        'externalLabel' => 'Kunjungi Situs Proyek (c-tobudobutsukoen.com)',
+        'externalUrl'   => '',
+        'externalLabel' => '',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'condo-century-tobu.webp',
@@ -254,8 +254,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => 'https://sc-nishinippori2-3.jp/',
-        'externalLabel' => 'Kunjungi Situs Proyek (sc-nishinippori2-3.jp)',
+        'externalUrl'   => '',
+        'externalLabel' => '',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'condo-suncradle-nippori.webp',
@@ -287,8 +287,8 @@ $projects = array(
         ),
         'unitTypes'     => array(),
         'facilities'    => array(),
-        'externalUrl'   => 'https://www.c-asaka.com/design/',
-        'externalLabel' => 'Kunjungi Situs Proyek (c-asaka.com)',
+        'externalUrl'   => '',
+        'externalLabel' => '',
         'images'        => array(
             array(
                 'url'   => $pdf_img . 'condo-asaka-pieces.webp',
@@ -298,63 +298,6 @@ $projects = array(
                 'h'     => 1267,
             ),
         ),
-    ),
-);
-
-$brands = array(
-    array(
-        'id'        => 'brand-livele-garden',
-        'name'      => 'Livele Garden',
-        'company'   => 'Hajime Construction Co., Ltd.',
-        'image'     => $pdf_img . 'brand-livele-garden.webp',
-        'w'         => 745,
-        'h'         => 487,
-        'note'      => 'Brand perumahan tapak utama dari Hajime Construction di bawah konsolidasi Iida Group Holdings.',
-    ),
-    array(
-        'id'        => 'brand-heartful-town',
-        'name'      => 'Heartful-Town',
-        'company'   => 'Iida Sangyo Co., Ltd.',
-        'image'     => $pdf_img . 'brand-heartful-town.webp',
-        'w'         => 748,
-        'h'         => 489,
-        'note'      => 'Brand hunian terkemuka Iida Sangyo yang turut dihadirkan di Indonesia bersama Perumnas.',
-    ),
-    array(
-        'id'        => 'brand-blooming-garden',
-        'name'      => 'Blooming Garden',
-        'company'   => 'Touei Housing Corporation',
-        'image'     => $pdf_img . 'brand-blooming-garden.webp',
-        'w'         => 763,
-        'h'         => 473,
-        'note'      => 'Koleksi perumahan keluarga oleh Touei Housing Corporation dengan tata lingkungan rapi.',
-    ),
-    array(
-        'id'        => 'brand-grafare',
-        'name'      => 'GRAFARE',
-        'company'   => 'Tact Home Co., Ltd.',
-        'image'     => $pdf_img . 'brand-grafare.webp',
-        'w'         => 764,
-        'h'         => 468,
-        'note'      => 'Seri perumahan tapak modern produksi Tact Home Co., Ltd. untuk kebutuhan urban Jepang.',
-    ),
-    array(
-        'id'        => 'brand-cradle-garden',
-        'name'      => 'Cradle garden',
-        'company'   => 'Arnest One Co., Ltd.',
-        'image'     => $pdf_img . 'brand-cradle-garden.webp',
-        'w'         => 749,
-        'h'         => 469,
-        'note'      => 'Produk perumahan terstandarisasi oleh Arnest One Co., Ltd. di seluruh Jepang.',
-    ),
-    array(
-        'id'        => 'brand-lignage',
-        'name'      => 'LIGNAGE',
-        'company'   => 'ID Home Co., Ltd.',
-        'image'     => $pdf_img . 'brand-lignage.webp',
-        'w'         => 748,
-        'h'         => 469,
-        'note'      => 'Lini hunian residensial dari ID Home Co., Ltd. bagian dari jaringan Iida Group Holdings.',
     ),
 );
 ?>
@@ -491,6 +434,25 @@ $brands = array(
         background: var(--color-surface-sunken);
         border-color: var(--color-primary);
         color: var(--color-primary);
+    }
+    .dev-btn--disabled,
+    .dev-btn--disabled:hover,
+    .dev-btn--disabled:active {
+        background: var(--color-surface-sunken);
+        border-color: var(--color-border-strong);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+        transform: none;
+    }
+    .dev-btn[hidden],
+    .dev-dialog-thumbs[hidden] {
+        display: none;
+    }
+    .dev-btn .material-symbols-outlined,
+    .dev-detail-trigger .material-symbols-outlined,
+    .dev-ext-link .material-symbols-outlined {
+        font-size: 1.125rem;
+        line-height: 1;
     }
 
     /* Hero summary metrics */
@@ -741,14 +703,14 @@ $brands = array(
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
+        gap: 8px;
     }
     .dev-detail-trigger {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         min-height: 44px;
-        padding: 8px 14px;
+        padding: 8px 12px;
         border-radius: var(--radius-md);
         border: 1px solid var(--color-primary);
         background: var(--color-surface);
@@ -771,11 +733,14 @@ $brands = array(
     .dev-ext-link {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         min-height: 44px;
         padding: 8px 10px;
+        border-radius: var(--radius-md);
+        font-family: var(--font-body);
         font-size: var(--text-xs);
         font-weight: 600;
+        line-height: 1.25;
         color: var(--color-primary);
         text-decoration: underline;
         text-underline-offset: 3px;
@@ -783,100 +748,17 @@ $brands = array(
     .dev-ext-link:hover {
         color: var(--color-primary-strong);
     }
-
-    /* Japan 6 Housing Brands Section */
-    .dev-brands-block.is-hidden,
-    .dev-projects-block.is-hidden {
-        display: none;
+    .dev-ext-link:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
     }
-    .dev-brands-block {
-        margin-top: 56px;
-        padding-top: 48px;
-        border-top: 1px solid var(--color-border);
-    }
-    .dev-brands-block.is-solo {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-    }
-    .dev-brands-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-end;
-        gap: 16px;
-        margin-bottom: 24px;
-    }
-    .dev-condo-note {
-        margin-bottom: 28px;
-        padding: 18px 22px;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--color-border);
-        border-left: 4px solid var(--color-primary);
+    .dev-ext-link--disabled,
+    .dev-ext-link--disabled:hover {
+        border: 1px solid var(--color-border-strong);
         background: var(--color-surface-sunken);
-        font-size: var(--text-sm);
-        color: var(--color-text-body);
-    }
-    .dev-condo-note strong {
-        color: var(--color-text-heading);
-    }
-    .dev-brands-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    @media (min-width: 640px) {
-        .dev-brands-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (min-width: 1024px) {
-        .dev-brands-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    }
-    .dev-brand-card {
-        display: flex;
-        flex-direction: column;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: var(--shadow-xs);
-    }
-    .dev-brand-media {
-        aspect-ratio: 16 / 10;
-        background: var(--color-surface-sunken);
-        border-bottom: 1px solid var(--color-border);
-        overflow: hidden;
-    }
-    .dev-brand-media img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-    .dev-brand-body {
-        padding: 18px 20px 20px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    .dev-brand-name {
-        margin: 0 0 4px;
-        font-size: 1.125rem;
-        font-weight: 700;
-        color: var(--color-text-heading);
-    }
-    .dev-brand-co {
-        margin: 0 0 10px;
-        font-size: var(--text-xs);
-        font-weight: 700;
-        color: var(--color-primary);
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-    .dev-brand-note {
-        margin: 0;
-        font-size: var(--text-sm);
-        line-height: 1.55;
         color: var(--color-text-muted);
+        text-decoration: none;
+        cursor: not-allowed;
     }
 
     /* Cross-Link Strip to IG SCB, Material Konstruksi, Contact */
@@ -1209,13 +1091,13 @@ $brands = array(
             <div class="dev-head">
                 <div>
                     <p class="dev-eyebrow">Indonesia &amp; Jepang</p>
-                    <h2 id="catalog-heading" class="dev-title">Katalog Proyek &amp; Brand Hunian</h2>
+                    <h2 id="catalog-heading" class="dev-title">Katalog Proyek Hunian</h2>
                     <p class="dev-subtitle">
-                        Saring daftar proyek berdasarkan status pengembangan di Indonesia, kondominium yang sedang berjalan di Jepang, atau enam merek perumahan grup.
+                        Saring daftar proyek berdasarkan status pengembangan di Indonesia maupun kondominium yang sedang berjalan di Jepang.
                     </p>
                 </div>
                 <div id="catalog-count" class="dev-count-badge" aria-live="polite">
-                    Menampilkan 8 proyek &amp; 6 brand rumah
+                    Menampilkan 8 proyek
                 </div>
             </div>
 
@@ -1232,9 +1114,6 @@ $brands = array(
                 </button>
                 <button type="button" class="dev-filter-btn" data-filter="japan-condo" aria-pressed="false">
                     Kondominium Jepang (4)
-                </button>
-                <button type="button" class="dev-filter-btn" data-filter="japan-brands" aria-pressed="false">
-                    6 Brand Rumah (6)
                 </button>
             </div>
 
@@ -1276,10 +1155,20 @@ $brands = array(
                                         <a href="<?php echo esc_url( $proj['externalUrl'] ); ?>"
                                            class="dev-ext-link"
                                            target="_blank"
-                                           rel="noopener noreferrer">
-                                            Situs Resmi
+                                           rel="noopener noreferrer"
+                                           aria-label="Kunjungi situs resmi <?php echo esc_attr( $proj['title'] ); ?> (tab baru)">
+                                            <span>Kunjungi Situs</span>
                                             <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
                                         </a>
+                                    <?php else : ?>
+                                        <?php // TODO: Aktifkan tautan situs proyek saat website resmi tersedia. ?>
+                                        <button type="button"
+                                                class="dev-ext-link dev-ext-link--disabled"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Situs belum tersedia">
+                                            Situs Belum Tersedia
+                                        </button>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -1405,6 +1294,15 @@ $brands = array(
                         <span>Kunjungi Situs Resmi</span>
                         <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
                     </a>
+                    <?php // TODO: Aktifkan tombol situs resmi di modal saat URL proyek tersedia. ?>
+                    <button type="button"
+                            id="dev-dialog-ext-disabled"
+                            class="dev-btn dev-btn--disabled"
+                            disabled
+                            aria-disabled="true"
+                            hidden>
+                        Situs Belum Tersedia
+                    </button>
                     <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="dev-btn dev-btn--primary">
                         Hubungi Tim Penjualan
                     </a>
@@ -1423,8 +1321,6 @@ $brands = array(
 
     const filterButtons = Array.from(document.querySelectorAll('.dev-filter-btn'));
     const projectCards  = Array.from(document.querySelectorAll('#projects-grid .dev-card'));
-    const projectsBlock = document.getElementById('projects-block');
-    const brandsBlock   = document.getElementById('brands-block');
     const countBadge    = document.getElementById('catalog-count');
 
     const dialog        = document.getElementById('dev-project-dialog');
@@ -1441,6 +1337,7 @@ $brands = array(
     const facWrap       = document.getElementById('dev-dialog-facilities-wrap');
     const facList       = document.getElementById('dev-dialog-facilities');
     const extLink       = document.getElementById('dev-dialog-ext-link');
+    const extDisabled   = document.getElementById('dev-dialog-ext-disabled');
 
     let lastTriggerEl = null;
 
@@ -1451,15 +1348,6 @@ $brands = array(
             btn.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
 
-        if (filterKey === 'japan-brands') {
-            projectsBlock.classList.add('is-hidden');
-            brandsBlock.classList.remove('is-hidden');
-            brandsBlock.classList.add('is-solo');
-            countBadge.textContent = 'Menampilkan 6 brand perumahan Jepang';
-            return;
-        }
-
-        projectsBlock.classList.remove('is-hidden');
         let visibleCount = 0;
 
         projectCards.forEach((card) => {
@@ -1470,12 +1358,7 @@ $brands = array(
             }
         });
 
-        if (filterKey === 'all') {
-            brandsBlock.classList.remove('is-hidden', 'is-solo');
-            countBadge.textContent = 'Menampilkan ' + visibleCount + ' proyek & 6 brand rumah';
-        } else {
-            brandsBlock.classList.add('is-hidden');
-            brandsBlock.classList.remove('is-solo');
+        if (countBadge) {
             countBadge.textContent = 'Menampilkan ' + visibleCount + ' proyek';
         }
     }
@@ -1588,8 +1471,16 @@ $brands = array(
             if (spanLabel) {
                 spanLabel.textContent = proj.externalLabel || 'Kunjungi Situs Resmi';
             }
+            if (extDisabled) {
+                extDisabled.hidden = true;
+            }
         } else {
+            // TODO: Aktifkan tombol situs resmi di modal saat URL proyek tersedia.
             extLink.hidden = true;
+            extLink.removeAttribute('href');
+            if (extDisabled) {
+                extDisabled.hidden = false;
+            }
         }
 
         document.body.style.overflow = 'hidden';
@@ -1640,28 +1531,32 @@ $brands = array(
     }
 
     // Hash anchor handling (e.g. /development/#bekasi or #heartful-tower-bekasi)
-    document.addEventListener('DOMContentLoaded', () => {
+    function handleHashTarget() {
         if (!window.location.hash) {
             return;
         }
         const targetId = window.location.hash.substring(1);
         const targetEl = document.getElementById(targetId);
-        if (!targetEl) {
+        if (!targetEl || !targetEl.dataset || !targetEl.dataset.cat) {
             return;
         }
-        if (targetEl.classList.contains('dev-brand-card')) {
-            applyFilter('japan-brands');
-        } else if (targetEl.dataset && targetEl.dataset.cat) {
-            applyFilter('all');
-        }
+        applyFilter('all');
+        const motionBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
         setTimeout(() => {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetEl.scrollIntoView({ behavior: motionBehavior, block: 'center' });
             targetEl.classList.add('is-highlighted');
             setTimeout(() => {
                 targetEl.classList.remove('is-highlighted');
             }, 2500);
         }, 200);
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleHashTarget);
+    } else {
+        handleHashTarget();
+    }
+    window.addEventListener('hashchange', handleHashTarget);
 })();
 </script>
 

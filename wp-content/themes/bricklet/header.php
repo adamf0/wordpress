@@ -172,7 +172,7 @@
             top: 0;
             z-index: 50;
             width: 100%;
-            background: rgba(255, 255, 255, 0.82);
+            background-color: rgba(255, 255, 255, 0.82);
             -webkit-backdrop-filter: saturate(180%) blur(12px);
             backdrop-filter: saturate(180%) blur(12px);
             border-bottom: 1px solid var(--color-border);
@@ -181,9 +181,9 @@
                         box-shadow var(--dur-base) var(--ease-in-out);
         }
         .site-header.is-scrolled {
-            background: rgba(255, 255, 255, 0.94);
-            border-bottom-color: var(--color-border-strong);
-            box-shadow: var(--shadow-sm);
+            background-color: rgba(10, 31, 44, 0.96);
+            border-bottom-color: rgba(255, 255, 255, 0.14);
+            box-shadow: var(--shadow-md);
         }
 
         .header-bar {
@@ -222,6 +222,9 @@
             outline-offset: 2px;
         }
         .nav-toggle svg { width: 20px; height: 20px; }
+        .site-header.is-scrolled .nav-toggle { color: #ffffff; }
+        .site-header.is-scrolled .nav-toggle:hover { background: rgba(255, 255, 255, 0.12); }
+        .site-header.is-scrolled .nav-toggle:focus-visible { outline-color: var(--color-action-cyan); }
 
         /* Logo */
         .header-logo {
@@ -230,12 +233,22 @@
             transition: opacity var(--dur-fast) var(--ease-in-out);
         }
         .header-logo:hover { opacity: 0.82; }
+        .header-logo:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+            border-radius: var(--radius-sm);
+        }
+        .site-header.is-scrolled .header-logo:focus-visible { outline-color: var(--color-action-cyan); }
         .header-logo img {
             height: 34px;
             width: auto;
             object-fit: contain;
         }
         @media (min-width: 768px) { .header-logo img { height: 42px; } }
+        .header-logo-img--dark { display: block; }
+        .header-logo-img--light { display: none; }
+        .site-header.is-scrolled .header-logo-img--dark { display: none; }
+        .site-header.is-scrolled .header-logo-img--light { display: block; }
 
         /* Primary CTA */
         .btn-primary {
@@ -255,6 +268,7 @@
             text-decoration: none;
             box-shadow: var(--shadow-xs);
             transition: background-color var(--dur-fast) var(--ease-in-out),
+                        color var(--dur-fast) var(--ease-in-out),
                         box-shadow var(--dur-fast) var(--ease-in-out),
                         transform var(--dur-fast) var(--ease-spring);
         }
@@ -268,6 +282,15 @@
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
         }
+        .site-header.is-scrolled .btn-primary {
+            background: #ffffff;
+            color: var(--color-deep-navy);
+        }
+        .site-header.is-scrolled .btn-primary:hover {
+            background: var(--color-primary-container);
+            color: var(--color-on-primary-container);
+        }
+        .site-header.is-scrolled .btn-primary:focus-visible { outline-color: var(--color-action-cyan); }
         .btn-primary .cta-label-short { display: inline; }
         .btn-primary .cta-label-full { display: none; }
         @media (min-width: 640px) {
@@ -289,6 +312,12 @@
             display: none;
             border-top: 1px solid var(--color-border);
             background: rgba(255, 255, 255, 0.96);
+            transition: background-color var(--dur-base) var(--ease-in-out),
+                        border-color var(--dur-base) var(--ease-in-out);
+        }
+        .site-header.is-scrolled .nav-panel {
+            border-top-color: rgba(255, 255, 255, 0.14);
+            background: rgba(10, 31, 44, 0.98);
         }
         .nav-panel.is-open { display: block; }
         @media (prefers-reduced-motion: no-preference) {
@@ -330,6 +359,18 @@
             color: var(--color-primary);
             border-bottom-color: var(--color-primary);
         }
+        .nav-link:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+        .site-header.is-scrolled .nav-link { color: rgba(255, 255, 255, 0.88); }
+        .site-header.is-scrolled .nav-link:hover { color: #ffffff; }
+        .site-header.is-scrolled .nav-link.is-active {
+            color: var(--color-action-cyan);
+            border-bottom-color: var(--color-action-cyan);
+        }
+        .site-header.is-scrolled .nav-link:focus-visible { outline-color: var(--color-action-cyan); }
         /* Dropdown triggers are <button>s, not links — reset the UA button
            chrome so they render exactly like the plain .nav-link anchors. */
         .nav-link--toggle {
@@ -349,12 +390,14 @@
             outline-offset: 2px;
             border-radius: var(--radius-sm);
         }
+        .site-header.is-scrolled .nav-link--toggle:focus-visible { outline-color: var(--color-action-cyan); }
         .nav-link svg {
             width: 10px;
             height: 10px;
             opacity: 0.6;
             transition: transform var(--dur-base) var(--ease-out-expo);
         }
+        .site-header.is-scrolled .nav-link svg { opacity: 0.82; }
         .nav-item:hover .nav-link svg,
         .nav-item:focus-within .nav-link svg { transform: rotate(180deg); }
 
@@ -405,6 +448,22 @@
             color: var(--color-primary);
             font-weight: 600;
         }
+        .nav-dropdown a:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: -2px;
+        }
+        .site-header.is-scrolled .nav-dropdown {
+            background: #0f293a;
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: var(--shadow-lg);
+        }
+        .site-header.is-scrolled .nav-dropdown a { color: #e2e8f0; }
+        .site-header.is-scrolled .nav-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+        .site-header.is-scrolled .nav-dropdown a.is-active { color: var(--color-action-cyan); }
+        .site-header.is-scrolled .nav-dropdown a:focus-visible { outline-color: var(--color-action-cyan); }
     </style>
 
 
@@ -624,7 +683,6 @@
                 array( 'title' => 'Proyek Perumahan',       'slug' => 'development',                   'url' => home_url( '/development/' ) ),
                 array( 'title' => 'IG Strong CB (Osaka)',   'slug' => 'product-osaka-strong-cb',       'url' => home_url( '/product-osaka-strong-cb/' ) ),
                 array( 'title' => 'Material Konstruksi',    'slug' => 'product-construction-material', 'url' => home_url( '/product-construction-material/' ) ),
-                array( 'title' => 'Katalog Produk Utama',   'slug' => 'products',                      'url' => home_url( '/products/' ) ),
             ),
         ),
         array(
@@ -698,6 +756,13 @@
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header-logo" aria-label="PT Perumnas Iida Group Beranda">
                     <img src="<?php echo esc_url( get_template_directory_uri() . '/PT_Perumnas_Iida_Group_Logo3_transparent.png' ); ?>"
                          alt="PT Perumnas Iida Group"
+                         class="header-logo-img--dark"
+                         width="1128" height="190"
+                         decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/PT_Perumnas_Iida_Group_Logo3_white_text.png' ); ?>"
+                         alt=""
+                         aria-hidden="true"
+                         class="header-logo-img--light"
                          width="1128" height="190"
                          decoding="async">
                 </a>

@@ -1206,7 +1206,7 @@ $slides = array(
     </section>
 
     <!-- 4. SECTION 3: MANAJEMEN PT. IIDA GROUP HOLDINGS (INDONESIA) -->
-    <section class="ov-leadership-section" id="leadership-team" aria-labelledby="ov-indo-mgmt-heading">
+    <!-- <section class="ov-leadership-section" id="leadership-team" aria-labelledby="ov-indo-mgmt-heading">
         <div class="ov-container">
             <div class="ov-team-showcase-split">
 
@@ -1293,7 +1293,7 @@ $slides = array(
 
             </div>
         </div>
-    </section>
+    </section> -->
 
 </main>
 
